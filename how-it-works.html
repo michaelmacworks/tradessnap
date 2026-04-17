@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It Works | TradesSnap.us</title>
+  <meta name="description" content="See exactly how TradesSnap turns a 60-second voice memo into an SEO blog post, Google Business post, and social media caption.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tradessnap.us/how-it-works">
+  <meta property="og:title" content="How It Works | TradesSnap.us">
+  <meta property="og:description" content="See exactly how TradesSnap turns a 60-second voice memo into an SEO blog post, Google Business post, and social media caption.">
+  <meta property="og:image" content="https://tradessnap.us/og-image.jpg">
+  <meta property="og:site_name" content="TradesSnap.us">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How It Works | TradesSnap.us">
+  <meta name="twitter:description" content="See exactly how TradesSnap turns a 60-second voice memo into an SEO blog post, Google Business post, and social media caption.">
+  <meta name="twitter:image" content="https://tradessnap.us/og-image.jpg">
+  <link rel="canonical" href="https://tradessnap.us/how-it-works">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:    #0D0F0C;
+      --dark:     #111410;
+      --card:     #181C15;
+      --card2:    #1C211A;
+      --border:   #252A20;
+      --lime:     #FFD700;
+      --lime-dim: #C9A800;
+      --white:    #FFFFFF;
+      --off:      #edece4;
+      --muted:    #b8c4ba;
+      --radius:   10px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      overflow-x: hidden;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--black);
+      color: #f0efe9;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    p { color: #f0efe9; }
+    a { text-decoration: none; }
+
+    /* ── ANNOUNCEMENT BAR ── */
+    .announce-bar {
+      background: var(--lime);
+      color: var(--black);
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 9px 16px;
+    }
+    .announce-bar a { color: var(--black); text-decoration: underline; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,15,12,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--lime); }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .nav-cta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .btn-nav-login {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .btn-nav-login:hover { color: var(--white); }
+    .btn-nav-cta {
+      background: var(--lime);
+      color: var(--black);
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 9px 18px;
+      border-radius: 8px;
+      transition: opacity 0.2s;
+    }
+    .btn-nav-cta:hover { opacity: 0.88; }
+
+    /* ── CONTAINER ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .container-narrow {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── SECTION DEFAULTS ── */
+    section { padding: 96px 0; }
+    section.alt-bg { background: var(--dark); }
+    section.card-bg { background: var(--card); }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 14px;
+    }
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 60px;
+    }
+    .section-header h2 { font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 800; line-height: 1.2; color: var(--white); }
+    .section-header p { font-size: 1.05rem; color: var(--muted); margin-top: 16px; line-height: 1.7; }
+
+    h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; line-height: 1.2; color: var(--white); }
+    h3 { font-size: 1.25rem; font-weight: 700; color: var(--white); line-height: 1.3; }
+    h4 { font-size: 1rem; font-weight: 700; color: var(--white); }
+
+    .lime { color: var(--lime); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 88px 0 80px;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,215,0,0.08);
+      border: 1px solid rgba(255,215,0,0.2);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .hero h1 span { color: var(--lime); }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto 36px;
+    }
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .hero-meta-item .dot {
+      width: 8px; height: 8px;
+      background: var(--lime);
+      border-radius: 50%;
+    }
+
+    /* ── STEP TIMELINE ── */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 28px;
+      top: 48px;
+      bottom: 48px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--lime), rgba(255,215,0,0.1));
+    }
+    .timeline-step {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 32px;
+      padding: 48px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .timeline-step:last-child { border-bottom: none; }
+    .step-num {
+      width: 56px;
+      height: 56px;
+      background: var(--lime);
+      color: var(--black);
+      font-size: 1.1rem;
+      font-weight: 900;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 0 0 6px var(--black);
+    }
+    .step-content {}
+    .step-tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--lime);
+      margin-bottom: 8px;
+    }
+    .step-content h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+    .step-content p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+    .step-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-top: 16px;
+    }
+    .step-card-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.88rem;
+      color: #f0efe9;
+      line-height: 1.5;
+    }
+    .step-card-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .step-card-row:first-child { padding-top: 0; }
+    .step-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      width: 22px;
+      text-align: center;
+      margin-top: 2px;
+    }
+
+    /* Phone mock */
+    .phone-mock {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      max-width: 340px;
+      margin-top: 20px;
+    }
+    .phone-header {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .rec-dot {
+      width: 8px; height: 8px;
+      background: #ff4444;
+      border-radius: 50%;
+      animation: pulse-rec 1.2s infinite;
+    }
+    @keyframes pulse-rec {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .phone-waveform {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 36px;
+      margin-bottom: 14px;
+    }
+    .wave-bar {
+      flex: 1;
+      background: var(--lime);
+      border-radius: 2px;
+      opacity: 0.7;
+    }
+    .phone-text {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.5;
+      padding: 12px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+      border-left: 2px solid var(--lime);
+    }
+    .phone-timer {
+      font-size: 0.75rem;
+      color: var(--lime);
+      font-weight: 700;
+      margin-top: 10px;
+      text-align: right;
+    }
+
+    /* Photo upload mock */
+    .photo-upload-mock {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      max-width: 380px;
+      margin-top: 20px;
+    }
+    .photo-slots {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .photo-slot {
+      aspect-ratio: 4/3;
+      border-radius: 10px;
+      border: 1.5px dashed var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+    .photo-slot.filled {
+      border-style: solid;
+      border-color: var(--border);
+    }
+    .photo-slot img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+    }
+    .photo-slot-label {
+      position: absolute;
+      bottom: 0;
+      left: 0; right: 0;
+      background: rgba(0,0,0,0.7);
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lime);
+      text-align: center;
+      padding: 5px;
+    }
+    .photo-slot-empty-icon { font-size: 1.4rem; opacity: 0.3; }
+    .photo-slot-empty-text { font-size: 0.7rem; color: var(--muted); }
+    .photo-optional-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    /* Output cards */
+    .output-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .output-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+    }
+    .output-icon {
+      font-size: 1.6rem;
+      margin-bottom: 14px;
+    }
+    .output-card h4 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+    .output-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .output-detail {
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .output-detail-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .output-detail-item::before {
+      content: '→';
+      color: var(--lime);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Processing mock */
+    .process-mock {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      max-width: 440px;
+      margin-top: 20px;
+    }
+    .process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .process-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.83rem;
+    }
+    .process-row:last-child { border-bottom: none; }
+    .process-status {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+    }
+    .ps-done { background: var(--lime); color: var(--black); }
+    .ps-doing { background: transparent; border: 2px solid var(--lime); }
+    .ps-wait { background: transparent; border: 2px solid var(--border); }
+    .process-label { color: #f0efe9; flex: 1; }
+    .process-time { color: var(--muted); font-size: 0.72rem; }
+
+    /* Trust grid */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .trust-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .trust-card.warn {
+      border-color: rgba(255,80,80,0.25);
+      background: rgba(255,80,80,0.04);
+    }
+    .trust-card.good {
+      border-color: rgba(255,215,0,0.2);
+    }
+    .trust-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .trust-icon { font-size: 1.3rem; }
+    .trust-card h4 { font-size: 0.95rem; }
+    .trust-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .trust-list li {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.5;
+      padding-left: 18px;
+      position: relative;
+    }
+    .trust-list li::before {
+      content: '✓';
+      color: var(--lime);
+      position: absolute;
+      left: 0;
+      font-weight: 700;
+    }
+    .trust-list.bad li::before {
+      content: '✗';
+      color: #ff6060;
+    }
+
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; gap: 0; }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .faq-q:hover { color: var(--lime); }
+    .faq-plus {
+      font-size: 1.4rem;
+      color: var(--lime);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    .faq-a {
+      display: none;
+      padding-bottom: 20px;
+    }
+    .faq-a p { font-size: 0.92rem; color: var(--muted); line-height: 1.75; }
+    .faq-item.open .faq-plus { transform: rotate(45deg); }
+    .faq-item.open .faq-a { display: block; }
+
+    /* CTA */
+    .cta-section {
+      text-align: center;
+      padding: 100px 0;
+      background: var(--dark);
+    }
+    .cta-section h2 { margin-bottom: 16px; }
+    .cta-section p { font-size: 1.05rem; color: var(--muted); max-width: 520px; margin: 0 auto 36px; }
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      font-weight: 700;
+      border-radius: 10px;
+      transition: opacity 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-lime { background: var(--lime); color: var(--black); }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--off); }
+    .btn-lg { padding: 16px 32px; font-size: 1rem; }
+    .btn:hover { opacity: 0.88; }
+    .cta-fine { font-size: 0.78rem; color: var(--muted); margin-top: 16px; }
+
+    /* FOOTER */
+    footer {
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      padding: 56px 0 32px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr repeat(3, 1fr);
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-logo {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .footer-logo span { color: var(--lime); }
+    .footer-tagline { font-size: 0.82rem; color: var(--muted); line-height: 1.6; max-width: 220px; }
+    .footer-col h5 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-bottom p { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .output-grid { grid-template-columns: 1fr; }
+      .trust-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      section { padding: 64px 0; }
+      .timeline::before { left: 22px; }
+      .timeline-step { grid-template-columns: 48px 1fr; gap: 20px; }
+      .step-num { width: 44px; height: 44px; font-size: 0.9rem; }
+      .footer-top { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  
+    /* ── GLOBAL MOBILE FIXES ── */
+    html, body { overflow-x: hidden; max-width: 100%; }
+    @media (max-width: 768px) {
+      .container, [class*="-inner"], [class*="-wrap"], [class*="-content"] {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        box-sizing: border-box;
+      }
+      section, footer, nav { max-width: 100vw; overflow-x: hidden; }
+      img { max-width: 100%; height: auto; }
+    }
+
+  
+    @media (max-width: 480px) {
+      .nav-inner { padding: 0 16px !important; }
+      .announce-bar { padding: 10px 16px !important; font-size: 0.75rem; }
+      .announce-cta { display: none; }
+      h1 { font-size: clamp(2rem, 8vw, 3rem) !important; }
+      h2 { font-size: clamp(1.6rem, 6vw, 2.4rem) !important; }
+      .section-header { padding: 0 4px; }
+      .pricing-solo, .pcs-card { margin-left: 0 !important; margin-right: 0 !important; }
+    }
+
+  </style>
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "TradesSnap.us",
+  "url": "https://tradessnap.us",
+  "description": "AI-powered marketing content for home service contractors.",
+  "foundingLocation": {
+    "@type": "Place",
+    "addressCountry": "US"
+  }
+}
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+</head>
+<body>
+
+<!-- ── ANNOUNCEMENT BAR ── -->
+<div class="announce-bar">
+  Turn every finished job into a Google-ready post — in under 90 seconds. <a href="index.html#pricing">See plans →</a>
+</div>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Trades<span>Snap</span>.us</a>
+    <ul class="nav-links">
+      <li><a href="how-it-works.html" class="active">How It Works</a></li>
+      <li><a href="index.html#pricing">Pricing</a></li>
+      <li><a href="index.html#solutions">Trades</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#" class="btn-nav-login">Login</a>
+      <a href="get-started.html" class="btn-nav-cta">Get Started Now →</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container-narrow">
+    <div class="hero-eyebrow">Complete Walkthrough</div>
+    <h1>Here's exactly<br><span>what happens</span></h1>
+    <p class="hero-sub">From the moment you finish a job to the moment your content goes live on Google — every step, explained. No black box. No surprises.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><div class="dot"></div> Takes under 2 minutes to submit</div>
+      <div class="hero-meta-item"><div class="dot"></div> Content ready in ~90 seconds</div>
+      <div class="hero-meta-item"><div class="dot"></div> 3 assets published per job</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     STEP-BY-STEP TIMELINE
+══════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">The Process</div>
+      <h2>Five steps.<br><span class="lime">Zero guesswork.</span></h2>
+      <p>Everything happens from your phone. No logins, no dashboards, no writing. Just finish the job and hit record.</p>
+    </div>
+
+    <div class="timeline">
+
+      <!-- STEP 1 -->
+      <div class="timeline-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-tag">Step One · ~60 Seconds</div>
+          <h3>Record a voice memo on the job site</h3>
+          <p>Open the TradesSnap.us mobile app and hit record. Talk like you're telling a coworker what you just did. No script. No structure required. Just the facts: what broke, what you fixed, what brand or part you used, where the job was.</p>
+          <p>Our AI was built to understand job-site language — even if you're talking over traffic, a running engine, or a barking dog next door. It doesn't need clean audio. It needs real detail.</p>
+
+          <div class="phone-mock">
+            <div class="phone-header">
+              <div class="rec-dot"></div>
+              Recording — 0:47
+            </div>
+            <div class="phone-waveform">
+              <div class="wave-bar" style="height:40%"></div>
+              <div class="wave-bar" style="height:70%"></div>
+              <div class="wave-bar" style="height:55%"></div>
+              <div class="wave-bar" style="height:85%"></div>
+              <div class="wave-bar" style="height:60%"></div>
+              <div class="wave-bar" style="height:45%"></div>
+              <div class="wave-bar" style="height:90%"></div>
+              <div class="wave-bar" style="height:65%"></div>
+              <div class="wave-bar" style="height:50%"></div>
+              <div class="wave-bar" style="height:80%"></div>
+              <div class="wave-bar" style="height:40%"></div>
+              <div class="wave-bar" style="height:70%"></div>
+              <div class="wave-bar" style="height:100%"></div>
+              <div class="wave-bar" style="height:55%"></div>
+              <div class="wave-bar" style="height:75%"></div>
+              <div class="wave-bar" style="height:60%"></div>
+              <div class="wave-bar" style="height:45%"></div>
+              <div class="wave-bar" style="height:85%"></div>
+              <div class="wave-bar" style="height:30%"></div>
+              <div class="wave-bar" style="height:65%"></div>
+            </div>
+            <div class="phone-text">
+              "Just finished up on Carriage Hill Drive in Powell — six-window replacement, double-hung Andersen 400s, insulated glass with Low-E coating. Old ones were original from 1994, one had a broken seal, couple had failed latches. Homeowner wanted the look to match what the Johnsons two doors down just had done..."
+            </div>
+            <div class="phone-timer">Tap to stop</div>
+          </div>
+
+          <div class="step-card" style="margin-top:20px;">
+            <div class="step-card-row">
+              <span class="step-icon">🎙️</span>
+              <span>Talk for 45–90 seconds — longer is fine, shorter works too</span>
+            </div>
+            <div class="step-card-row">
+              <span class="step-icon">📍</span>
+              <span>Include the city, neighborhood, or street — this is what powers the local SEO</span>
+            </div>
+            <div class="step-card-row">
+              <span class="step-icon">🔧</span>
+              <span>Mention brands, part numbers, materials, or model numbers if you have them</span>
+            </div>
+            <div class="step-card-row">
+              <span class="step-icon">✅</span>
+              <span>Note anything that made this job different — age of system, scope, special conditions</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="timeline-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-tag">Step Two · Optional But Powerful</div>
+          <h3>Upload one or two job-site photos</h3>
+          <p>Take a photo of the finished work — or a before-and-after pair if you remembered to snap one before you started. Photos are optional, but they significantly boost engagement on social posts and time-on-page for your blog.</p>
+          <p>You don't need to edit anything. TradesSnap.us automatically adds a clean "Before" or "After" label overlay to each photo so viewers instantly understand what they're looking at. Your raw phone photos go in; labeled, professional-looking images come out.</p>
+
+          <div class="photo-upload-mock">
+            <div class="phone-header" style="margin-bottom:14px;">Photo Upload</div>
+            <div class="photo-slots">
+              <div class="photo-slot filled">
+                <img src="images/contractor/contractor-before-1.webp" alt="Before photo">
+                <div class="photo-slot-label">Before</div>
+              </div>
+              <div class="photo-slot filled">
+                <img src="images/contractor/contractor-after-1.webp" alt="After photo">
+                <div class="photo-slot-label">After</div>
+              </div>
+            </div>
+            <div class="photo-optional-note">Labels added automatically · No editing required</div>
+          </div>
+
+          <div class="step-card" style="margin-top:20px;">
+            <div class="step-card-row">
+              <span class="step-icon">📸</span>
+              <span><strong style="color:var(--white)">After-only:</strong> No problem. Upload just the finished job — the label will read "After" automatically</span>
+            </div>
+            <div class="step-card-row">
+              <span class="step-icon">🖼️</span>
+              <span><strong style="color:var(--white)">Before + After:</strong> Upload both and TradesSnap.us creates a labeled pair used across all three output formats</span>
+            </div>
+            <div class="step-card-row">
+              <span class="step-icon">📱</span>
+              <span>Phone photos are fine — no professional camera needed</span>
+            </div>
+            <div class="step-card-row">
+              <span class="step-icon">🚫</span>
+              <span>No Photoshop, no resizing, no uploading to separate platforms</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="timeline-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-tag">Step Three · Automated · ~90 Seconds</div>
+          <h3>AI generates your three marketing assets</h3>
+          <p>The moment you submit, TradesSnap.us gets to work. Your voice memo is transcribed by AI, the job details are extracted, your location data is confirmed, and the content engine produces three separate, fully formatted outputs — each one optimized for a different platform.</p>
+          <p>You'll get a push notification when everything is ready. Usually before you've loaded the tools back in the truck.</p>
+
+          <div class="process-mock">
+            <div class="phone-header" style="margin-bottom:16px;">Processing your job...</div>
+            <div class="process-steps">
+              <div class="process-row">
+                <div class="process-status ps-done">✓</div>
+                <div class="process-label">Voice memo transcribed</div>
+                <div class="process-time">0:08</div>
+              </div>
+              <div class="process-row">
+                <div class="process-status ps-done">✓</div>
+                <div class="process-label">Job details extracted</div>
+                <div class="process-time">0:12</div>
+              </div>
+              <div class="process-row">
+                <div class="process-status ps-done">✓</div>
+                <div class="process-label">Location &amp; SEO data confirmed</div>
+                <div class="process-time">0:18</div>
+              </div>
+              <div class="process-row">
+                <div class="process-status ps-done">✓</div>
+                <div class="process-label">Photos labeled &amp; formatted</div>
+                <div class="process-time">0:24</div>
+              </div>
+              <div class="process-row">
+                <div class="process-status ps-done">✓</div>
+                <div class="process-label">Blog post written &amp; formatted</div>
+                <div class="process-time">0:51</div>
+              </div>
+              <div class="process-row">
+                <div class="process-status ps-done">✓</div>
+                <div class="process-label">Google Business post created</div>
+                <div class="process-time">1:04</div>
+              </div>
+              <div class="process-row">
+                <div class="process-status ps-done">✓</div>
+                <div class="process-label">Social caption generated</div>
+                <div class="process-time">1:19</div>
+              </div>
+              <div class="process-row" style="padding-top:14px;border-top:1px solid var(--border);margin-top:4px;">
+                <div class="process-status ps-done" style="background:var(--lime);">✓</div>
+                <div class="process-label" style="color:var(--lime);font-weight:700;">Ready for review</div>
+                <div class="process-time" style="color:var(--lime);font-weight:700;">1:27</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="timeline-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-tag">Step Four · 2 Minutes or Less</div>
+          <h3>Review your content and copy it with one tap</h3>
+          <p>All three outputs land in your dashboard, fully written and formatted. Read them over — tweak a word if you want, or leave them exactly as-is. When you're happy, hit Copy next to each one. That's it.</p>
+          <p>No accounts to connect. No API keys. No platform permissions. You own the posting step completely — which also means you can decide where it goes, when it goes, and whether it goes at all. You're in control of your own platforms.</p>
+
+          <div class="step-card" style="margin-top:16px;">
+            <div class="step-card-row">
+              <span class="step-icon">📄</span>
+              <span><strong style="color:var(--white)">Blog post:</strong> Full copy, headings, and photo included — paste it into your website editor in under a minute.</span>
+            </div>
+            <div class="step-card-row">
+              <span class="step-icon">📍</span>
+              <span><strong style="color:var(--white)">Google Business post:</strong> Copy and paste directly into your Google Business Profile. Takes about 30 seconds.</span>
+            </div>
+            <div class="step-card-row">
+              <span class="step-icon">📱</span>
+              <span><strong style="color:var(--white)">Social caption:</strong> Copy the caption, save the labeled photo to your camera roll, and post to Instagram or Facebook like any other job photo.</span>
+            </div>
+            <div class="step-card-row">
+              <span class="step-icon">✏️</span>
+              <span>Edit anything before you copy — headline, body, hashtags, photo. Or skip right to posting if it looks good.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="timeline-step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <div class="step-tag">Step Five · The Payoff</div>
+          <h3>Your content goes live in three places at once</h3>
+          <p>Each job you document creates three separate pieces of published content, each working independently to bring in your next customer — on Google Search, Google Maps, and social media.</p>
+          <p>Over time, this compounds. Every job you document is another indexed page, another GBP signal, another piece of social proof working for you while you're on your next job.</p>
+
+          <div class="output-grid" style="margin-top:24px;">
+            <div class="output-card">
+              <div class="output-icon">📄</div>
+              <h4>SEO Blog Post</h4>
+              <p>A 400–600 word project case study, fully formatted and ready to paste into your website editor. Proper headings, keyword-rich copy, and your Before/After photos included.</p>
+              <div class="output-detail">
+                <div class="output-detail-item">Hyper-local city &amp; neighborhood targeting</div>
+                <div class="output-detail-item">Schema markup included in the copy</div>
+                <div class="output-detail-item">Paste into any website editor — no plugin needed</div>
+                <div class="output-detail-item">Ranks for "[trade] near [neighborhood]"</div>
+              </div>
+            </div>
+            <div class="output-card">
+              <div class="output-icon">📍</div>
+              <h4>Google Business Post</h4>
+              <p>A punchy 150–250 word update, ready to copy and paste directly into your Google Business Profile. Keeps your listing active and signals to Google you're a busy local operator.</p>
+              <div class="output-detail">
+                <div class="output-detail-item">Copy with one tap from your dashboard</div>
+                <div class="output-detail-item">Photo included, ready to attach</div>
+                <div class="output-detail-item">Boosts your Maps ranking signals</div>
+                <div class="output-detail-item">Includes a call-to-action and phone number</div>
+              </div>
+            </div>
+            <div class="output-card">
+              <div class="output-icon">📱</div>
+              <h4>Social Caption</h4>
+              <p>A platform-ready caption with your labeled photo, relevant hashtags, and a local call-to-action. Post it to Instagram, Facebook, or Nextdoor like any other job photo.</p>
+              <div class="output-detail">
+                <div class="output-detail-item">Trade-specific local hashtags included</div>
+                <div class="output-detail-item">Before/After photo labeled and paired</div>
+                <div class="output-detail-item">Copy caption, save photo, post — done</div>
+                <div class="output-detail-item">Sounds like a neighbor, not a marketer</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- /timeline -->
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     WHAT THE AI NEVER DOES — TRUST SECTION
+══════════════════════════════════════════ -->
+<section class="alt-bg">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Accuracy &amp; Trust</div>
+      <h2>What the AI <span class="lime">will and won't do</span></h2>
+      <p>The AI is instructed to produce accurate, grounded content. Your reputation is on the line — and we built the system with that in mind.</p>
+    </div>
+
+    <div class="trust-grid">
+      <div class="trust-card good">
+        <div class="trust-card-header">
+          <div class="trust-icon">✅</div>
+          <h4>What TradesSnap.us always does</h4>
+        </div>
+        <ul class="trust-list">
+          <li>Uses only the details you provided in your voice memo</li>
+          <li>Writes in a plain, direct blue-collar voice — not corporate</li>
+          <li>Tags the exact city and neighborhood from your recording</li>
+          <li>Uses accurate industry terminology for your trade</li>
+          <li>Formats everything correctly for each platform</li>
+          <li>Adds Before/After labels without altering the photos</li>
+          <li>Shows you the output before anything publishes (review mode)</li>
+        </ul>
+      </div>
+
+      <div class="trust-card warn">
+        <div class="trust-card-header">
+          <div class="trust-icon">🚫</div>
+          <h4>What TradesSnap.us never does</h4>
+        </div>
+        <ul class="trust-list bad">
+          <li>Invents job details, pricing, or customer names not in your memo</li>
+          <li>Exaggerates results or makes guarantees you didn't mention</li>
+          <li>Uses fake reviews or fabricated testimonials</li>
+          <li>Publishes anything without your review (in review mode)</li>
+          <li>Edits, filters, or alters your job photos</li>
+          <li>Stores or shares your customer's personal information</li>
+          <li>Sounds like AI-generated fluff — every output is grounded in your words</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Common Questions</div>
+      <h2>Still have questions?<br><span class="lime">We've got answers.</span></h2>
+    </div>
+
+    <div class="container-narrow" style="padding: 0;">
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            What if I forget to take a before photo?
+            <span class="faq-plus">+</span>
+          </div>
+          <div class="faq-a">
+            <p>No problem at all. Just upload the after photo and TradesSnap.us will still generate all three outputs. The social caption and blog post will reference the finished work without a before comparison. You can always make it a habit on future jobs once you see how much better the before/after format performs on social — but it's never a requirement.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            What if my voice memo is messy or I lose my train of thought?
+            <span class="faq-plus">+</span>
+          </div>
+          <div class="faq-a">
+            <p>That's completely fine and honestly pretty common. The AI is built to extract relevant job details even from rambling, off-topic, or noisy recordings. It ignores filler and focuses on what matters: what was the job, what did you fix, where was it, what did you use. You don't need to be a great speaker — you just need to be on site talking about the work you just did.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Can I edit the content before I post it?
+            <span class="faq-plus">+</span>
+          </div>
+          <div class="faq-a">
+            <p>Yes, always. Every output lands in your dashboard before you do anything with it. You can edit any field — headline, body copy, hashtags, photo — directly in the dashboard. Change a word, fix a detail, or leave it exactly as-is. You decide what goes out and when. Nothing posts until you copy it and post it yourself.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Does it actually sound like me, or does it sound like AI?
+            <span class="faq-plus">+</span>
+          </div>
+          <div class="faq-a">
+            <p>It sounds like a competent, professional version of what you said — not a robot. TradesSnap.us uses a "Blue-Collar Authority" voice: direct, specific, local, and proud of the craft. It doesn't use buzzwords, corporate fluff, or vague marketing language. The copy is grounded in the details you provided, which is exactly why it reads as authentic. You can always tweak the tone if you want something slightly different, but most contractors say it sounds more like them than anything they'd write themselves.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            What do I need to connect during setup?
+            <span class="faq-plus">+</span>
+          </div>
+          <div class="faq-a">
+            <p>Nothing. There are no platform connections, API keys, or account authorizations required. You sign up, set your trade and service area, and you're ready to record your first job. When your content is ready, you copy it from your dashboard and paste it wherever you want — your website, Google Business, Instagram, Facebook. You keep full control of your own platforms.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            What if I don't have a website yet?
+            <span class="faq-plus">+</span>
+          </div>
+          <div class="faq-a">
+            <p>You can still use TradesSnap.us right away. The Google Business post and social caption both work completely independently of a website — just copy and paste. The blog post output is still generated for you too, and you can save it for when you're ready to add it to a site later. Many contractors start with just GBP and social, then add a simple website when they're ready for the full SEO benefit.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            How long until I see results on Google?
+            <span class="faq-plus">+</span>
+          </div>
+          <div class="faq-a">
+            <p>Google Business Profile activity tends to show results fastest — most contractors see increased profile views and direction requests within 2–4 weeks of consistent posting. Website ranking improvements take longer, typically 60–90 days before you see meaningful position changes for local keywords. The more jobs you document, the faster Google recognizes your business as an active, authoritative local provider. This is a long game, but it compounds — every job you post adds another indexed asset working for you permanently.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     CTA
+══════════════════════════════════════════ -->
+<div class="cta-section">
+  <div class="container">
+    <div class="section-label" style="text-align:center;">Ready to Start?</div>
+    <h2>You just learned more about<br><span class="lime">local marketing than most contractors ever will.</span></h2>
+    <p>Now put it to work. Sign up, document your next job, and have three pieces of content ready before you're back in the truck.</p>
+    <div class="cta-row">
+      <a href="pricing.html" class="btn btn-lime btn-lg">See Pricing →</a>
+      <a href="mailto:hello@tradessnap.us" class="btn btn-outline btn-lg">Talk to a Human First</a>
+    </div>
+    <div class="cta-fine">Setup in &lt;10 min &nbsp;·&nbsp; Cancel anytime</div>
+  </div>
+</div>
+
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">Trades<span>Snap</span>.us</div>
+        <p class="footer-tagline">Turn every job into a Google-ranking, customer-attracting content machine. Built for contractors, not marketers.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="#">Get Started</a>
+        <a href="#">Login</a>
+      </div>
+      <div class="footer-col">
+        <h5>Trades</h5>
+        <a href="for-plumbers.html">Plumbing</a>
+        <a href="for-electrical.html">Electrical</a>
+        <a href="for-hvac.html">HVAC</a>
+        <a href="for-roofing.html">Roofing</a>
+        <a href="for-contractor.html">General Contracting</a>
+        <a href="for-remodeling.html">Remodeling</a>
+        <a href="for-windows.html">Windows &amp; Doors</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="mailto:hello@tradessnap.us">Contact Us</a>
+        <a href="tel:6145943904">(614) 594-3904</a>
+        <a href="tips.html">Tips &amp; Best Practices</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 TradesSnap.us · A <a href="https://TradesXL.US" target="_blank" rel="noopener noreferrer" style="color:inherit;">TradesXL.US</a> Company — All rights reserved.</p>
+      <p style="color:var(--muted);">Built for the trades. Powered by AI.</p>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+
+</body>
+</html>

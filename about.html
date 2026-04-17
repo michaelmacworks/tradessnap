@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — TradesSnap.us</title>
+  <meta name="description" content="TradesSnap was built for contractors who are great at their craft but don't have time to write about it. Here's our story.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0D0F0C; color: #fff; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    :root {
+      --black: #0D0F0C; --dark: #111410; --card: #181C15;
+      --border: #252A20; --lime: #FFD700; --muted: #b8c4ba;
+    }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+    /* ── NAV (matches index.html exactly) ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,15,12,0.96);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px; max-width: 1160px; margin: 0 auto; padding: 0 28px;
+    }
+    .nav-logo { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.04em; }
+    .nav-logo span { color: var(--lime); }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-links a {
+      color: var(--muted); font-size: 0.85rem; font-weight: 600;
+      padding: 7px 14px; border-radius: 7px;
+      transition: color 0.2s, background 0.2s;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .nav-links a:hover { color: white; background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: white; }
+    .nav-links a .chevron { font-size: 0.6rem; opacity: 0.5; }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .nav-login { color: var(--muted); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-login:hover { color: white; }
+    .nav-divider { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+    .btn-lime {
+      background: var(--lime); color: #0D0F0C;
+      padding: 10px 20px; border-radius: 8px;
+      font-size: 0.85rem; font-weight: 800; transition: background 0.2s;
+    }
+    .btn-lime:hover { background: #ffe033; }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      border-bottom: 1px solid var(--border);
+      background: rgba(13,15,12,0.5);
+    }
+    .breadcrumb-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 28px;
+      height: 36px; display: flex; align-items: center; gap: 0;
+    }
+    .breadcrumb-inner a { font-size: 0.75rem; color: #5a6050; transition: color 0.2s; }
+    .breadcrumb-inner a:hover { color: var(--muted); }
+    .breadcrumb-sep { font-size: 0.75rem; color: #3a4035; margin: 0 7px; }
+    .breadcrumb-current { font-size: 0.75rem; color: var(--muted); }
+
+    /* ── HERO ── */
+    .hero { padding: 80px 0 60px; text-align: center; border-bottom: 1px solid var(--border); }
+    .section-label {
+      display: inline-block; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--lime); margin-bottom: 16px;
+    }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 20px; }
+    .hero p { font-size: 1.1rem; color: var(--muted); max-width: 600px; margin: 0 auto; line-height: 1.7; }
+
+    /* ── STORY ── */
+    .story { padding: 72px 0; border-bottom: 1px solid var(--border); }
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .story-text h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 20px; line-height: 1.15; }
+    .story-text h2 .lime { color: var(--lime); }
+    .story-text p { color: var(--muted); font-size: 0.95rem; line-height: 1.8; margin-bottom: 16px; }
+    .story-visual { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 36px; display: flex; flex-direction: column; gap: 20px; }
+    .stat-row { display: flex; flex-direction: column; gap: 4px; }
+    .stat-number { font-size: 2.8rem; font-weight: 900; letter-spacing: -0.05em; color: var(--lime); line-height: 1; }
+    .stat-label { font-size: 0.85rem; color: var(--muted); }
+    .stat-divider { height: 1px; background: var(--border); }
+
+    /* ── MISSION ── */
+    .mission { padding: 72px 0; border-bottom: 1px solid var(--border); text-align: center; }
+    .mission h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .mission h2 .lime { color: var(--lime); }
+    .mission p { font-size: 1rem; color: var(--muted); max-width: 640px; margin: 0 auto; line-height: 1.8; }
+
+    /* ── VALUES ── */
+    .values { padding: 72px 0; border-bottom: 1px solid var(--border); }
+    .values-header { text-align: center; margin-bottom: 48px; }
+    .values-header h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 10px; }
+    .values-header p { font-size: 0.92rem; color: var(--muted); }
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .value-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px; }
+    .value-icon { font-size: 1.8rem; margin-bottom: 14px; }
+    .value-title { font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
+    .value-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── BUILT BY ── */
+    .built-by { padding: 72px 0; border-bottom: 1px solid var(--border); }
+    .built-inner { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 48px; max-width: 700px; margin: 0 auto; text-align: center; }
+    .built-inner .section-label { display: block; margin-bottom: 12px; }
+    .built-inner h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 16px; }
+    .built-inner p { font-size: 0.92rem; color: var(--muted); line-height: 1.85; }
+
+    /* ── CTA ── */
+    .cta-section { padding: 80px 0; text-align: center; }
+    .cta-section h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 12px; }
+    .cta-section p { font-size: 0.92rem; color: var(--muted); margin-bottom: 28px; }
+    .btn-big { display: inline-block; background: var(--lime); color: #0D0F0C; padding: 16px 36px; border-radius: 10px; font-size: 1rem; font-weight: 900; transition: background 0.2s; }
+    .btn-big:hover { background: #ffe033; }
+    .cta-fine { font-size: 0.78rem; color: var(--muted); margin-top: 14px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--dark); border-top: 1px solid var(--border); padding: 32px 0; }
+    .footer-bottom { font-size: 0.78rem; color: var(--muted); display: flex; justify-content: space-between; align-items: center; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--muted); transition: color 0.2s; font-size: 0.78rem; }
+    .footer-links a:hover { color: var(--lime); }
+
+    @media (max-width: 768px) {
+      .story-grid { grid-template-columns: 1fr; gap: 32px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .footer-bottom { flex-direction: column; gap: 12px; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+</head>
+<body>
+
+<!-- NAV — identical to index.html -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Trades<span>Snap</span>.us</a>
+    <div class="nav-links">
+      <a href="how-it-works.html">How It Works</a>
+      <a href="index.html#features">Features <span class="chevron">▼</span></a>
+      <a href="index.html#who-its-for">Solutions For <span class="chevron">▼</span></a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html" class="active">About</a>
+    </div>
+    <div class="nav-right">
+      <a href="login.html" class="nav-login">LOGIN</a>
+      <div class="nav-divider"></div>
+      <a href="get-started.html" class="btn-lime">Get Started Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index.html">Home</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Company</span>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">About</span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="container">
+    <div class="section-label">Our Story</div>
+    <h1>Built for the contractor<br>who's too busy to brag.</h1>
+    <p>You do exceptional work. Your customers love you. But finding time to market yourself? That's a different job entirely. TradesSnap exists to close that gap.</p>
+  </div>
+</section>
+
+<section class="story">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-text">
+        <div class="section-label">The Problem We Solved</div>
+        <h2>Great contractors<br>stay invisible<br><span class="lime">online.</span></h2>
+        <p>The best plumber in town might have zero Google reviews and a Facebook page last updated in 2019. Not because they don't care — because they're on the job from 7am to 6pm, and "do social media" was never part of the deal.</p>
+        <p>Meanwhile, the contractor who posts consistently — even mediocre work — keeps the phone ringing. That felt wrong to us.</p>
+        <p>So we built TradesSnap: a tool that takes 60 seconds of your voice and a few job-site photos and turns them into three polished, ready-to-post marketing assets. No writing. No fussing with apps. Just talk about the job you finished and get back to work.</p>
+      </div>
+      <div class="story-visual">
+        <div class="stat-row">
+          <div class="stat-number">60s</div>
+          <div class="stat-label">Average time to submit a job</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-row">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Ready-to-post assets per job</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-row">
+          <div class="stat-number">&lt;2min</div>
+          <div class="stat-label">From voice memo to published content</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mission">
+  <div class="container">
+    <div class="section-label">Our Mission</div>
+    <h2>Make every job site<br>a <span class="lime">marketing asset.</span></h2>
+    <p>Home service contractors build, fix, and improve the places people live. That work deserves to be seen. Our mission is to make it effortless for every contractor — regardless of tech comfort level — to show up online like a professional and grow their business through the work they're already doing.</p>
+  </div>
+</section>
+
+<section class="values">
+  <div class="container">
+    <div class="values-header">
+      <div class="section-label">What We Stand For</div>
+      <h2>How we build</h2>
+      <p>A few principles that drive every decision we make.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">🔧</div>
+        <div class="value-title">Contractor-first</div>
+        <div class="value-desc">Every feature is designed around how a contractor actually works — in the field, on a phone, between jobs. If it's not fast and simple, we rebuild it.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">✅</div>
+        <div class="value-title">Honest AI</div>
+        <div class="value-desc">Our AI writes from what you tell it — not fabricated details. The content is yours, grounded in your actual work, your location, and your voice.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">📈</div>
+        <div class="value-title">Real results only</div>
+        <div class="value-desc">SEO posts that rank, GBP updates that drive calls, captions that get saved and shared — we're not here to produce vanity content.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="built-by">
+  <div class="container">
+    <div class="built-inner">
+      <div class="section-label">Who Built This</div>
+      <h2>Made by people who respect the trades.</h2>
+      <p>TradesSnap was founded by people who have spent time around job sites, know what a rough day in the field looks like, and got tired of watching great contractors lose business to inferior competitors who just happened to post more. We built the tool we wished existed — and we keep making it better based on what contractors tell us they actually need.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>Start turning your jobs<br>into marketing.</h2>
+    <p>7-day free trial. No credit card required. Cancel anytime.</p>
+    <a href="signup.html" class="btn-big">Try TradesSnap Free →</a>
+    <div class="cta-fine">Already have an account? <a href="login.html" style="color:var(--lime);">Sign in</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 TradesSnap.us · A <a href="https://TradesXL.US" target="_blank" rel="noopener noreferrer" style="color:inherit;">TradesXL.US</a> Company · Built for the blue-collar professional.</span>
+      <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="blog.html">Blog</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

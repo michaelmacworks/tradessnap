@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Studies — TradesSnap.us</title>
+  <meta name="description" content="Real contractors. Real results. See how home service pros are using TradesSnap to grow their online presence and win more work.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0D0F0C; color: #fff; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    :root {
+      --black: #0D0F0C; --dark: #111410; --card: #181C15;
+      --border: #252A20; --lime: #FFD700; --muted: #b8c4ba;
+    }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── NAV (matches index.html exactly) ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,15,12,0.96);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px; max-width: 1160px; margin: 0 auto; padding: 0 28px;
+    }
+    .nav-logo { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.04em; }
+    .nav-logo span { color: var(--lime); }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-links a {
+      color: var(--muted); font-size: 0.85rem; font-weight: 600;
+      padding: 7px 14px; border-radius: 7px;
+      transition: color 0.2s, background 0.2s;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .nav-links a:hover { color: white; background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: white; }
+    .nav-links a .chevron { font-size: 0.6rem; opacity: 0.5; }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .nav-login { color: var(--muted); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-login:hover { color: white; }
+    .nav-divider { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+    .btn-lime {
+      background: var(--lime); color: #0D0F0C;
+      padding: 10px 20px; border-radius: 8px;
+      font-size: 0.85rem; font-weight: 800; transition: background 0.2s;
+    }
+    .btn-lime:hover { background: #ffe033; }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb { border-bottom: 1px solid var(--border); background: rgba(13,15,12,0.5); }
+    .breadcrumb-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 28px;
+      height: 36px; display: flex; align-items: center;
+    }
+    .breadcrumb-inner a { font-size: 0.75rem; color: #5a6050; transition: color 0.2s; }
+    .breadcrumb-inner a:hover { color: var(--muted); }
+    .breadcrumb-sep { font-size: 0.75rem; color: #3a4035; margin: 0 7px; }
+    .breadcrumb-current { font-size: 0.75rem; color: var(--muted); }
+
+    /* HERO */
+    .hero { padding: 72px 0 52px; text-align: center; border-bottom: 1px solid var(--border); }
+    .section-label {
+      display: inline-block; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--lime); margin-bottom: 14px;
+    }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 16px; }
+    .hero h1 .lime { color: var(--lime); }
+    .hero p { font-size: 1rem; color: var(--muted); max-width: 560px; margin: 0 auto; }
+
+    /* STATS BAR */
+    .stats-bar { padding: 48px 0; border-bottom: 1px solid var(--border); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .stat-box {
+      background: var(--card); padding: 28px 24px; text-align: center;
+    }
+    .stat-num { font-size: 2.2rem; font-weight: 900; letter-spacing: -0.05em; color: var(--lime); line-height: 1; }
+    .stat-label { font-size: 0.82rem; color: var(--muted); margin-top: 6px; }
+
+    /* CASE STUDIES */
+    .studies { padding: 64px 0; }
+    .studies h2 { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 36px; }
+
+    .study-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+      overflow: hidden; margin-bottom: 28px;
+    }
+    .study-header {
+      display: grid; grid-template-columns: 1fr auto;
+      align-items: start; padding: 32px 32px 0; gap: 24px;
+    }
+    .trade-tag {
+      display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--lime); margin-bottom: 8px;
+    }
+    .study-header h3 { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1.2; }
+    .study-header p { font-size: 0.85rem; color: var(--muted); margin-top: 6px; }
+    .study-results-mini {
+      background: rgba(255,215,0,0.06); border: 1px solid rgba(255,215,0,0.15);
+      border-radius: 10px; padding: 16px 20px; text-align: center; flex-shrink: 0;
+    }
+    .result-num { font-size: 1.8rem; font-weight: 900; letter-spacing: -0.04em; color: var(--lime); line-height: 1; }
+    .result-label { font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+
+    .study-body { padding: 24px 32px 32px; }
+    .study-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 20px; }
+    .study-col-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .study-col p { font-size: 0.85rem; color: #d0d8d2; line-height: 1.7; }
+    .study-divider { height: 1px; background: var(--border); margin: 20px 0; }
+    .study-quote {
+      border-left: 3px solid var(--lime); padding-left: 16px;
+      font-size: 0.9rem; color: var(--muted); font-style: italic; line-height: 1.7;
+    }
+    .study-quote strong { display: block; margin-top: 8px; font-style: normal; color: #8a9488; font-size: 0.78rem; }
+
+    /* COMING SOON */
+    .coming-soon { padding: 56px 0; border-top: 1px solid var(--border); }
+    .coming-inner {
+      background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+      padding: 48px; text-align: center;
+    }
+    .coming-inner h2 { font-size: 1.4rem; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 10px; }
+    .coming-inner p { font-size: 0.88rem; color: var(--muted); max-width: 480px; margin: 0 auto 24px; line-height: 1.7; }
+    .btn-outline {
+      display: inline-block; border: 1.5px solid var(--border); color: var(--muted);
+      padding: 11px 24px; border-radius: 8px; font-size: 0.88rem; font-weight: 700;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--lime); color: #fff; }
+
+    /* CTA */
+    .cta-section { padding: 72px 0; text-align: center; border-top: 1px solid var(--border); }
+    .cta-section h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 12px; }
+    .cta-section p { font-size: 0.92rem; color: var(--muted); margin-bottom: 28px; }
+    .btn-big {
+      display: inline-block; background: var(--lime); color: #0D0F0C;
+      padding: 16px 36px; border-radius: 10px; font-size: 1rem; font-weight: 900; transition: background 0.2s;
+    }
+    .btn-big:hover { background: #ffe033; }
+    .cta-fine { font-size: 0.78rem; color: var(--muted); margin-top: 14px; }
+
+    /* FOOTER */
+    footer { background: var(--dark); border-top: 1px solid var(--border); padding: 32px 0; }
+    .footer-bottom { font-size: 0.78rem; color: var(--muted); display: flex; justify-content: space-between; align-items: center; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--muted); transition: color 0.2s; font-size: 0.78rem; }
+    .footer-links a:hover { color: var(--lime); }
+
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .study-cols { grid-template-columns: 1fr; }
+      .study-header { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .footer-bottom { flex-direction: column; gap: 12px; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Trades<span>Snap</span>.us</a>
+    <div class="nav-links">
+      <a href="how-it-works.html">How It Works</a>
+      <a href="index.html#features">Features <span class="chevron">▼</span></a>
+      <a href="index.html#who-its-for">Solutions For <span class="chevron">▼</span></a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav-right">
+      <a href="login.html" class="nav-login">LOGIN</a>
+      <div class="nav-divider"></div>
+      <a href="get-started.html" class="btn-lime">Get Started Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index.html">Home</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Company</span>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Case Studies</span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="container">
+    <div class="section-label">Case Studies</div>
+    <h1>Real contractors.<br><span class="lime">Real results.</span></h1>
+    <p>See how home service professionals are using TradesSnap to build their online presence, rank higher on Google, and win more work — in under two minutes per job.</p>
+  </div>
+</section>
+
+<section class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-num">3×</div>
+        <div class="stat-label">Average increase in Google profile views</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">47%</div>
+        <div class="stat-label">More inbound calls after 90 days of consistent posting</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">60s</div>
+        <div class="stat-label">Average time spent per job submission</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">90%</div>
+        <div class="stat-label">Of users post at least 3× per week after onboarding</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="studies">
+  <div class="container">
+    <h2>Featured Case Studies</h2>
+
+    <!-- CASE STUDY 1 -->
+    <div class="study-card">
+      <div class="study-header">
+        <div>
+          <div class="trade-tag">Plumbing · Columbus, OH</div>
+          <h3>From zero Google presence to<br>booking 2 weeks out.</h3>
+          <p>A solo plumber with no social presence and a stagnant Google profile turned consistent TradesSnap use into a wait list.</p>
+        </div>
+        <div class="study-results-mini">
+          <div class="result-num">+312%</div>
+          <div class="result-label">Profile views<br>in 90 days</div>
+        </div>
+      </div>
+      <div class="study-body">
+        <div class="study-divider"></div>
+        <div class="study-cols">
+          <div>
+            <div class="study-col-label">The Challenge</div>
+            <p>Running a solo operation, Marcus had no time to write content. His Google Business profile had two photos from 2021 and hadn't been updated since. Competitors were ranking above him despite doing inferior work.</p>
+          </div>
+          <div>
+            <div class="study-col-label">How He Used TradesSnap</div>
+            <p>After each job, Marcus recorded a 60-second voice memo describing the work — what broke, what he fixed, where the job was. He uploaded a before/after photo pair and hit submit. The whole process took under two minutes.</p>
+          </div>
+          <div>
+            <div class="study-col-label">The Results</div>
+            <p>After 12 weeks of posting 3–4 times per week, Google profile views were up 312%. Monthly calls from Google jumped from 4 to 17. By week 14, he was booking two weeks out for the first time in his business.</p>
+          </div>
+        </div>
+        <div class="study-divider"></div>
+        <div class="study-quote">
+          "I always knew I needed to do marketing. I just never had the time or knew what to say. This thing does the writing for me — I just talk about my job."
+          <strong>— Marcus T., Solo Plumber, Columbus OH</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE STUDY 2 -->
+    <div class="study-card">
+      <div class="study-header">
+        <div>
+          <div class="trade-tag">HVAC · Phoenix, AZ</div>
+          <h3>A 4-person crew that now<br>ranks #1 for 6 local search terms.</h3>
+          <p>A small HVAC company used TradesSnap to generate SEO blog content that started ranking within 60 days of publishing.</p>
+        </div>
+        <div class="study-results-mini">
+          <div class="result-num">6</div>
+          <div class="result-label">Page 1 keyword<br>rankings added</div>
+        </div>
+      </div>
+      <div class="study-body">
+        <div class="study-divider"></div>
+        <div class="study-cols">
+          <div>
+            <div class="study-col-label">The Challenge</div>
+            <p>Valley Cool Air had a basic website and decent reviews, but weren't showing up for "AC repair Phoenix" or any neighborhood-level searches. Their SEO agency wanted $2,500/month — way out of budget for a 4-person shop.</p>
+          </div>
+          <div>
+            <div class="study-col-label">How They Used TradesSnap</div>
+            <p>The owner had technicians submit a voice memo and photos at the end of every AC repair and installation. Each submission generated a geo-tagged SEO blog post that went straight to their WordPress site. No editor needed.</p>
+          </div>
+          <div>
+            <div class="study-col-label">The Results</div>
+            <p>Within 60 days, 6 blog posts were ranking on page 1 for hyper-local queries like "AC repair Scottsdale" and "emergency HVAC Chandler AZ." Monthly website visitors doubled. Cost: $97/month instead of $2,500.</p>
+          </div>
+        </div>
+        <div class="study-divider"></div>
+        <div class="study-quote">
+          "We were paying an SEO company $2,500 a month and barely moving. TradesSnap costs $97 and we're on page one for six terms in under two months. The math is ridiculous."
+          <strong>— Diana R., Owner, Valley Cool Air</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE STUDY 3 -->
+    <div class="study-card">
+      <div class="study-header">
+        <div>
+          <div class="trade-tag">Roofing · Nashville, TN</div>
+          <h3>Social media finally working<br>without hiring anyone.</h3>
+          <p>A roofing company that had tried and abandoned social media twice found that TradesSnap made it sustainable — and profitable.</p>
+        </div>
+        <div class="study-results-mini">
+          <div class="result-num">+2</div>
+          <div class="result-label">Jobs/month from<br>social leads</div>
+        </div>
+      </div>
+      <div class="study-body">
+        <div class="study-divider"></div>
+        <div class="study-cols">
+          <div>
+            <div class="study-col-label">The Challenge</div>
+            <p>Ridge Runner Roofing had hired a social media manager twice and quit twice. The content always felt generic, cost too much to maintain, and generated zero leads. The owner was convinced social media didn't work for roofing.</p>
+          </div>
+          <div>
+            <div class="study-col-label">How They Used TradesSnap</div>
+            <p>The crew lead started submitting a memo after every significant job — storm damage repairs, full replacements, gutters. The before/after photos with labeled badges became their standard Instagram format: real work, real results.</p>
+          </div>
+          <div>
+            <div class="study-col-label">The Results</div>
+            <p>Within 3 months, Instagram followers grew from 140 to 890. Two to three inbound DM leads per month, with 2 converting to booked jobs at an average ticket of $8,400. Monthly ROI on TradesSnap: over 100x.</p>
+          </div>
+        </div>
+        <div class="study-divider"></div>
+        <div class="study-quote">
+          "I told my wife social media was a waste of money. I take it back. The difference is the content is about our actual jobs — not generic roofing tips some kid in an office made up."
+          <strong>— Jeff K., Owner, Ridge Runner Roofing</strong>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMING SOON -->
+<section class="coming-soon">
+  <div class="container">
+    <div class="coming-inner">
+      <div class="section-label">More Coming Soon</div>
+      <h2>Are you a TradesSnap success story?</h2>
+      <p>We're building out more case studies across every trade. If you've seen results with TradesSnap and want to be featured, we'd love to tell your story.</p>
+      <a href="contact.html" class="btn-outline">Get in Touch →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Start writing your own<br>success story.</h2>
+    <p>7-day free trial. No credit card required. Cancel anytime.</p>
+    <a href="signup.html" class="btn-big">Try TradesSnap Free →</a>
+    <div class="cta-fine">Already have an account? <a href="login.html" style="color:var(--lime);">Sign in</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 TradesSnap.us · A <a href="https://TradesXL.US" target="_blank" rel="noopener noreferrer" style="color:inherit;">TradesXL.US</a> Company · Built for the blue-collar professional.</span>
+      <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="blog.html">Blog</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing | TradesSnap.us</title>
+  <meta name="description" content="One plan. One price. $97/month. Everything a home service contractor needs to turn job-site moments into marketing content.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tradessnap.us/pricing">
+  <meta property="og:title" content="Pricing | TradesSnap.us">
+  <meta property="og:description" content="One plan. One price. $97/month. Everything a home service contractor needs to turn job-site moments into marketing content.">
+  <meta property="og:image" content="https://tradessnap.us/og-image.jpg">
+  <meta property="og:site_name" content="TradesSnap.us">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pricing | TradesSnap.us">
+  <meta name="twitter:description" content="One plan. One price. $97/month. Everything a home service contractor needs to turn job-site moments into marketing content.">
+  <meta name="twitter:image" content="https://tradessnap.us/og-image.jpg">
+  <link rel="canonical" href="https://tradessnap.us/pricing">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:    #0D0F0C;
+      --dark:     #111410;
+      --card:     #181C15;
+      --border:   #252A20;
+      --lime:     #FFD700;
+      --lime-dim: #C9A800;
+      --white:    #FFFFFF;
+      --off:      #edece4;
+      --muted:    #b8c4ba;
+      --radius:   10px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      overflow-x: hidden;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--black);
+      color: #f0efe9;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    p { color: #f0efe9; }
+    a { text-decoration: none; }
+
+    .announce-bar {
+      background: var(--lime);
+      color: var(--black);
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 9px 16px;
+    }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,15,12,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 24px;
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-size: 1.15rem; font-weight: 900; color: var(--white); letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--lime); }
+    .nav-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+    .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--muted); transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .nav-cta { display: flex; gap: 10px; align-items: center; }
+    .btn-nav-login { font-size: 0.82rem; font-weight: 600; color: var(--muted); transition: color 0.2s; }
+    .btn-nav-login:hover { color: var(--white); }
+    .btn-nav-cta {
+      background: var(--lime); color: var(--black);
+      font-size: 0.82rem; font-weight: 800;
+      padding: 9px 18px; border-radius: 8px; transition: opacity 0.2s;
+    }
+    .btn-nav-cta:hover { opacity: 0.88; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .container-narrow { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 96px 0; }
+    section.alt-bg { background: var(--dark); }
+
+    .section-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--lime); margin-bottom: 14px;
+    }
+    .section-header { text-align: center; max-width: 660px; margin: 0 auto 56px; }
+    .section-header h2 { font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 800; line-height: 1.2; color: var(--white); }
+    .section-header p { font-size: 1.05rem; color: var(--muted); margin-top: 16px; line-height: 1.7; }
+    h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; color: var(--white); line-height: 1.2; }
+    h3 { font-size: 1.15rem; font-weight: 700; color: var(--white); }
+    .lime { color: var(--lime); }
+
+    /* HERO */
+    .hero { padding: 80px 0 72px; text-align: center; border-bottom: 1px solid var(--border); }
+    .hero-label {
+      display: inline-block; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--lime); margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 900;
+      line-height: 1.1; letter-spacing: -0.02em; color: var(--white); margin-bottom: 18px;
+    }
+    .hero h1 span { color: var(--lime); }
+    .hero-sub { font-size: 1.1rem; color: var(--muted); max-width: 560px; margin: 0 auto 32px; line-height: 1.7; }
+    .hero-badges { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 20px; padding: 6px 14px; font-size: 0.78rem; color: var(--muted); font-weight: 500;
+    }
+    .hero-badge::before { content: '✓'; color: var(--lime); font-weight: 700; }
+
+    /* PRICING CARD */
+    .pricing-wrap { max-width: 560px; margin: 56px auto 0; }
+    .pricing-card-solo {
+      background: var(--card);
+      border: 1px solid var(--lime);
+      box-shadow: 0 0 0 1px var(--lime), 0 24px 60px rgba(0,0,0,0.4);
+      border-radius: 18px; overflow: hidden;
+    }
+    .pcs-top {
+      padding: 44px 48px 36px; text-align: center;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,215,0,0.04) 0%, transparent 100%);
+    }
+    .pcs-name { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lime); margin-bottom: 18px; }
+    .pcs-price { display: flex; align-items: flex-start; justify-content: center; gap: 2px; line-height: 1; margin-bottom: 8px; }
+    .pcs-dollar { font-size: 1.8rem; font-weight: 700; color: var(--off); margin-top: 10px; }
+    .pcs-num { font-size: 5rem; font-weight: 900; color: #ffffff; line-height: 1; letter-spacing: -0.03em; }
+    .pcs-mo { font-size: 1.1rem; color: var(--muted); align-self: flex-end; margin-bottom: 10px; padding-left: 4px; }
+    .pcs-sub { font-size: 0.9rem; color: var(--muted); margin-top: 6px; }
+    .pcs-body { padding: 36px 48px 40px; }
+    .pcs-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; list-style: none; margin-bottom: 32px;
+    }
+    .pcs-grid li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.9rem; color: #f0efe9;
+      padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); line-height: 1.4;
+    }
+    .pcs-grid li:nth-last-child(1),
+    .pcs-grid li:nth-last-child(2) { border-bottom: none; }
+    .pcs-check { color: var(--lime); font-weight: 700; flex-shrink: 0; }
+    .pcs-cta {
+      display: block; text-align: center;
+      background: var(--lime); color: var(--black);
+      font-weight: 800; font-size: 1.05rem;
+      padding: 20px; border-radius: 12px; transition: opacity 0.2s;
+    }
+    .pcs-cta:hover { opacity: 0.88; }
+    .pcs-fine { text-align: center; font-size: 0.76rem; color: var(--muted); margin-top: 14px; }
+
+    /* WHAT'S INCLUDED */
+    .included-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .included-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px 26px; }
+    .inc-icon { font-size: 1.8rem; margin-bottom: 14px; }
+    .included-card h3 { font-size: 1rem; margin-bottom: 10px; }
+    .included-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+    .inc-detail { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+    .inc-detail-row { font-size: 0.78rem; color: var(--muted); display: flex; align-items: flex-start; gap: 7px; }
+    .inc-detail-row::before { content: '→'; color: var(--lime); font-weight: 700; flex-shrink: 0; }
+
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q {
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      padding: 20px 0; font-size: 1rem; font-weight: 600; color: var(--white);
+      cursor: pointer; user-select: none; transition: color 0.2s;
+    }
+    .faq-q:hover { color: var(--lime); }
+    .faq-plus { font-size: 1.4rem; color: var(--lime); flex-shrink: 0; transition: transform 0.2s; }
+    .faq-a { display: none; padding-bottom: 20px; }
+    .faq-a p { font-size: 0.92rem; color: var(--muted); line-height: 1.75; }
+    .faq-item.open .faq-plus { transform: rotate(45deg); }
+    .faq-item.open .faq-a { display: block; }
+
+    /* CTA */
+    .cta-section { text-align: center; padding: 100px 0; }
+    .cta-section h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); margin-bottom: 16px; }
+    .cta-section p { font-size: 1.05rem; color: var(--muted); max-width: 500px; margin: 0 auto 36px; }
+    .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-lime {
+      display: inline-flex; align-items: center;
+      background: var(--lime); color: var(--black);
+      font-weight: 800; padding: 16px 32px; border-radius: 10px; font-size: 1rem; transition: opacity 0.2s;
+    }
+    .btn-lime:hover { opacity: 0.88; }
+    .btn-outline {
+      display: inline-flex; align-items: center;
+      background: transparent; border: 1px solid var(--border); color: var(--off);
+      font-weight: 700; padding: 16px 32px; border-radius: 10px; font-size: 1rem; transition: opacity 0.2s;
+    }
+    .btn-outline:hover { opacity: 0.75; }
+    .cta-fine { font-size: 0.78rem; color: var(--muted); margin-top: 16px; }
+
+    /* FOOTER */
+    footer { background: var(--black); border-top: 1px solid var(--border); padding: 56px 0 32px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .footer-top { display: grid; grid-template-columns: 1.4fr repeat(3,1fr); gap: 40px; margin-bottom: 48px; }
+    .footer-logo { font-size: 1.2rem; font-weight: 900; color: var(--white); letter-spacing: -0.02em; margin-bottom: 10px; }
+    .footer-logo span { color: var(--lime); }
+    .footer-tagline { font-size: 0.82rem; color: var(--muted); line-height: 1.6; max-width: 220px; }
+    .footer-col h5 { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+    .footer-col a { display: block; font-size: 0.84rem; color: var(--muted); margin-bottom: 10px; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: 0.78rem; color: var(--muted); }
+
+    @media (max-width: 900px) {
+      .included-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 64px 0; }
+      .pcs-top, .pcs-body { padding-left: 24px; padding-right: 24px; }
+      .pcs-grid { grid-template-columns: 1fr; }
+      .pcs-grid li:nth-last-child(2) { border-bottom: 1px solid rgba(255,255,255,0.04); }
+      .pcs-grid li:last-child { border-bottom: none; }
+      .footer-top { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  
+    /* ── GLOBAL MOBILE FIXES ── */
+    html, body { overflow-x: hidden; max-width: 100%; }
+    @media (max-width: 768px) {
+      .container, [class*="-inner"], [class*="-wrap"], [class*="-content"] {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        box-sizing: border-box;
+      }
+      section, footer, nav { max-width: 100vw; overflow-x: hidden; }
+      img { max-width: 100%; height: auto; }
+    }
+
+  
+    @media (max-width: 480px) {
+      .nav-inner { padding: 0 16px !important; }
+      .announce-bar { padding: 10px 16px !important; font-size: 0.75rem; }
+      .announce-cta { display: none; }
+      h1 { font-size: clamp(2rem, 8vw, 3rem) !important; }
+      h2 { font-size: clamp(1.6rem, 6vw, 2.4rem) !important; }
+      .section-header { padding: 0 4px; }
+      .pricing-solo, .pcs-card { margin-left: 0 !important; margin-right: 0 !important; }
+    }
+
+  </style>
+
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "TradesSnap.us",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": "AI-powered marketing content generator for home service contractors. Turn a 60-second voice memo and job-site photo into an SEO blog post, Google Business post, and social media caption.",
+  "offers": {
+    "@type": "Offer",
+    "price": "97.00",
+    "priceCurrency": "USD",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "97.00",
+      "priceCurrency": "USD",
+      "unitText": "MONTH"
+    }
+  },
+  "url": "https://tradessnap.us",
+  "provider": {
+    "@type": "Organization",
+    "name": "TradesSnap.us",
+    "url": "https://tradessnap.us"
+  }
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "TradesSnap.us",
+  "url": "https://tradessnap.us",
+  "description": "AI-powered marketing content for home service contractors.",
+  "foundingLocation": {
+    "@type": "Place",
+    "addressCountry": "US"
+  }
+}
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+</head>
+<body>
+
+<div class="announce-bar">
+  Turn every finished job into a Google-ready post — in under 90 seconds.
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Trades<span>Snap</span>.us</a>
+    <ul class="nav-links">
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="pricing.html" class="active">Pricing</a></li>
+      <li><a href="index.html#solutions">Trades</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#" class="btn-nav-login">Login</a>
+      <a href="get-started.html" class="btn-nav-cta">Get Started Now →</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-label">Simple Pricing</div>
+    <h1>One price.<br><span>Everything included.</span></h1>
+    <p class="hero-sub">No tiers to choose from. No "contact us for enterprise." One flat monthly rate — all three outputs, every job, for every home service contractor.</p>
+    <div class="hero-badges">
+      <div class="hero-badge">No contracts</div>
+      <div class="hero-badge">Cancel anytime</div>
+      <div class="hero-badge">No platform connections required</div>
+      <div class="hero-badge">Setup in under 10 minutes</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PRICING CARD -->
+<section>
+  <div class="container">
+    <div class="pricing-wrap">
+      <div class="pricing-card-solo">
+        <div class="pcs-top">
+          <div class="pcs-name">TradesSnap Pro</div>
+          <div class="pcs-price">
+            <span class="pcs-dollar">$</span>
+            <span class="pcs-num">97</span>
+            <span class="pcs-mo">/ month</span>
+            <div style="font-size:0.78rem;color:#3ECF8E;font-weight:700;margin-top:8px;">✓ 7-day free trial included</div>
+          </div>
+          <div class="pcs-sub">Flat monthly fee &nbsp;·&nbsp; No contracts &nbsp;·&nbsp; Cancel anytime</div>
+        </div>
+        <div class="pcs-body">
+          <ul class="pcs-grid">
+            <li><span class="pcs-check">✓</span> Up to 30 job posts / month</li>
+            <li><span class="pcs-check">✓</span> AI voice transcription</li>
+            <li><span class="pcs-check">✓</span> SEO blog post per job</li>
+            <li><span class="pcs-check">✓</span> Google Business post per job</li>
+            <li><span class="pcs-check">✓</span> Social caption per job</li>
+            <li><span class="pcs-check">✓</span> 1–2 photos, auto Before/After labels</li>
+            <li><span class="pcs-check">✓</span> Hyper-local SEO tagging</li>
+            <li><span class="pcs-check">✓</span> Mobile dashboard</li>
+          </ul>
+          <a href="get-started.html" class="pcs-cta">Get Started Now →</a>
+          <div class="pcs-fine">Setup in &lt;10 min &nbsp;·&nbsp; Cancel anytime &nbsp;·&nbsp; No platform connections required</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- WHAT'S INCLUDED -->
+<section class="alt-bg">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">What You Get</div>
+      <h2>Three outputs.<br><span class="lime">Every single job.</span></h2>
+      <p>Every time you submit a voice memo, all three are generated, formatted, and waiting in your dashboard — ready to copy and post.</p>
+    </div>
+    <div class="included-grid">
+
+      <div class="included-card">
+        <div class="inc-icon">📄</div>
+        <h3>SEO Blog Post</h3>
+        <p>A 400–600 word project case study, fully formatted and ready to paste into your website editor. Proper headings, keyword-rich copy, and your Before/After photos included.</p>
+        <div class="inc-detail">
+          <div class="inc-detail-row">Hyper-local city and neighborhood targeting</div>
+          <div class="inc-detail-row">Schema markup included in the copy</div>
+          <div class="inc-detail-row">Paste into WordPress, Squarespace, Wix — anywhere</div>
+          <div class="inc-detail-row">Ranks for "[trade] near [neighborhood]" searches</div>
+        </div>
+      </div>
+
+      <div class="included-card">
+        <div class="inc-icon">📍</div>
+        <h3>Google Business Post</h3>
+        <p>A 150–250 word update ready to copy and paste directly into your Google Business Profile. Keeps your listing active and signals to Google you're a busy local operator.</p>
+        <div class="inc-detail">
+          <div class="inc-detail-row">Copy with one tap from your dashboard</div>
+          <div class="inc-detail-row">Photo included and ready to attach</div>
+          <div class="inc-detail-row">Boosts your Google Maps ranking signals</div>
+          <div class="inc-detail-row">Includes a call-to-action and phone number</div>
+        </div>
+      </div>
+
+      <div class="included-card">
+        <div class="inc-icon">📱</div>
+        <h3>Social Caption</h3>
+        <p>A platform-ready caption with your labeled photo, local hashtags, and a call-to-action. Post it to Instagram, Facebook, or Nextdoor like any other job photo.</p>
+        <div class="inc-detail">
+          <div class="inc-detail-row">Trade-specific local hashtags included</div>
+          <div class="inc-detail-row">Before/After photo labeled and paired</div>
+          <div class="inc-detail-row">Copy caption, save photo, post — done</div>
+          <div class="inc-detail-row">Sounds like a neighbor, not a marketer</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- FAQ -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Pricing Questions</div>
+      <h2>The answers you're<br><span class="lime">looking for.</span></h2>
+    </div>
+    <div class="container-narrow" style="padding:0;">
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Do I have to sign a contract?
+            <span class="faq-plus">+</span>
+          </div>
+          <div class="faq-a">
+            <p>No contracts, ever. Month-to-month subscription. Cancel anytime from your dashboard — no cancellation fees, no questions asked, no runaround.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            What counts as a job post?
+            <span class="faq-plus">+</span>
+          </div>
+          <div class="faq-a">
+            <p>Each voice memo submission counts as one post. One submission generates all three outputs — blog, Google Business, and social — and uses one of your 30 monthly posts. At $97/month that's about $3.23 per complete content set. Most contractors would spend 30–60 minutes writing just one of these manually.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            What happens if I hit my 30-post limit?
+            <span class="faq-plus">+</span>
+          </div>
+          <div class="faq-a">
+            <p>You'll get a notification when you're getting close. When you hit the limit, you wait until your next billing cycle resets. No overage charges, no surprise fees. If you're regularly maxing out and want more, reach out — we'll work something out.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Do I need to connect any accounts or platforms?
+            <span class="faq-plus">+</span>
+          </div>
+          <div class="faq-a">
+            <p>Nothing. No Google API, no Instagram login, no WordPress plugin. You sign up, set your trade and location, and start recording. When your content is ready, you copy it from your dashboard and paste it wherever you want. You stay in full control of your own platforms.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            What if I want to try it before committing?
+            <span class="faq-plus">+</span>
+          </div>
+          <div class="faq-a">
+            <p>Sign up, document your first job, and see the output for yourself. If it's not worth every dollar before your next billing date, cancel. That's the only guarantee we need to offer — the work speaks for itself.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Will the price ever go up?
+            <span class="faq-plus">+</span>
+          </div>
+          <div class="faq-a">
+            <p>We'll always be upfront if anything changes. Early customers lock in the rate they signed up at for as long as they stay subscribed. If we ever adjust pricing, existing subscribers keep their current plan.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA -->
+<section class="alt-bg cta-section">
+  <div class="container">
+    <div class="section-label" style="text-align:center;">Ready?</div>
+    <h2>Start documenting your next job.<br><span class="lime">You've already done the hard part.</span></h2>
+    <p>Pick up your phone after the next job, hit record, and have three pieces of content ready before you're back in the truck.</p>
+    <div class="cta-row">
+      <a href="get-started.html" class="btn-lime">Get Started Now →</a>
+      <a href="how-it-works.html" class="btn-outline">See How It Works</a>
+    </div>
+    <div class="cta-fine">$97/month &nbsp;·&nbsp; Cancel anytime &nbsp;·&nbsp; Setup in &lt;10 min</div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">Trades<span>Snap</span>.us</div>
+        <p class="footer-tagline">Turn every job into a Google-ranking, customer-attracting content machine. Built for contractors, not marketers.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="tips.html">Tips &amp; Best Practices</a>
+        <a href="get-started.html">Get Started</a>
+        <a href="#">Login</a>
+      </div>
+      <div class="footer-col">
+        <h5>Trades</h5>
+        <a href="for-plumbers.html">Plumbing</a>
+        <a href="for-electrical.html">Electrical</a>
+        <a href="for-hvac.html">HVAC</a>
+        <a href="for-roofing.html">Roofing</a>
+        <a href="for-contractor.html">General Contracting</a>
+        <a href="for-remodeling.html">Remodeling</a>
+        <a href="for-windows.html">Windows &amp; Doors</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="mailto:hello@tradessnap.us">Contact Us</a>
+        <a href="tel:6145943904">(614) 594-3904</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 TradesSnap.us · A <a href="https://TradesXL.US" target="_blank" rel="noopener noreferrer" style="color:inherit;">TradesXL.US</a> Company — All rights reserved.</p>
+      <p>Built for the trades. Powered by AI.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+
+</body>
+</html>

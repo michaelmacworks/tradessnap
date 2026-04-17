@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TradesSnap.us — Turn Job Site Photos Into Local Leads</title>
+  <meta name="description" content="Contractors use TradesSnap to generate Google Business posts from job site photos in under 60 seconds — without writing a word. Try free for 7 days.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tradessnap.us">
+  <meta property="og:title" content="TradesSnap.us — Turn Job Site Photos Into Local Leads">
+  <meta property="og:description" content="AI-generated Google Business posts for contractors. Pick your trade. Add photos. Get a ready-to-post update in seconds.">
+  <meta property="og:image" content="https://tradessnap.us/og-image.jpg">
+  <meta property="og:site_name" content="TradesSnap.us">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://tradessnap.us">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0D0F0C; color: #fff; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ─── TOKENS ─── */
+    :root {
+      --black:    #0D0F0C;
+      --dark:     #111410;
+      --card:     #181C15;
+      --border:   #252A20;
+      --lime:     #FFD700;
+      --lime-dim: #C9A800;
+      --white:    #FFFFFF;
+      --off:      #edece4;
+      --muted:    #b8c4ba;
+      --radius:   10px;
+      /* Wizard accent — amber, slightly warmer than lime for the white card context */
+      --amber:    #F59E0B;
+      --amber-lt: #FBBF24;
+    }
+
+    /* ─── TYPE ─── */
+    h1 { font-size: clamp(2.6rem, 6vw, 4.8rem); font-weight: 900; line-height: 1.0; letter-spacing: -0.04em; }
+    h2 { font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.03em; }
+    h3 { font-size: 1.1rem; font-weight: 700; }
+    p  { color: #f0efe9; }
+    .lime  { color: var(--lime); }
+    .muted { color: var(--muted); }
+
+    /* ─── LAYOUT ─── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--lime); border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 100px; padding: 4px 14px; margin-bottom: 16px;
+    }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-header p { color: var(--muted); font-size: 1.05rem; max-width: 580px; margin: 12px auto 0; }
+    section { padding: 100px 0; }
+    .alt-bg { background: var(--dark); }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 15px 28px; border-radius: var(--radius);
+      font-weight: 800; font-size: 0.95rem; cursor: pointer;
+      transition: all 0.2s ease; border: none; letter-spacing: -0.01em;
+      font-family: inherit;
+    }
+    .btn-lime  { background: var(--lime); color: #0D0F0C; }
+    .btn-lime:hover { background: #ffe033; transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.2); }
+    .btn-outline:hover { border-color: var(--lime); color: var(--lime); }
+    .btn-lg { padding: 18px 36px; font-size: 1rem; border-radius: 12px; }
+
+    /* ─── NAV ─── */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(13,15,12,0.96); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 70px; max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+    .nav-logo { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.04em; }
+    .nav-logo span { color: var(--lime); }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-links a { color: var(--muted); font-size: 0.85rem; font-weight: 600; padding: 7px 14px; border-radius: 7px; transition: color 0.2s, background 0.2s; }
+    .nav-links a:hover { color: white; background: rgba(255,255,255,0.06); }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .nav-login { color: var(--muted); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-login:hover { color: white; }
+    .nav-divider { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+    .nav-hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; margin-left: 8px; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: all 0.2s ease; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-mobile-menu { display: none; flex-direction: column; background: rgba(13,15,12,0.98); border-top: 1px solid var(--border); padding: 16px 20px 24px; gap: 4px; }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu a { color: var(--muted); font-size: 0.95rem; font-weight: 600; padding: 12px 4px; border-bottom: 1px solid var(--border); transition: color 0.15s; }
+    .nav-mobile-menu a:hover { color: var(--white); }
+    .nav-mobile-menu a:last-child { border-bottom: none; }
+    .nav-mobile-login { color: var(--white) !important; font-weight: 800 !important; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.8rem !important; }
+    .nav-mobile-cta { margin-top: 12px; display: block; text-align: center; background: var(--lime); color: #0D0F0C !important; font-weight: 800 !important; padding: 14px !important; border-radius: 10px; font-size: 0.9rem !important; border-bottom: none !important; }
+    @media (max-width: 768px) { .nav-links, .nav-login, .nav-divider { display: none !important; } .nav-hamburger { display: flex; } }
+    @media (max-width: 480px) { .nav-right .btn { display: none; } }
+
+    /* ═══════════════════════════════════════════
+       HERO — full-bleed photo + wizard card
+    ═══════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 80px 24px 60px;
+    }
+    /* Background photo layer */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: opacity 0.6s ease;
+    }
+    /* Dark gradient overlay */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+        rgba(0,0,0,0.82) 0%,
+        rgba(0,0,0,0.70) 40%,
+        rgba(0,0,0,0.88) 100%);
+    }
+    /* Centered text block above the card */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,215,0,0.10);
+      border: 1px solid rgba(255,215,0,0.22);
+      border-radius: 100px;
+      padding: 6px 16px;
+      margin-bottom: 22px;
+    }
+    .hero-badge-dot {
+      width: 7px; height: 7px;
+      background: var(--lime);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+    .hero-badge span { font-size: 0.78rem; font-weight: 700; color: rgba(255,215,0,0.85); letter-spacing: 0.06em; }
+    .hero-content h1 { color: #fff; font-size: clamp(2rem, 5vw, 3.4rem); margin-bottom: 14px; }
+    .hero-content .hero-sub { font-size: 1rem; color: rgba(255,255,255,0.60); max-width: 520px; margin: 0 auto 20px; line-height: 1.65; }
+    /* Small disclaimer banner */
+    .hero-demo-note {
+      display: flex; align-items: flex-start; gap: 10px;
+      background: rgba(255,215,0,0.06);
+      border: 1px solid rgba(255,215,0,0.18);
+      border-radius: 12px;
+      padding: 11px 14px;
+      text-align: left;
+    }
+    .hero-demo-note .dn-arrow { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+    .hero-demo-note p { font-size: 0.8rem; color: rgba(255,215,0,0.65); line-height: 1.5; margin: 0; }
+    .hero-demo-note strong { color: var(--lime); }
+    .hero-footnote {
+      position: relative; z-index: 2;
+      font-size: 0.74rem;
+      color: rgba(255,255,255,0.35);
+      text-align: center;
+      margin-top: 14px;
+    }
+
+    /* ═══════════════════════════════════════════
+       WIZARD CARD
+    ═══════════════════════════════════════════ */
+    .wizard-card {
+      position: relative; z-index: 2;
+      background: #fff;
+      border-radius: 24px;
+      padding: 28px 28px 24px;
+      /* Elevated shadow against the dark hero */
+      box-shadow:
+        0 8px 48px rgba(0,0,0,0.65),
+        0 2px 8px rgba(0,0,0,0.3),
+        0 0 0 1px rgba(255,255,255,0.07);
+      max-width: 680px;
+      width: 100%;
+    }
+
+    /* ─── Progress Bar ─── */
+    .wiz-progress { margin-bottom: 24px; }
+    .wiz-steps-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .wiz-step-lbl {
+      font-size: 0.68rem; font-weight: 700; color: #aaa;
+      text-align: center; flex: 1; letter-spacing: 0.04em;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+    }
+    .wiz-step-lbl.active { color: var(--amber); font-weight: 800; }
+    .wiz-step-lbl.done  { color: var(--amber); }
+    .wiz-step-lbl .lbl-dot {
+      width: 5px; height: 5px;
+      background: var(--amber); border-radius: 50%;
+      display: none;
+    }
+    .wiz-step-lbl.active .lbl-dot { display: block; }
+    .wiz-track { height: 5px; background: #e5e7eb; border-radius: 5px; overflow: hidden; }
+    .wiz-fill { height: 100%; background: var(--amber); border-radius: 5px; transition: width 0.4s ease; width: 0%; }
+    .wiz-pct { font-size: 0.67rem; color: #aaa; text-align: right; margin-top: 4px; }
+
+    /* ─── Step panels — show only active ─── */
+    .wiz-step { display: none; }
+    .wiz-step.active {
+      display: block;
+      animation: wizFadeIn 0.25s ease;
+    }
+    @keyframes wizFadeIn {
+      from { opacity: 0; transform: translateX(14px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .wiz-step h3 { font-size: 1.25rem; font-weight: 800; color: #111; margin-bottom: 3px; }
+    .wiz-sub { font-size: 0.84rem; color: #888; margin-bottom: 18px; }
+
+    /* ─── Trade Icon Grid (Step 1) ─── */
+    .wiz-lbl {
+      font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.1em; color: #9ca3af; margin-bottom: 10px;
+    }
+    .trade-icon-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .trade-icon-btn {
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
+      padding: 13px 6px;
+      border-radius: 14px;
+      border: 2px solid #1f2937;
+      background: #111827;
+      color: #d1d5db;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+    .trade-icon-btn:hover { border-color: #4b5563; color: #fff; transform: translateY(-2px); }
+    .trade-icon-btn.selected { border-color: var(--amber); background: var(--amber); color: #111; }
+    .trade-icon-btn .t-icon { font-size: 1.25rem; }
+    .trade-icon-btn .t-label { font-size: 0.68rem; font-weight: 700; text-align: center; line-height: 1.2; }
+
+    /* ─── Location Input ─── */
+    .wiz-location input {
+      width: 100%;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 0.9rem; color: #111;
+      background: #f9fafb;
+      font-family: inherit;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .wiz-location input:focus {
+      outline: none;
+      border-color: var(--amber);
+      box-shadow: 0 0 0 3px rgba(245,158,11,0.12);
+    }
+    .wiz-disclaimer { font-size: 0.7rem; color: #bbb; font-style: italic; margin-top: 6px; }
+
+    /* ─── Situation List (Step 2) ─── */
+    .demo-notice {
+      display: flex; align-items: center; gap: 8px;
+      background: #fffbeb; border: 1px solid #fde68a;
+      border-radius: 10px; padding: 9px 12px; margin-bottom: 14px;
+    }
+    .demo-notice p { font-size: 0.77rem; color: #78350f; margin: 0; }
+    .situation-list { display: flex; flex-direction: column; gap: 7px; max-height: 260px; overflow-y: auto; padding-right: 2px; }
+    .situation-btn {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 14px;
+      border-radius: 11px;
+      border: 1.5px solid #e5e7eb;
+      background: #fff; color: #374151;
+      font-size: 0.87rem; font-weight: 600;
+      cursor: pointer; transition: all 0.15s ease;
+      text-align: left; font-family: inherit; width: 100%;
+    }
+    .situation-btn:hover { border-color: #d1d5db; background: #f9fafb; color: #111; }
+    .situation-btn.selected { border-color: var(--amber); background: #fffbeb; color: #111; }
+    .sit-radio {
+      width: 16px; height: 16px; border-radius: 50%;
+      border: 2px solid #d1d5db; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s;
+    }
+    .situation-btn.selected .sit-radio { border-color: var(--amber); background: var(--amber); }
+    .sit-dot { width: 6px; height: 6px; border-radius: 50%; background: #fff; display: none; }
+    .situation-btn.selected .sit-dot { display: block; }
+
+    /* ─── Photo Gallery (Step 3) ─── */
+    .photo-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .photo-tile {
+      position: relative; border-radius: 12px; overflow: hidden;
+      border: 2px solid #e5e7eb; cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .photo-tile:hover { border-color: #d1d5db; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .photo-tile.selected { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(245,158,11,0.18); }
+    .photo-tile img { width: 100%; height: 96px; object-fit: cover; display: block; }
+    .photo-tile-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.06); transition: background 0.15s; pointer-events: none; }
+    .photo-tile.selected .photo-tile-overlay { background: rgba(245,158,11,0.12); }
+    .ptag {
+      position: absolute; top: 6px; left: 6px;
+      font-size: 0.58rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.06em; padding: 2px 8px; border-radius: 100px; color: #fff;
+    }
+    .ptag.before { background: #ef4444; }
+    .ptag.after  { background: #22c55e; }
+    .ptag.during { background: #f97316; }
+    .pcheck {
+      position: absolute; top: 6px; right: 6px;
+      width: 20px; height: 20px;
+      background: var(--amber); border-radius: 50%;
+      display: none; align-items: center; justify-content: center;
+      font-size: 0.65rem; color: #fff; font-weight: 900;
+    }
+    .photo-tile.selected .pcheck { display: flex; }
+    .ptile-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      font-size: 0.66rem; color: rgba(255,255,255,0.9);
+      background: rgba(0,0,0,0.52); padding: 4px 8px;
+      text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      pointer-events: none;
+    }
+    .photo-count-note { font-size: 0.77rem; color: var(--amber); font-weight: 600; }
+
+    /* ─── Wizard Nav (Back / Next) ─── */
+    .wiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+    .wiz-back {
+      background: none; border: none;
+      color: #9ca3af; font-size: 0.87rem; font-weight: 600;
+      cursor: pointer; font-family: inherit; transition: color 0.15s;
+    }
+    .wiz-back:hover { color: #374151; }
+    .wiz-next {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--amber); color: #111;
+      border: none; border-radius: 10px;
+      padding: 11px 22px;
+      font-size: 0.9rem; font-weight: 800;
+      cursor: pointer; font-family: inherit;
+      transition: all 0.15s;
+    }
+    .wiz-next:hover:not(:disabled) { background: var(--amber-lt); transform: translateY(-1px); }
+    .wiz-next:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    /* ─── Step 4 Output ─── */
+    .wiz-output-card {
+      background: #f9fafb; border: 1px solid #e5e7eb;
+      border-radius: 14px; overflow: hidden;
+      margin-bottom: 14px;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .wiz-out-header {
+      padding: 12px 14px; display: flex; align-items: center; gap: 10px;
+      border-bottom: 1px solid #e5e7eb; background: #fff;
+    }
+    .wiz-out-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: linear-gradient(135deg, #F59E0B, #D97706);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .wiz-out-biz  { font-size: 0.85rem; font-weight: 700; color: #111; }
+    .wiz-out-meta { font-size: 0.71rem; color: #9ca3af; }
+    .wiz-out-photos {
+      display: grid; grid-template-columns: 1fr 1fr;
+      height: 120px; gap: 2px;
+    }
+    .wiz-out-photo {
+      position: relative; display: flex; align-items: flex-end; padding: 6px;
+      background: #1a1a2e; background-size: cover; background-position: center;
+    }
+    .wiz-out-photo-tag {
+      font-size: 0.57rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.06em; color: rgba(255,255,255,0.9);
+      background: rgba(0,0,0,0.5); padding: 2px 6px; border-radius: 4px;
+    }
+    .wiz-out-text {
+      padding: 13px 14px; font-size: 0.84rem; color: #3c4043;
+      line-height: 1.6; white-space: pre-wrap; min-height: 60px;
+      background: #fff;
+    }
+    .wiz-out-hashtags { color: #1a73e8; }
+    .wiz-out-footer { display: flex; border-top: 1px solid #e5e7eb; background: #fff; }
+    .wiz-out-action { flex: 1; padding: 10px; text-align: center; font-size: 0.78rem; color: #70757a; font-weight: 600; }
+    .wiz-out-action + .wiz-out-action { border-left: 1px solid #e5e7eb; }
+    .wiz-output-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+    .wiz-copy-btn {
+      padding: 10px 18px; border-radius: 10px;
+      background: rgba(245,158,11,0.08); color: #92400e;
+      border: 1px solid rgba(245,158,11,0.3);
+      font-size: 0.85rem; font-weight: 800;
+      font-family: inherit; cursor: pointer; transition: all 0.15s;
+    }
+    .wiz-copy-btn:hover { background: rgba(245,158,11,0.15); }
+    /* CTA card inside step 4 */
+    .wiz-cta-card {
+      background: #111827; border: 1px solid #374151;
+      border-radius: 14px; padding: 20px; text-align: center;
+    }
+    .wiz-cta-card p { font-size: 0.88rem; color: #d1d5db; margin-bottom: 12px; }
+    .wiz-cta-card strong { color: #fff; }
+    .wiz-cta-card a {
+      display: block; background: var(--amber); color: #111;
+      font-weight: 800; padding: 13px; border-radius: 10px;
+      font-size: 0.9rem; transition: background 0.15s;
+    }
+    .wiz-cta-card a:hover { background: var(--amber-lt); }
+    .wiz-cta-note { font-size: 0.71rem; color: #6b7280; margin-top: 8px; }
+
+    /* ─── STATS STRIP ─── */
+    .stats-strip { background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 28px 0; }
+    .stats-inner { max-width: 1160px; margin: 0 auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-around; }
+    .stat-item { text-align: center; padding: 0 24px; }
+    .stat-item + .stat-item { border-left: 1px solid var(--border); }
+    .stat-num { font-size: 2.2rem; font-weight: 900; color: var(--lime); line-height: 1; }
+    .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 4px; font-weight: 600; }
+
+    /* ─── PAIN → PROMISE ─── */
+    .pp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+    .pp-card { background: var(--card); padding: 36px 30px; }
+    .pp-card.hl { background: #141912; }
+    .pp-icon { font-size: 1.8rem; margin-bottom: 16px; }
+    .pp-eyebrow { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .pp-before { font-size: 0.92rem; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+    .pp-divider { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .pp-divider-line { flex: 1; height: 1px; background: var(--border); }
+    .pp-divider-icon { color: var(--lime); font-size: 1rem; }
+    .pp-after { font-size: 0.95rem; color: var(--off); font-weight: 700; line-height: 1.55; }
+
+    /* ─── HOW IT WORKS ─── */
+    .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+    .step-card { background: var(--card); padding: 36px 28px; transition: background 0.2s; }
+    .step-card:hover { background: #1c211a; }
+    .step-num { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--lime); color: var(--lime); font-weight: 900; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+    .step-icon { font-size: 1.6rem; margin-bottom: 12px; }
+    .step-card h3 { margin-bottom: 8px; }
+    .step-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .testimonial-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px; transition: border-color 0.2s; }
+    .testimonial-card:hover { border-color: rgba(255,215,0,0.3); }
+    .stars { color: var(--lime); font-size: 0.9rem; margin-bottom: 14px; letter-spacing: 2px; }
+    .testimonial-quote { font-size: 0.92rem; color: var(--off); line-height: 1.65; margin-bottom: 20px; font-style: italic; }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .author-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,215,0,0.12); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .author-name { font-size: 0.88rem; font-weight: 700; color: var(--off); }
+    .author-role { font-size: 0.75rem; color: var(--muted); margin-top: 1px; }
+
+    /* ─── CTA SECTION ─── */
+    .cta-section { text-align: center; padding: 100px 0; }
+    .cta-inner { max-width: 640px; margin: 0 auto; padding: 0 28px; }
+    .cta-section h2 { margin-bottom: 16px; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .cta-note { margin-top: 20px; font-size: 0.82rem; color: var(--muted); }
+    .cta-note span { color: var(--lime); font-weight: 700; }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--dark); border-top: 1px solid var(--border); padding: 60px 0 32px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand .logo { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.04em; display: block; margin-bottom: 12px; }
+    .footer-brand .logo span { color: var(--lime); }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; max-width: 280px; }
+    .footer-col h4 { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--off); margin-bottom: 16px; }
+    .footer-col a { display: block; color: var(--muted); font-size: 0.85rem; margin-bottom: 10px; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--lime); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; color: var(--muted); flex-wrap: wrap; gap: 12px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { color: var(--muted); font-size: 0.78rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--lime); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      section { padding: 64px 0; }
+      .hero { padding: 70px 16px 48px; }
+      .wizard-card { padding: 20px 16px 18px; border-radius: 18px; }
+      .trade-icon-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .photo-gallery { grid-template-columns: repeat(2, 1fr); }
+      .pp-grid { grid-template-columns: 1fr; }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-inner { flex-direction: column; gap: 0; }
+      .stat-item + .stat-item { border-left: none; border-top: 1px solid var(--border); padding-top: 20px; margin-top: 20px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 480px) {
+      h2 { font-size: clamp(1.6rem, 6vw, 2.4rem) !important; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer-bottom { flex-direction: column; gap: 16px; }
+      .wiz-out-photos { height: 90px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     NAV
+═══════════════════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Trades<span>Snap</span>.us</a>
+    <div class="nav-links">
+      <a href="how-it-works.html">How It Works</a>
+      <a href="#demo">Try Demo</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="case-studies.html">Results</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav-right">
+      <a href="login.html" class="nav-login">LOGIN</a>
+      <div class="nav-divider"></div>
+      <a href="get-started.html" class="btn btn-lime" style="padding:10px 20px;font-size:0.85rem;border-radius:8px;">Start Free Trial</a>
+      <button class="nav-hamburger" id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="nav-mobile-menu" id="navMobileMenu">
+    <a href="login.html" class="nav-mobile-login">Login to your account</a>
+    <a href="how-it-works.html">How It Works</a>
+    <a href="#demo">Try the Demo</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="case-studies.html">Results</a>
+    <a href="about.html">About</a>
+    <a href="get-started.html" class="nav-mobile-cta">Start Free Trial — No Card Required →</a>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════
+     HERO — full-bleed worksite photo + wizard
+═══════════════════════════════════════════ -->
+<div class="hero" id="demo">
+  <div class="hero-bg" id="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <!-- Headline block -->
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      <span>Your Job. Your Ranking. 60 Seconds.</span>
+    </div>
+    <h1>Turn Every Job Into a<br><span class="lime">Google Ranking</span></h1>
+    <p class="hero-sub">Pick your trade, describe the job, choose photos — and get SEO-rich Google Business content in seconds.</p>
+    <div class="hero-demo-note">
+      <span class="dn-arrow">👇</span>
+      <p><strong>This is a live demo</strong> using sample data so you can see exactly how it works. When you create a free account, you'll use your own voice memos, real job details, and photos from your phone.</p>
+    </div>
+  </div>
+
+  <!-- ── WIZARD CARD ── -->
+  <div class="wizard-card">
+
+    <!-- Progress bar -->
+    <div class="wiz-progress">
+      <div class="wiz-steps-row">
+        <span class="wiz-step-lbl active" id="wlbl-1">Your Trade<span class="lbl-dot"></span></span>
+        <span class="wiz-step-lbl"        id="wlbl-2">Job Details<span class="lbl-dot"></span></span>
+        <span class="wiz-step-lbl"        id="wlbl-3">Photos<span class="lbl-dot"></span></span>
+        <span class="wiz-step-lbl"        id="wlbl-4">Your Post<span class="lbl-dot"></span></span>
+      </div>
+      <div class="wiz-track"><div class="wiz-fill" id="wiz-fill"></div></div>
+      <div class="wiz-pct" id="wiz-pct">0% complete</div>
+    </div>
+
+    <!-- ── Step 1: Trade + Location ── -->
+    <div class="wiz-step active" id="wstep-1">
+      <h3>See the app in action</h3>
+      <p class="wiz-sub">Pick your trade and location to kick off the demo.</p>
+
+      <div class="wiz-lbl">Your Trade</div>
+      <div class="trade-icon-grid" id="wiz-trade-grid"><!-- JS renders --></div>
+
+      <div class="wiz-lbl" style="margin-top:14px;">City &amp; State</div>
+      <div class="wiz-location">
+        <input type="text" id="wiz-location-input" placeholder="e.g. Austin, TX" oninput="wizCheckStep1()" />
+      </div>
+      <p class="wiz-disclaimer">In your real account, your trade and location are already saved to your profile.</p>
+
+      <div class="wiz-nav">
+        <div></div>
+        <button class="wiz-next" id="wiz-next-1" onclick="wizGoTo(2)" disabled>Next →</button>
+      </div>
+    </div>
+
+    <!-- ── Step 2: Job Situation ── -->
+    <div class="wiz-step" id="wstep-2">
+      <h3>What was the job?</h3>
+      <p class="wiz-sub">Pick the job type that fits what you finished.</p>
+
+      <div class="demo-notice">
+        <p>🎭 <strong>Demo only</strong> — in the real app, your trade and location are already saved to your profile.</p>
+      </div>
+
+      <div class="situation-list" id="wiz-situation-list"><!-- JS renders --></div>
+
+      <div class="wiz-nav">
+        <button class="wiz-back" onclick="wizGoTo(1)">← Back</button>
+        <button class="wiz-next" id="wiz-next-2" onclick="wizGoTo(3)" disabled>Next →</button>
+      </div>
+    </div>
+
+    <!-- ── Step 3: Photo Gallery ── -->
+    <div class="wiz-step" id="wstep-3">
+      <h3>Choose your photos</h3>
+      <p class="wiz-sub">Select at least one before and one after.</p>
+
+      <div class="demo-notice" style="margin-bottom:12px;">
+        <p>📸 In your real account, photos you upload are auto-tagged
+          <strong style="color:#ef4444;">before</strong> or <strong style="color:#22c55e;">after</strong> — so your post shows the full transformation.</p>
+      </div>
+
+      <div class="photo-gallery" id="wiz-photo-gallery"><!-- JS renders --></div>
+      <div class="photo-count-note" id="wiz-photo-count"></div>
+      <p class="wiz-disclaimer" style="margin-top:6px;">In your real account, you upload these directly from your iPhone camera roll.</p>
+
+      <div class="wiz-nav">
+        <button class="wiz-back" onclick="wizGoTo(2)">← Back</button>
+        <button class="wiz-next" id="wiz-next-3" onclick="wizGenerate()" disabled>✨ Generate My Post</button>
+      </div>
+    </div>
+
+    <!-- ── Step 4: Output ── -->
+    <div class="wiz-step" id="wstep-4">
+      <h3>Here's what your post looks like 👀</h3>
+      <p class="wiz-sub">Sample generated from demo data — shows the real format and quality.</p>
+
+      <!-- Simulated GBP post card -->
+      <div class="wiz-output-card">
+        <div class="wiz-out-header">
+          <div class="wiz-out-avatar" id="wiz-out-avatar">🔧</div>
+          <div>
+            <div class="wiz-out-biz">Your Business</div>
+            <div class="wiz-out-meta">Google Business Profile &nbsp;·&nbsp; Just now</div>
+          </div>
+        </div>
+        <div class="wiz-out-photos">
+          <div class="wiz-out-photo" id="wiz-out-before"><span class="wiz-out-photo-tag">Before</span></div>
+          <div class="wiz-out-photo" id="wiz-out-after" style="background-color:#0d2b1b;"><span class="wiz-out-photo-tag">After</span></div>
+        </div>
+        <div class="wiz-out-text" id="wiz-out-text"></div>
+        <div class="wiz-out-footer">
+          <div class="wiz-out-action">👍 Like</div>
+          <div class="wiz-out-action">💬 Comment</div>
+          <div class="wiz-out-action">📤 Share</div>
+        </div>
+      </div>
+
+      <div class="wiz-output-actions">
+        <button class="wiz-copy-btn" id="wiz-copy-btn" onclick="wizCopy()">📋 Copy Post Text</button>
+      </div>
+
+      <!-- Signup CTA -->
+      <div class="wiz-cta-card">
+        <p>Ready to do this with <strong>your own jobs?</strong></p>
+        <a href="get-started.html">Create Your Free Account — No Credit Card</a>
+        <div class="wiz-cta-note">7-day free trial · Use your own voice memos &amp; photos</div>
+      </div>
+
+      <div class="wiz-nav" style="margin-top:16px;">
+        <button class="wiz-back" onclick="wizGoTo(3)">← Back</button>
+        <div></div>
+      </div>
+    </div>
+
+  </div><!-- /wizard-card -->
+
+  <p class="hero-footnote">No credit card &nbsp;·&nbsp; Try free for 7 days &nbsp;·&nbsp; Works on any phone</p>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     STATS STRIP
+═══════════════════════════════════════════ -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">2,400+</div>
+      <div class="stat-label">Posts Generated</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">18</div>
+      <div class="stat-label">Trades Supported</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">&lt; 60s</div>
+      <div class="stat-label">Average Generation Time</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">7 days</div>
+      <div class="stat-label">Free — No Card Required</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     PAIN → PROMISE
+═══════════════════════════════════════════ -->
+<section class="alt-bg">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">The Shift</span>
+      <h2>Stop Losing Jobs to<br><span class="lime">Contractors Who Post More</span></h2>
+      <p>Your work is better. But if they're showing up on Google and you're not — they're getting the call.</p>
+    </div>
+    <div class="pp-grid">
+      <div class="pp-card">
+        <div class="pp-icon">⏱️</div>
+        <div class="pp-eyebrow">Without TradesSnap</div>
+        <div class="pp-before">You spend 20+ minutes writing a post that sounds generic — or skip it entirely because you're exhausted after a long job.</div>
+        <div class="pp-divider"><div class="pp-divider-line"></div><div class="pp-divider-icon">↓</div><div class="pp-divider-line"></div></div>
+        <div class="pp-after">60 seconds. Your words. Your photos. Your post. Done on the job site before you load the truck.</div>
+      </div>
+      <div class="pp-card hl">
+        <div class="pp-icon">📍</div>
+        <div class="pp-eyebrow">Without TradesSnap</div>
+        <div class="pp-before">You do great work in the neighborhood but nobody knows you exist. They call whoever shows up first on Google.</div>
+        <div class="pp-divider"><div class="pp-divider-line"></div><div class="pp-divider-icon">↓</div><div class="pp-divider-line"></div></div>
+        <div class="pp-after">Every job becomes a local signal. You show up when neighbors search for the exact work you just finished.</div>
+      </div>
+      <div class="pp-card">
+        <div class="pp-icon">📈</div>
+        <div class="pp-eyebrow">Without TradesSnap</div>
+        <div class="pp-before">You post once in a while, then go quiet for weeks. Inconsistency kills your visibility on Google Business.</div>
+        <div class="pp-divider"><div class="pp-divider-line"></div><div class="pp-divider-icon">↓</div><div class="pp-divider-line"></div></div>
+        <div class="pp-after">Post after every job without thinking about it. Steady presence. More calls. More local leads.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     HOW IT WORKS
+═══════════════════════════════════════════ -->
+<section class="alt-bg">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">How It Works</span>
+      <h2>Four Steps. Under 60 Seconds.<br><span class="lime">Ready to Post.</span></h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-icon">🔧</div>
+        <h3>Pick Your Trade</h3>
+        <p>Tell TradesSnap what kind of work you do. The language, tone, and local keywords are all tailored to your trade automatically.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-icon">🎯</div>
+        <h3>Pick the Job Type</h3>
+        <p>Select the specific job you finished. The more specific you get, the better the SEO signal — Google rewards niche, local detail.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-icon">📷</div>
+        <h3>Add Your Photos</h3>
+        <p>Upload a before and after shot straight from your phone. No editing, no filters — just the real work you just finished.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-icon">📱</div>
+        <h3>Copy &amp; Post</h3>
+        <p>Your Google Business update is ready — trade-specific copy, local keywords, and hashtags included. Paste and publish in seconds.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     TESTIMONIALS
+═══════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Results</span>
+      <h2>Contractors Are Getting<br><span class="lime">More Local Calls</span></h2>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-quote">"I used to go weeks without posting because I didn't know what to say. Now I post after every job and my Google Business profile actually brings in calls."</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">🔧</div>
+          <div>
+            <div class="author-name">Dave M.</div>
+            <div class="author-role">Plumber · Columbus, OH</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-quote">"Three calls in the first two weeks from Google Business. I've had that profile for 4 years and never got a call from it until TradesSnap."</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">⚡</div>
+          <div>
+            <div class="author-name">Marcus T.</div>
+            <div class="author-role">Electrician · Westerville, OH</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-quote">"Takes me less than a minute on the job site. My crew thinks I hired a marketing person. I didn't — this is just the app."</div>
+        <div class="testimonial-author">
+          <div class="author-avatar">🏠</div>
+          <div>
+            <div class="author-name">Kevin R.</div>
+            <div class="author-role">Roofer · Hilliard, OH</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     FINAL CTA
+═══════════════════════════════════════════ -->
+<section class="cta-section alt-bg">
+  <div class="container">
+    <div class="cta-inner">
+      <span class="section-label">Get Started</span>
+      <h2>Start Posting. Start<br><span class="lime">Getting Found.</span></h2>
+      <p style="color:var(--muted);font-size:1.05rem;margin-bottom:40px;">Every job you finish is a chance to show up where your next customer is searching. Don't leave it on the table.</p>
+      <div class="cta-buttons">
+        <a href="get-started.html" class="btn btn-lime btn-lg">Start Free — 7 Days</a>
+        <a href="how-it-works.html" class="btn btn-outline btn-lg">See How It Works</a>
+      </div>
+      <div class="cta-note"><span>No credit card required.</span> Cancel anytime. Works on any phone.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">Trades<span>Snap</span>.us</span>
+        <p>AI-powered marketing automation built for home service contractors. Turn your best work into your best marketing — in under 60 seconds per job.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="case-studies.html">Results</a>
+        <a href="get-started.html">Start Free Trial</a>
+      </div>
+      <div class="footer-col">
+        <h4>Trades</h4>
+        <a href="for-roofing.html">Roofing</a>
+        <a href="for-plumbers.html">Plumbing</a>
+        <a href="for-electrical.html">Electrical</a>
+        <a href="for-hvac.html">HVAC</a>
+        <a href="for-remodeling.html">Remodeling</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="blog.html">Blog</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 TradesSnap.us — All rights reserved.</span>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  DATA
+// ═══════════════════════════════════════════════════════════════
+
+// Hero background photos — local assets pulled from images/ subfolders.
+// These rotate as the fullbleed background behind the wizard card.
+const HERO_PHOTOS = [
+  'images/roofing/roofing-general-1.webp',
+  'images/roofing/roofing-general-2.webp',
+  'images/hvac/hvac-general-1.webp',
+  'images/hvac/hvac-general-3.webp',
+  'images/electrical/electrical-general-1.webp',
+  'images/electrical/electrical-general-2.webp',
+  'images/landscaping/landscaping-general-1.webp',
+  'images/contractor/contractor-general-1.webp',
+];
+
+// Trade definitions — id, display label, emoji icon
+const WIZ_TRADES = [
+  { id: 'roofing',     label: 'Roofing',            icon: '🏠' },
+  { id: 'hvac',        label: 'HVAC',               icon: '🌡️' },
+  { id: 'electrical',  label: 'Electrical',         icon: '⚡' },
+  { id: 'plumbing',    label: 'Plumbing',           icon: '💧' },
+  { id: 'remodeling',  label: 'Home Renovation',    icon: '🔨' },
+  { id: 'landscaping', label: 'Landscaping',        icon: '🌿' },
+  { id: 'painting',    label: 'Painting',           icon: '🖌️' },
+  { id: 'contractor',  label: 'General Contractor', icon: '🏗️' },
+];
+
+// Job situations per trade — shown in Step 2
+const WIZ_SITUATIONS = {
+  roofing:     ['Shingle roof replacement', 'Metal roof install', 'Roof repair / patch'],
+  hvac:        ['AC replacement', 'Furnace install', 'HVAC tune-up'],
+  electrical:  ['Panel upgrade', 'EV charger install', 'Ceiling fan install'],
+  plumbing:    ['Water heater replacement', 'Bathroom rough-in', 'Leak repair'],
+  remodeling:  ['Kitchen remodel', 'Bathroom remodel', 'Basement finish'],
+  landscaping: ['Lawn overhaul', 'Patio / hardscape install', 'Tree removal'],
+  painting:    ['Interior repaint', 'Exterior repaint', 'Cabinet painting'],
+  contractor:  ['Full home remodel', 'Garage conversion', 'Fence installation'],
+};
+
+// Sample before/after photos keyed by situation.
+// All non-painting photos use local assets from images/ folder.
+// Painting uses Unsplash (no local painting folder exists yet).
+const WIZ_PHOTOS = {
+  // ── ROOFING ──────────────────────────────────────────────────────
+  'Shingle roof replacement': [
+    { id: 1, type: 'before', src: 'images/roofing/roofing-before-1.webp', label: 'Before — worn shingles' },
+    { id: 2, type: 'after',  src: 'images/roofing/roofing-after-1.webp',  label: 'After — new shingle roof' },
+    { id: 3, type: 'before', src: 'images/roofing/roofing-before-2.webp', label: 'Before — curling edges' },
+    { id: 4, type: 'after',  src: 'images/roofing/roofing-after-2.webp',  label: 'After — clean install' },
+  ],
+  'Metal roof install': [
+    { id: 1, type: 'before', src: 'images/roofing/roofing-before-3.webp', label: 'Before — old asphalt roof' },
+    { id: 2, type: 'after',  src: 'images/roofing/roofing-after-3.webp',  label: 'After — standing seam metal' },
+    { id: 3, type: 'before', src: 'images/roofing/roofing-before-4.webp', label: 'Before — tear-off' },
+    { id: 4, type: 'after',  src: 'images/roofing/roofing-after-4.webp',  label: 'After — metal complete' },
+  ],
+  'Roof repair / patch': [
+    // User's own real photos — highest priority for authenticity
+    { id: 1, type: 'before', src: 'images/XTRAS/Roofing/roofing-patch-before.png', label: 'Before — damaged section' },
+    { id: 2, type: 'after',  src: 'images/XTRAS/Roofing/roofing-patch-after.png',  label: 'After — repaired and sealed' },
+    { id: 3, type: 'before', src: 'images/roofing/roofing-before-5.webp', label: 'Before — flashing failure' },
+    { id: 4, type: 'after',  src: 'images/roofing/roofing-after-5.webp',  label: 'After — flashing replaced' },
+  ],
+  // ── HVAC ─────────────────────────────────────────────────────────
+  'AC replacement': [
+    { id: 1, type: 'before', src: 'images/hvac/hvac-before-1.webp', label: 'Before — old AC unit' },
+    { id: 2, type: 'after',  src: 'images/hvac/hvac-after-1.webp',  label: 'After — new high-efficiency unit' },
+    { id: 3, type: 'before', src: 'images/hvac/hvac-before-2.webp', label: 'Before — failed condenser' },
+    { id: 4, type: 'after',  src: 'images/hvac/hvac-after-2.webp',  label: 'After — 16 SEER installed' },
+  ],
+  'Furnace install': [
+    { id: 1, type: 'before', src: 'images/hvac/hvac-before-3.webp', label: 'Before — old 80% furnace' },
+    { id: 2, type: 'after',  src: 'images/hvac/hvac-after-3.webp',  label: 'After — 96% two-stage furnace' },
+    { id: 3, type: 'before', src: 'images/hvac/hvac-before-4.webp', label: 'Before — cracked heat exchanger' },
+    { id: 4, type: 'after',  src: 'images/hvac/hvac-after-4.webp',  label: 'After — new venting complete' },
+  ],
+  'HVAC tune-up': [
+    { id: 1, type: 'before', src: 'images/hvac/hvac-before-1.webp', label: 'Before — dirty coils' },
+    { id: 2, type: 'after',  src: 'images/hvac/hvac-after-1.webp',  label: 'After — serviced and running' },
+    { id: 3, type: 'during', src: 'images/hvac/hvac-general-1.webp', label: 'During — tune-up in progress' },
+  ],
+  // ── ELECTRICAL ────────────────────────────────────────────────────
+  'Panel upgrade': [
+    { id: 1, type: 'before', src: 'images/electrical/electrical-before-1.webp', label: 'Before — old fuse panel' },
+    { id: 2, type: 'after',  src: 'images/electrical/electrical-after-1.webp',  label: 'After — 200A Square D panel' },
+    { id: 3, type: 'before', src: 'images/electrical/electrical-before-2.webp', label: 'Before — Federal Pacific' },
+    { id: 4, type: 'after',  src: 'images/electrical/electrical-after-2.webp',  label: 'After — new breakers, labeled' },
+  ],
+  'EV charger install': [
+    { id: 1, type: 'during', src: 'images/electrical/electrical-ev-during.png', label: 'During — running 50A circuit' },
+    { id: 2, type: 'after',  src: 'images/electrical/electrical-ev-after.png',  label: 'After — Level 2 charger mounted' },
+    { id: 3, type: 'before', src: 'images/electrical/electrical-before-3.webp', label: 'Before — standard outlet only' },
+  ],
+  'Ceiling fan install': [
+    { id: 1, type: 'before', src: 'images/electrical/electrical-ceilingfan-before.png', label: 'Before — wobbling old fan' },
+    { id: 2, type: 'after',  src: 'images/electrical/electrical-ceilingfan-after.png',   label: 'After — new fan, balanced' },
+    { id: 3, type: 'before', src: 'images/electrical/electrical-before-4.webp', label: 'Before — no brace in box' },
+  ],
+  // ── PLUMBING ──────────────────────────────────────────────────────
+  'Water heater replacement': [
+    { id: 1, type: 'before', src: 'images/plumbing/plumbing-before-1.webp',     label: 'Before — old tank heater' },
+    { id: 2, type: 'after',  src: 'images/XTRAS/electrical-water-heater-after-1.webp', label: 'After — new 50-gal unit' },
+    { id: 3, type: 'before', src: 'images/plumbing/plumbing-before-2.webp',     label: 'Before — rusted tank' },
+  ],
+  'Bathroom rough-in': [
+    { id: 1, type: 'before', src: 'images/plumbing/plumbing-before-3.webp', label: 'Before — unfinished basement' },
+    { id: 2, type: 'after',  src: 'images/plumbing/plumbing-after-5.webp',  label: 'After — rough-in complete' },
+    { id: 3, type: 'before', src: 'images/plumbing/plumbing-before-4.webp', label: 'Before — concrete core' },
+    { id: 4, type: 'during', src: 'images/plumbing/plumbing-general-1.webp', label: 'During — stack tie-in' },
+  ],
+  'Leak repair': [
+    { id: 1, type: 'before', src: 'images/plumbing/plumbing-before-5.webp', label: 'Before — supply line seeping' },
+    { id: 2, type: 'after',  src: 'images/plumbing/plumbing-general-2.webp', label: 'After — solid copper, dry' },
+    { id: 3, type: 'before', src: 'images/plumbing/plumbing-before-1.webp', label: 'Before — water damage visible' },
+  ],
+  // ── REMODELING ────────────────────────────────────────────────────
+  'Kitchen remodel': [
+    { id: 1, type: 'before', src: 'images/remodeler/remodeling-before-1.webp', label: 'Before — dated kitchen' },
+    { id: 2, type: 'after',  src: 'images/remodeler/remodeling-after-1.webp',  label: 'After — quartz and new cabinets' },
+    { id: 3, type: 'before', src: 'images/remodeler/remodeling-before-2.webp', label: 'Before — gut phase' },
+    { id: 4, type: 'after',  src: 'images/remodeler/remodeling-after-2.webp',  label: 'After — tile backsplash in' },
+  ],
+  'Bathroom remodel': [
+    { id: 1, type: 'before', src: 'images/remodeler/remodeling-before-3.webp', label: 'Before — builder-grade bath' },
+    { id: 2, type: 'after',  src: 'images/remodeler/remodeling-after-3.webp',  label: 'After — custom tile shower' },
+    { id: 3, type: 'before', src: 'images/remodeler/remodeling-before-4.webp', label: 'Before — full tear-out' },
+    { id: 4, type: 'after',  src: 'images/remodeler/remodeling-after-4.webp',  label: 'After — linear drain, niche' },
+  ],
+  'Basement finish': [
+    { id: 1, type: 'before', src: 'images/remodeler/remodeling-before-1.webp', label: 'Before — unfinished space' },
+    { id: 2, type: 'after',  src: 'images/remodeler/remodeling-after-1.webp',  label: 'After — framed and drywalled' },
+    { id: 3, type: 'during', src: 'images/remodeler/remodeling-general-1.webp', label: 'During — framing stage' },
+    { id: 4, type: 'after',  src: 'images/remodeler/remodeling-after-2.webp',  label: 'After — LVP and trim done' },
+  ],
+  // ── LANDSCAPING ───────────────────────────────────────────────────
+  'Lawn overhaul': [
+    { id: 1, type: 'before', src: 'images/landscaping/landscaping-before-1.webp', label: 'Before — dead lawn / dirt' },
+    { id: 2, type: 'after',  src: 'images/landscaping/landscaping-after-1.webp',  label: 'After — 4 pallets of sod' },
+    { id: 3, type: 'before', src: 'images/landscaping/landscaping-before-2.webp', label: 'Before — patchy and bare' },
+    { id: 4, type: 'after',  src: 'images/landscaping/landscaping-after-2.webp',  label: 'After — green and level' },
+  ],
+  'Patio / hardscape install': [
+    { id: 1, type: 'before', src: 'images/landscaping/landscaping-before-3.webp', label: 'Before — gravel and mud' },
+    { id: 2, type: 'after',  src: 'images/landscaping/landscaping-after-3.webp',  label: 'After — 400 sq ft of pavers' },
+    { id: 3, type: 'before', src: 'images/landscaping/landscaping-before-4.webp', label: 'Before — bare slope' },
+    { id: 4, type: 'after',  src: 'images/landscaping/landscaping-after-4.webp',  label: 'After — fire pit ring added' },
+  ],
+  'Tree removal': [
+    { id: 1, type: 'before', src: 'images/landscaping/landscaping-before-1.webp', label: 'Before — hazardous overhang' },
+    { id: 2, type: 'after',  src: 'images/landscaping/landscaping-after-1.webp',  label: 'After — site cleared' },
+    { id: 3, type: 'during', src: 'images/landscaping/landscaping-general-1.webp', label: 'During — rigging sections down' },
+  ],
+  // ── PAINTING (Unsplash — no local painting folder yet) ────────────
+  'Interior repaint': [
+    { id: 1, type: 'before', src: 'https://images.unsplash.com/photo-1562184647-3ae8c6f39e06?w=600&q=80', label: 'Before — builder beige walls' },
+    { id: 2, type: 'after',  src: 'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=600&q=80', label: 'After — fresh modern palette' },
+    { id: 3, type: 'during', src: 'https://images.unsplash.com/photo-1562753780-cd08bd9c77e3?w=600&q=80', label: 'During — cutting clean lines' },
+  ],
+  'Exterior repaint': [
+    { id: 1, type: 'before', src: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=80', label: 'Before — peeling exterior' },
+    { id: 2, type: 'after',  src: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80', label: 'After — freshly painted exterior' },
+    { id: 3, type: 'during', src: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80', label: 'During — power wash and prime' },
+  ],
+  'Cabinet painting': [
+    { id: 1, type: 'before', src: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80', label: 'Before — stained oak cabinets' },
+    { id: 2, type: 'after',  src: 'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=600&q=80', label: 'After — painted white, new hardware' },
+  ],
+  // ── CONTRACTOR ────────────────────────────────────────────────────
+  'Full home remodel': [
+    { id: 1, type: 'before', src: 'images/contractor/contractor-before-1.webp', label: 'Before — full demo phase' },
+    { id: 2, type: 'after',  src: 'images/contractor/contractor-after-1.webp',  label: 'After — complete renovation' },
+    { id: 3, type: 'before', src: 'images/contractor/contractor-before-2.webp', label: 'Before — gutted to studs' },
+    { id: 4, type: 'after',  src: 'images/contractor/contractor-after-2.webp',  label: 'After — turnkey handoff' },
+  ],
+  'Garage conversion': [
+    { id: 1, type: 'before', src: 'images/contractor/contractor-before-3.webp', label: 'Before — bare garage slab' },
+    { id: 2, type: 'after',  src: 'images/contractor/contractor-after-3.webp',  label: 'After — ADU / living space' },
+    { id: 3, type: 'during', src: 'images/contractor/contractor-general-1.webp', label: 'During — framing stage' },
+  ],
+  'Fence installation': [
+    { id: 1, type: 'before', src: 'images/contractor/contractor-before-4.webp', label: 'Before — old rotted fence' },
+    { id: 2, type: 'after',  src: 'images/contractor/contractor-after-4.webp',  label: 'After — new cedar fence' },
+    { id: 3, type: 'during', src: 'images/contractor/contractor-general-2.webp', label: 'During — post setting' },
+  ],
+  // ── FALLBACK ─────────────────────────────────────────────────────
+  default: [
+    { id: 1, type: 'before', src: 'images/contractor/contractor-before-1.webp', label: 'Before — job start' },
+    { id: 2, type: 'after',  src: 'images/contractor/contractor-after-1.webp',  label: 'After — finished' },
+  ],
+};
+
+// Avatar emojis per trade for the output GBP card
+const WIZ_AVATARS = {
+  roofing: '🏠', hvac: '🌡️', electrical: '⚡', plumbing: '💧',
+  remodeling: '🔨', landscaping: '🌿', painting: '🖌️', contractor: '🏗️',
+};
+
+// Hardcoded posts per situation.
+// [LOCATION] is replaced at runtime with whatever city the user typed (or "your area").
+const WIZ_POSTS = {
+  'Shingle roof replacement': `Just wrapped up a full shingle replacement in [LOCATION]. 28 squares of architectural shingles — customer had two active leaks going into this season. Found soft spots under the decking nobody expected, took an extra half-day to sister the rafters. Did it right. If your roof is over 15 years old and starting to curl at the edges, that's your sign.
+
+#Roofing #ShingleReplacement #[HASHTAG] #NewRoof #LocalContractor`,
+  'Metal roof install': `Metal roof install done in [LOCATION] — standing seam panels, full tear-off underneath. Customer was done patching. We measured twice, cut once, and it went on clean. No flashing issues, no exposed fasteners. This roof will outlast the house.
+
+#MetalRoof #StandingSeam #[HASHTAG] #Roofing #LongLastingRoof`,
+  'Roof repair / patch': `Quick but important one today in [LOCATION] — caught a flashing failure around the chimney before it became a living room ceiling situation. New step flashing, counterflashing, ice-and-water shield. Customer had been ignoring a water stain on their ceiling for two seasons. Not anymore.
+
+#RoofRepair #Flashing #[HASHTAG] #Roofing #LeakFixed`,
+  'AC replacement': `AC done in [LOCATION] — 20-year-old R-22 system finally gave up. Refrigerant leak, bad capacitor, condenser that sounded like a rock tumbler. New 16 SEER unit is in, charged, and cooling. Customer's house was at 83 degrees when we got there. They texted us two hours later — 71 and dropping.
+
+#HVAC #ACReplacement #[HASHTAG] #NewAC #SummerHeat`,
+  'Furnace install': `New furnace day in [LOCATION]. Old 80% unit was 22 years old and the heat exchanger had a crack — that's a carbon monoxide situation. New 96% two-stage is in, all new venting, condensate drain plumbed correctly this time. House is already warmer than it's been in years.
+
+#HVAC #FurnaceInstall #[HASHTAG] #Heating #EfficientHome`,
+  'HVAC tune-up': `Tune-up day in [LOCATION]. Found a failing capacitor on one unit, a clogged condensate line on another, and a filter that hadn't been changed since last year. Small calls like this prevent the big ones. If your AC is running but not quite keeping up — that's your sign to call.
+
+#HVACMaintenance #TuneUp #[HASHTAG] #PreventiveMaintenance #HVAC`,
+  'Panel upgrade': `Panel upgrade complete in [LOCATION] — 100-amp Federal Pacific to a fresh 200-amp Square D. Customer was tripping breakers weekly. Old panel was a fire hazard. New panel, new main disconnect, GFCI throughout the kitchen and baths, all to current code. Inspected and passed the same week.
+
+#Electrician #PanelUpgrade #[HASHTAG] #ElectricalSafety #200Amp`,
+  'EV charger install': `Level 2 EV charger install done in [LOCATION]. Ran a 50-amp dedicated circuit from the panel to the garage, properly secured and labeled. Customer was charging off a regular outlet — 30+ hours for a full charge. Now it's 8 hours overnight. Clean install, no conduit drama.
+
+#EVCharger #ElectricVehicle #[HASHTAG] #Electrician #Level2Charging`,
+  'Ceiling fan install': `Ceiling fan swap today in [LOCATION] — old fan was wobbling enough to feel it across the room. Pulled the box, found no brace — fan was hanging from drywall. Added a rated fan box, new wiring, remote control kit. Quiet, balanced, done right. Don't ignore a wobbling fan.
+
+#Electrician #CeilingFan #[HASHTAG] #SafetyFirst #ElectricalWork`,
+  'Water heater replacement': `Water heater replacement in [LOCATION] — 14-year-old tank finally gave out. Customer had been getting lukewarm showers for a month, assuming that was normal. New 50-gallon unit, expansion tank, drip leg and shut-off updated to current code. First real hot shower in a while for this family.
+
+#Plumber #WaterHeater #[HASHTAG] #Plumbing #HotWater`,
+  'Bathroom rough-in': `Bathroom addition rough-in wrapped up in [LOCATION] this week. New 3-piece bath in a basement — had to core through 6-inch concrete for the drain and tie into the existing stack without disrupting the two baths upstairs. Inspector signed off this morning. Tile goes in next week.
+
+#Plumber #BathroomRoughIn #[HASHTAG] #BasementBath #Plumbing`,
+  'Leak repair': `Leak call in [LOCATION] — customer thought it was the toilet. It wasn't. Supply line behind the wall had been seeping for months. Cut the access, replaced the flex connector with solid copper, patched the drywall. Dry in there now. If you see a water stain that appeared out of nowhere, don't wait.
+
+#Plumber #LeakRepair #[HASHTAG] #Plumbing #WaterDamage`,
+  'Kitchen remodel': `Kitchen remodel done in [LOCATION] — full gut. New cabinets, quartz counters, tile backsplash, updated plumbing and electrical throughout. Took 4 weeks. Customer said they'd been planning this for seven years. On time, on budget. That's just how we work.
+
+#KitchenRemodel #[HASHTAG] #HomeRenovation #KitchenDesign #Remodeling`,
+  'Bathroom remodel': `Bathroom remodel finished in [LOCATION]. Full tear-out — tile, fixtures, vanity, everything. Added a niche in the shower, upgraded to a linear drain, moved the toilet to fit a double vanity. The before photo looks like a rental. The after looks like a hotel.
+
+#BathroomRemodel #[HASHTAG] #HomeRenovation #TileWork #Remodeling`,
+  'Basement finish': `Basement finish done in [LOCATION] — 900 square feet of unfinished space turned into real living area. Framing, drywall, drop ceiling in the utility area, LVP flooring, egress window added for the bedroom. Permitted and inspected. Another family with a house that finally fits them.
+
+#BasementFinish #[HASHTAG] #HomeRenovation #BasementConversion #Remodeling`,
+  'Lawn overhaul': `Full lawn overhaul in [LOCATION] — scalped the existing grass, amended the soil, laid 4 pallets of sod. Looked like a dirt lot on Monday. Looks like a lawn on Friday. Customer has kids. They wanted a yard. Now they have one.
+
+#Landscaping #SodInstall #[HASHTAG] #LawnCare #YardTransformation`,
+  'Patio / hardscape install': `Patio install complete in [LOCATION] — 400 square feet of pavers, fire pit ring, and a step down from the back door. Graded the slope away from the house first, proper base compaction, then the pavers. No wobbling, no puddles. This backyard went from nothing to a place you actually want to be.
+
+#Landscaping #Hardscape #PatioInstall #[HASHTAG] #OutdoorLiving`,
+  'Tree removal': `Big tree removal in [LOCATION] — 80-foot oak, 10 feet from the house, split trunk that was getting worse every storm season. Rigged the top sections down in pieces, ground the stump, cleaned the whole site. Customer watched from the porch the whole time. Understandable.
+
+#TreeRemoval #Landscaping #[HASHTAG] #ArborWork #SafetyFirst`,
+  'Interior repaint': `Interior repaint wrapped up in [LOCATION] — 2,400 square feet, 14 rooms over 3 days. Customer picked a more modern palette than the builder-grade beige that had been there for 15 years. Cut lines are clean, trim is crisp. Same house, completely different feel.
+
+#Painting #InteriorPainting #[HASHTAG] #HouseRemodel #PaintingContractor`,
+  'Exterior repaint': `Exterior repaint done in [LOCATION] — full prep, power wash, prime all the bare spots, caulk every seam and gap, then two coats of Sherwin Williams Duration. Took 4 days. The house looks like the neighbors just built it. This is what proper prep looks like.
+
+#ExteriorPainting #Painting #[HASHTAG] #HousePainting #CurbAppeal`,
+  'Cabinet painting': `Cabinet painting finished in [LOCATION]. Degreased, sanded, primed, two coats of Emerald urethane. Hardware swapped out. Same cabinets, completely different kitchen. Best ROI in home improvement right now — half the cost of new cabinets, same result if it's done right.
+
+#CabinetPainting #Painting #[HASHTAG] #KitchenMakeover #PaintingContractor`,
+  'Full home remodel': `Full remodel complete in [LOCATION] — 1,400 square feet, kitchen, two baths, primary suite addition, all new flooring throughout. Six months start to finish. Designed, permitted, built. This isn't a flip. This is a family home that'll hold up for 30 more years.
+
+#GeneralContractor #HomeRemodel #[HASHTAG] #Construction #HomeRenovation`,
+  'Garage conversion': `Garage-to-bonus-room conversion done in [LOCATION] — insulated, drywalled, mini-split added, electrical run, egress window installed. Customer wanted a home office. They got one. 300 square feet they didn't know they had.
+
+#GarageConversion #GeneralContractor #[HASHTAG] #HomeOffice #BonusRoom`,
+  'Fence installation': `Fence install complete in [LOCATION] — 200 linear feet of 6-foot cedar privacy fence, metal posts set in concrete, custom gate with latch. Property line was a mess. Now it's clearly marked and the dog can go out. Built to last.
+
+#FenceInstall #GeneralContractor #[HASHTAG] #Fencing #PrivacyFence`,
+};
+
+// ═══════════════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════════════
+const wiz = {
+  step: 1,
+  trade: null,
+  location: '',
+  situation: null,
+  selectedPhotos: [],   // array of photo ids selected in step 3
+  currentPostText: '',  // for copy button
+};
+
+// ═══════════════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════════════
+(function init() {
+  // Set random hero background photo
+  const bg = HERO_PHOTOS[Math.floor(Math.random() * HERO_PHOTOS.length)];
+  document.getElementById('hero-bg').style.backgroundImage = `url('${bg}')`;
+
+  // Build trade icon grid
+  const grid = document.getElementById('wiz-trade-grid');
+  grid.innerHTML = WIZ_TRADES.map(t =>
+    `<button class="trade-icon-btn" data-trade="${t.id}" onclick="wizSelectTrade('${t.id}')">
+       <span class="t-icon">${t.icon}</span>
+       <span class="t-label">${t.label}</span>
+     </button>`
+  ).join('');
+
+  wizUpdateProgress();
+})();
+
+// ═══════════════════════════════════════════════════════════════
+//  PROGRESS BAR
+// ═══════════════════════════════════════════════════════════════
+function wizUpdateProgress() {
+  const pct = Math.round(((wiz.step - 1) / 4) * 100);
+  document.getElementById('wiz-fill').style.width = pct + '%';
+  document.getElementById('wiz-pct').textContent = pct + '% complete';
+
+  for (let i = 1; i <= 4; i++) {
+    const lbl = document.getElementById('wlbl-' + i);
+    lbl.classList.remove('active', 'done');
+    if (i < wiz.step)  lbl.classList.add('done');
+    if (i === wiz.step) lbl.classList.add('active');
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  STEP NAVIGATION
+// ═══════════════════════════════════════════════════════════════
+function wizGoTo(n) {
+  // Prep step content before showing
+  if (n === 2) wizBuildSituations();
+  if (n === 3) wizBuildPhotos();
+
+  // Hide current step, show new one
+  document.getElementById('wstep-' + wiz.step).classList.remove('active');
+  wiz.step = n;
+  document.getElementById('wstep-' + n).classList.add('active');
+
+  wizUpdateProgress();
+
+  // Scroll to wizard card top on mobile
+  document.querySelector('.wizard-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  STEP 1 — TRADE SELECTION + LOCATION
+// ═══════════════════════════════════════════════════════════════
+function wizSelectTrade(id) {
+  wiz.trade = id;
+  wiz.situation = null;  // reset downstream when trade changes
+  wiz.selectedPhotos = [];
+
+  document.querySelectorAll('.trade-icon-btn').forEach(btn =>
+    btn.classList.toggle('selected', btn.dataset.trade === id)
+  );
+  // Update GBP post avatar for step 4
+  document.getElementById('wiz-out-avatar').textContent = WIZ_AVATARS[id] || '🔧';
+
+  wizCheckStep1();
+}
+
+function wizCheckStep1() {
+  wiz.location = (document.getElementById('wiz-location-input').value || '').trim();
+  const ready = !!(wiz.trade && wiz.location.length >= 2);
+  document.getElementById('wiz-next-1').disabled = !ready;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  STEP 2 — JOB SITUATION
+// ═══════════════════════════════════════════════════════════════
+function wizBuildSituations() {
+  const situations = WIZ_SITUATIONS[wiz.trade] || [];
+  const list = document.getElementById('wiz-situation-list');
+  list.innerHTML = situations.map(s =>
+    `<button class="situation-btn${wiz.situation === s ? ' selected' : ''}" onclick="wizSelectSituation('${s.replace(/'/g,"\\'")}')">
+       <span class="sit-radio"><span class="sit-dot"></span></span>
+       ${s}
+     </button>`
+  ).join('');
+}
+
+function wizSelectSituation(s) {
+  wiz.situation = s;
+  wiz.selectedPhotos = [];  // reset photo selection when situation changes
+
+  document.querySelectorAll('.situation-btn').forEach(btn =>
+    btn.classList.toggle('selected', btn.textContent.trim() === s)
+  );
+  document.getElementById('wiz-next-2').disabled = false;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  STEP 3 — PHOTO GALLERY
+// ═══════════════════════════════════════════════════════════════
+function wizBuildPhotos() {
+  const photos = WIZ_PHOTOS[wiz.situation] || WIZ_PHOTOS.default;
+  const gallery = document.getElementById('wiz-photo-gallery');
+  gallery.innerHTML = photos.map(p =>
+    `<div class="photo-tile${wiz.selectedPhotos.includes(p.id) ? ' selected' : ''}"
+          onclick="wizTogglePhoto(${p.id})" data-photoid="${p.id}">
+       <img src="${p.src}" alt="${p.label}" loading="lazy" />
+       <div class="photo-tile-overlay"></div>
+       <span class="ptag ${p.type}">${p.type}</span>
+       <span class="pcheck">✓</span>
+       <span class="ptile-label">${p.label}</span>
+     </div>`
+  ).join('');
+  wizUpdatePhotoCount();
+}
+
+function wizTogglePhoto(id) {
+  const idx = wiz.selectedPhotos.indexOf(id);
+  if (idx > -1) {
+    wiz.selectedPhotos.splice(idx, 1);
+  } else {
+    wiz.selectedPhotos.push(id);
+  }
+  // Update tile visual
+  document.querySelectorAll('.photo-tile').forEach(tile => {
+    const tid = parseInt(tile.dataset.photoid, 10);
+    tile.classList.toggle('selected', wiz.selectedPhotos.includes(tid));
+  });
+  wizUpdatePhotoCount();
+}
+
+function wizUpdatePhotoCount() {
+  const count = wiz.selectedPhotos.length;
+  const note  = document.getElementById('wiz-photo-count');
+  const btn   = document.getElementById('wiz-next-3');
+
+  // Require at least 2 photos to proceed — one before + one after
+  const photos  = WIZ_PHOTOS[wiz.situation] || WIZ_PHOTOS.default;
+  const hasBefore = wiz.selectedPhotos.some(id => { const p = photos.find(x=>x.id===id); return p && p.type==='before'; });
+  const hasAfter  = wiz.selectedPhotos.some(id => { const p = photos.find(x=>x.id===id); return p && (p.type==='after'||p.type==='during'); });
+  const ready = hasBefore && hasAfter;
+
+  if (count === 0) {
+    note.textContent = '';
+    note.style.display = 'none';
+  } else {
+    note.textContent = count + ' photo' + (count !== 1 ? 's' : '') + ' selected';
+    note.style.display = 'block';
+  }
+  btn.disabled = !ready;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  STEP 4 — GENERATE + TYPEWRITER
+// ═══════════════════════════════════════════════════════════════
+function wizGenerate() {
+  // Populate photos in GBP output card
+  const photos = WIZ_PHOTOS[wiz.situation] || WIZ_PHOTOS.default;
+  const selected = photos.filter(p => wiz.selectedPhotos.includes(p.id));
+
+  const beforePhoto = selected.find(p => p.type === 'before') || selected[0];
+  const afterPhoto  = selected.find(p => p.type === 'after' || p.type === 'during') || selected[selected.length - 1];
+
+  const beforeEl = document.getElementById('wiz-out-before');
+  const afterEl  = document.getElementById('wiz-out-after');
+
+  if (beforePhoto) { beforeEl.style.backgroundImage = `url('${beforePhoto.src}')`; beforeEl.style.backgroundSize = 'cover'; beforeEl.style.backgroundPosition = 'center'; }
+  if (afterPhoto)  { afterEl.style.backgroundImage  = `url('${afterPhoto.src}')`;  afterEl.style.backgroundSize  = 'cover'; afterEl.style.backgroundPosition  = 'center'; }
+
+  // Build post text — swap in location and a simple city-derived hashtag
+  const raw  = WIZ_POSTS[wiz.situation] || WIZ_POSTS['Shingle roof replacement'];
+  const city = wiz.location.split(',')[0].trim().replace(/\s+/g, '');
+  const text = raw.replace(/\[LOCATION\]/g, wiz.location).replace(/\[HASHTAG\]/g, city);
+  wiz.currentPostText = text;
+
+  // Navigate to step 4 then run typewriter
+  wizGoTo(4);
+
+  const outputEl = document.getElementById('wiz-out-text');
+  outputEl.textContent = '';
+  setTimeout(() => wizTypewriter(outputEl, text), 200);
+}
+
+function wizTypewriter(el, text) {
+  let i = 0;
+  (function step() {
+    if (i < text.length) {
+      el.textContent += text[i++];
+      setTimeout(step, 12);
+    } else {
+      // Highlight hashtags after typewriter finishes
+      el.innerHTML = el.innerHTML.replace(/(#\w+)/g, '<span class="wiz-out-hashtags">$1</span>');
+    }
+  })();
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  COPY BUTTON
+// ═══════════════════════════════════════════════════════════════
+function wizCopy() {
+  if (!wiz.currentPostText) return;
+  const btn = document.getElementById('wiz-copy-btn');
+  const done = () => {
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => btn.textContent = '📋 Copy Post Text', 2200);
+  };
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(wiz.currentPostText).then(done).catch(() => fallbackCopy(done));
+  } else {
+    fallbackCopy(done);
+  }
+}
+function fallbackCopy(done) {
+  const ta = document.createElement('textarea');
+  ta.value = wiz.currentPostText;
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); done(); } catch(e){}
+  document.body.removeChild(ta);
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  NAV HAMBURGER
+// ═══════════════════════════════════════════════════════════════
+const navToggle     = document.getElementById('navToggle');
+const navMobileMenu = document.getElementById('navMobileMenu');
+navToggle.addEventListener('click', () => {
+  const open = navMobileMenu.classList.toggle('open');
+  navToggle.classList.toggle('open', open);
+  navToggle.setAttribute('aria-expanded', open);
+});
+</script>
+
+</body>
+</html>

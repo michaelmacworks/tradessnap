@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Start Your Free Trial — TradesSnap.us</title>
+  <meta name="robots" content="noindex, nofollow">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0D0F0C;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    :root {
+      --black:  #0D0F0C;
+      --card:   #181C15;
+      --border: #252A20;
+      --lime:   #FFD700;
+      --muted:  #b8c4ba;
+      --green:  #3ECF8E;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    .logo {
+      font-size: 1.4rem; font-weight: 900; letter-spacing: -0.04em;
+      margin-bottom: 32px; text-align: center;
+    }
+    .logo span { color: var(--lime); }
+
+    .trial-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(62,207,142,0.1); border: 1px solid rgba(62,207,142,0.25);
+      color: var(--green); font-size: 0.78rem; font-weight: 700;
+      padding: 5px 12px; border-radius: 40px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 40px;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .card-title {
+      font-size: 1.5rem; font-weight: 900; letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+    .card-sub {
+      font-size: 0.88rem; color: var(--muted); margin-bottom: 28px;
+      line-height: 1.55;
+    }
+
+    /* Google button */
+    .btn-google {
+      width: 100%; padding: 12px;
+      background: #fff; color: #3c4043;
+      border: 1px solid #dadce0; border-radius: 10px;
+      font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center;
+      justify-content: center; gap: 10px;
+      transition: box-shadow 0.2s;
+      margin-bottom: 20px;
+    }
+    .btn-google:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+
+    .divider {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 20px;
+    }
+    .divider::before, .divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .divider span { font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
+
+    .field { margin-bottom: 16px; }
+    label {
+      display: block; font-size: 0.8rem; font-weight: 700;
+      color: var(--muted); margin-bottom: 6px; letter-spacing: 0.02em;
+    }
+    input {
+      width: 100%; padding: 12px 14px;
+      background: #0D0F0C; border: 1px solid var(--border);
+      border-radius: 8px; color: #fff; font-size: 0.92rem;
+      transition: border-color 0.2s; outline: none;
+    }
+    input:focus { border-color: var(--lime); }
+    input::placeholder { color: #444; }
+    input.invalid { border-color: #ff4444; }
+
+    .field-hint {
+      font-size: 0.75rem; color: #555; margin-top: 5px;
+    }
+
+    .btn-primary {
+      width: 100%; padding: 13px;
+      background: var(--lime); color: #0D0F0C;
+      border: none; border-radius: 10px;
+      font-size: 0.95rem; font-weight: 800;
+      cursor: pointer; transition: background 0.2s;
+      margin-top: 4px;
+    }
+    .btn-primary:hover { background: #ffe033; }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .error-msg {
+      background: rgba(255,68,68,0.1); border: 1px solid rgba(255,68,68,0.3);
+      color: #ff6b6b; font-size: 0.83rem; border-radius: 8px;
+      padding: 10px 14px; margin-bottom: 16px; display: none;
+    }
+    .error-msg.show { display: block; }
+
+    .terms-note {
+      font-size: 0.74rem; color: #444; text-align: center;
+      margin-top: 14px; line-height: 1.55;
+    }
+    .terms-note a { color: #666; text-decoration: underline; }
+
+    .perks {
+      display: flex; flex-direction: column; gap: 8px;
+      margin-bottom: 28px;
+    }
+    .perk {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.82rem; color: var(--muted);
+    }
+    .perk .tick { color: var(--green); font-weight: 800; font-size: 0.9rem; }
+
+    .footer-link {
+      text-align: center; margin-top: 24px;
+      font-size: 0.85rem; color: var(--muted);
+    }
+    .footer-link a { color: var(--lime); font-weight: 600; }
+    .footer-link a:hover { text-decoration: underline; }
+
+    .back-link {
+      text-align: center; margin-top: 20px;
+      font-size: 0.8rem;
+    }
+    .back-link a { color: #555; transition: color 0.2s; }
+    .back-link a:hover { color: var(--muted); }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+</head>
+<body>
+
+  <a href="index.html" class="logo">Trades<span>Snap</span>.us</a>
+
+  <div class="trial-badge">✓ 7-day free trial — no charge today</div>
+
+  <div class="card">
+    <div class="card-title">Create your account</div>
+    <div class="card-sub">Start turning jobs into marketing in under 2 minutes.</div>
+
+    <div class="perks">
+      <div class="perk"><span class="tick">✓</span> 7-day free trial, card required</div>
+      <div class="perk"><span class="tick">✓</span> $97/month after trial — cancel anytime</div>
+      <div class="perk"><span class="tick">✓</span> 3 marketing assets per job, every job</div>
+    </div>
+
+    <div class="error-msg" id="errorMsg"></div>
+
+    <form onsubmit="signUpWithEmail(event)">
+      <div class="field">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" placeholder="Mike Johnson" required />
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="mike@johnsonplumbing.com" required />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Create a password" required minlength="8" />
+        <div class="field-hint">At least 8 characters</div>
+      </div>
+      <div class="field">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="Repeat your password" required />
+      </div>
+
+      <button type="submit" class="btn-primary" id="submitBtn">Start Free Trial →</button>
+
+      <div class="terms-note">
+        By creating an account you agree to our
+        <a href="terms.html">Terms of Service</a> and
+        <a href="privacy.html">Privacy Policy</a>.
+        Your card will be charged $97 after 7 days unless you cancel.
+      </div>
+    </form>
+  </div>
+
+  <div class="footer-link">
+    Already have an account? <a href="login.html">Sign in</a>
+  </div>
+
+  <div class="back-link">
+    <a href="index.html">← Back to TradesSnap.us</a>
+  </div>
+
+<script>
+  const SUPABASE_URL = 'https://eqknuetauqvectbkukvu.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxa251ZXRhdXF2ZWN0Ymt1a3Z1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMjkwMzQsImV4cCI6MjA4ODcwNTAzNH0.pLHYwgQTizC_btUP04NA5_3Lrq8YHiJZ9qSbfKL-oD4';
+  const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // Redirect if already logged in
+  db.auth.getSession().then(({ data: { session } }) => {
+    if (session) window.location.href = 'dashboard.html';
+  });
+
+  async function signUpWithEmail(e) {
+    e.preventDefault();
+    const btn       = document.getElementById('submitBtn');
+    const errEl     = document.getElementById('errorMsg');
+    const fullName  = document.getElementById('fullName').value.trim();
+    const email     = document.getElementById('email').value.trim();
+    const password  = document.getElementById('password').value;
+    const confirm   = document.getElementById('confirmPassword').value;
+
+    errEl.classList.remove('show');
+
+    // Validate passwords match
+    if (password !== confirm) {
+      errEl.textContent = 'Passwords do not match.';
+      errEl.classList.add('show');
+      document.getElementById('confirmPassword').classList.add('invalid');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Creating account…';
+
+    const { data, error } = await db.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { full_name: fullName }
+      }
+    });
+
+    if (error) {
+      errEl.textContent = error.message;
+      errEl.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = 'Start Free Trial →';
+      return;
+    }
+
+    // Supabase may require email confirmation — handle both cases
+    if (data.user && data.user.identities && data.user.identities.length === 0) {
+      errEl.textContent = 'An account with this email already exists. Please sign in instead.';
+      errEl.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = 'Start Free Trial →';
+      return;
+    }
+
+    // Success — send to Stripe to collect payment
+    const stripeUrl = new URL('https://buy.stripe.com/8x214na297UAc5l71ibAs01');
+    stripeUrl.searchParams.set('client_reference_id', data.user.id);
+    stripeUrl.searchParams.set('prefilled_email', email);
+    window.location.href = stripeUrl.toString();
+  }
+
+  // Clear invalid state on input
+  document.getElementById('confirmPassword').addEventListener('input', function() {
+    this.classList.remove('invalid');
+  });
+</script>
+</body>
+</html>

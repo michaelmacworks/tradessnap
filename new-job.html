@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Job — TradesSnap</title>
+  <link rel="icon" href="images/favicon.ico" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0D0F0C;
+      --lime:    #FFD700;
+      --bg:      #F4F5F3;
+      --surface: #FFFFFF;
+      --border:  #E2E5E2;
+      --muted:   #6B7280;
+      --text:    #1A1C19;
+      --radius:  10px;
+      --red:     #DC2626;
+    }
+
+    body {
+      font-family: 'Segoe UI', Inter, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-mark {
+      width: 32px; height: 32px;
+      background: var(--black);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .nav-logo-mark svg { width: 18px; height: 18px; }
+
+    .nav-logo-text {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: -0.3px;
+    }
+
+    .nav-logo-text span { color: var(--lime); }
+
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-back:hover { color: var(--text); }
+    .nav-back svg { width: 16px; height: 16px; }
+
+    /* ── PAGE ── */
+    .page {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 36px 24px 80px;
+    }
+
+    .page-header {
+      margin-bottom: 28px;
+    }
+
+    .page-header h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--black);
+      letter-spacing: -0.5px;
+    }
+
+    .page-header p {
+      font-size: 15px;
+      color: var(--muted);
+      margin-top: 5px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .card-step {
+      width: 28px; height: 28px;
+      background: var(--black);
+      color: var(--lime);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .card-header h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .card-header p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    /* ── VOICE MEMO ── */
+    .record-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      transition: border-color 0.2s;
+    }
+
+    .record-area.active {
+      border-color: var(--red);
+      background: #FFF5F5;
+    }
+
+    .record-area.has-audio {
+      border-color: #16A34A;
+      background: #F0FDF4;
+    }
+
+    .btn-record {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--black);
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.15s, background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .btn-record:hover { transform: scale(1.05); }
+    .btn-record.recording { background: var(--red); animation: pulse 1.5s infinite; }
+    .btn-record svg { width: 30px; height: 30px; }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.4); }
+      50%       { box-shadow: 0 0 0 12px rgba(220,38,38,0); }
+    }
+
+    .record-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .record-timer {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--red);
+      letter-spacing: 2px;
+      display: none;
+    }
+
+    .record-timer.visible { display: block; }
+
+    #audioPlayback {
+      width: 100%;
+      display: none;
+    }
+
+    #audioPlayback.visible { display: block; }
+
+    .record-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-rerecord {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      background: none;
+      border: 1px solid var(--border);
+      padding: 7px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn-rerecord:hover { color: var(--text); border-color: #aaa; }
+
+    .divider-or {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 4px 0;
+      width: 100%;
+    }
+
+    .divider-or::before,
+    .divider-or::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── UPLOAD TRIGGER ── */
+    .upload-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: all 0.15s;
+    }
+
+    .upload-trigger:hover { color: var(--text); border-color: #aaa; }
+    .upload-trigger svg { width: 15px; height: 15px; }
+
+    /* ── PHOTO UPLOAD ── */
+    .photo-drop-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 30px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #FAFAFA;
+    }
+
+    .photo-drop-zone:hover,
+    .photo-drop-zone.dragover {
+      border-color: var(--black);
+      background: #F4F5F3;
+    }
+
+    .photo-drop-zone svg {
+      width: 36px; height: 36px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .photo-drop-zone p {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .photo-drop-zone span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .photo-previews {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .photo-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--surface);
+      transition: border-color 0.2s;
+    }
+
+    .photo-card.labeled-before { border-color: #EF4444; }
+    .photo-card.labeled-during { border-color: #F59E0B; }
+    .photo-card.labeled-after  { border-color: #16A34A; }
+
+    .photo-thumb {
+      position: relative;
+      aspect-ratio: 4/3;
+    }
+
+    .photo-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-remove {
+      position: absolute;
+      top: 5px; right: 5px;
+      width: 22px; height: 22px;
+      background: rgba(0,0,0,0.65);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 14px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .photo-remove:hover { background: var(--red); }
+
+    .photo-label-row {
+      display: flex;
+      border-top: 1px solid var(--border);
+    }
+
+    .photo-label-btn {
+      flex: 1;
+      padding: 7px 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      border: none;
+      background: none;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      border-right: 1px solid var(--border);
+    }
+
+    .photo-label-btn:last-child { border-right: none; }
+    .photo-label-btn:hover { background: #f5f5f5; }
+
+    .photo-label-btn.active-before { background: #FEE2E2; color: #B91C1C; }
+    .photo-label-btn.active-during { background: #FEF3C7; color: #92400E; }
+    .photo-label-btn.active-after  { background: #DCFCE7; color: #15803D; }
+
+    .photo-count {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    /* ── JOB DETAILS ── */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group:last-child { margin-bottom: 0; }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .form-group label span {
+      font-weight: 400;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: inherit;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--text);
+      transition: border-color 0.15s;
+      outline: none;
+      appearance: none;
+    }
+
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--black);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    /* ── TIPS BOX ── */
+    .tips-box {
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-top: 16px;
+    }
+
+    .tips-box p {
+      font-size: 13px;
+      color: #78350F;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .tips-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .tips-box li {
+      font-size: 12px;
+      color: #92400E;
+      padding: 2px 0;
+    }
+
+    .tips-box li::before {
+      content: '✓ ';
+      font-weight: 700;
+    }
+
+    /* ── SUBMIT ── */
+    .submit-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .submit-note {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--black);
+      color: var(--lime);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-submit svg { width: 18px; height: 18px; }
+
+    /* ── SUCCESS STATE ── */
+    .success-screen {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .success-screen.visible { display: block; }
+
+    .success-icon {
+      width: 72px; height: 72px;
+      background: #DCFCE7;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .success-icon svg { width: 36px; height: 36px; color: #16A34A; }
+
+    .success-screen h2 {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--black);
+      margin-bottom: 8px;
+    }
+
+    .success-screen p {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 380px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+    }
+
+    .btn-dashboard {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--black);
+      color: var(--lime);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      text-decoration: none;
+    }
+
+    /* ── ERROR MSG ── */
+    .error-msg {
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      color: var(--red);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .error-msg.visible { display: block; }
+
+    /* ── UPLOAD PROGRESS ── */
+    .upload-progress {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .upload-progress.visible { display: block; }
+
+    .upload-progress-track {
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .upload-progress-bar {
+      height: 100%;
+      background: var(--black);
+      border-radius: 2px;
+      transition: width 0.5s ease;
+      width: 0%;
+    }
+
+    .upload-progress-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ── WHAT HAPPENS NEXT ── */
+    .next-steps {
+      display: flex;
+      flex-direction: column;
+      max-width: 340px;
+      margin: 0 auto 28px;
+      text-align: left;
+    }
+
+    .next-step {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 0;
+      position: relative;
+    }
+
+    .next-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 32px;
+      width: 2px;
+      height: calc(100% - 10px);
+      background: var(--border);
+    }
+
+    .next-step.done::after { background: #16A34A; }
+
+    .next-step-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+      color: var(--muted);
+    }
+
+    .next-step.done .next-step-dot {
+      background: #16A34A;
+      border-color: #16A34A;
+      color: #fff;
+    }
+
+    .next-step.active .next-step-dot {
+      border-color: var(--black);
+      animation: pulse-dot 1.5s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,0,0,0.2); }
+      50% { box-shadow: 0 0 0 4px rgba(0,0,0,0); }
+    }
+
+    .next-step-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .next-step.done .next-step-text { color: var(--text); font-weight: 600; }
+    .next-step.active .next-step-text { color: var(--black); font-weight: 600; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .submit-row { flex-direction: column; align-items: stretch; }
+      .btn-submit { justify-content: center; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="dashboard.html" class="nav-logo">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <span class="nav-logo-text">Trades<span>Snap</span></span>
+    </a>
+    <div class="nav-right">
+      <a href="dashboard.html" class="nav-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+        </svg>
+        Back to Dashboard
+      </a>
+    </div>
+  </nav>
+
+  <!-- MAIN FORM -->
+  <div class="page" id="mainForm">
+    <div class="page-header">
+      <h1>New Job</h1>
+      <p>Record a quick voice memo and upload your photos — we'll handle the rest.</p>
+    </div>
+
+    <!-- STEP 1: VOICE MEMO -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-step">1</div>
+        <div>
+          <h2>Voice Memo</h2>
+          <p>Describe the job in 30–90 seconds — what you did, where, and the outcome</p>
+        </div>
+      </div>
+
+      <div class="record-area" id="recordArea">
+        <button class="btn-record" id="btnRecord" title="Start recording">
+          <svg id="micIcon" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="23"/>
+            <line x1="8" y1="23" x2="16" y2="23"/>
+          </svg>
+          <svg id="stopIcon" viewBox="0 0 24 24" fill="#FFD700" stroke="none" style="display:none;width:30px;height:30px;">
+            <rect x="4" y="4" width="16" height="16" rx="2"/>
+          </svg>
+        </button>
+
+        <div class="record-timer" id="recordTimer">0:00</div>
+        <div class="record-label" id="recordLabel">Tap to record</div>
+
+        <audio id="audioPlayback" controls></audio>
+
+        <div class="record-actions" id="recordActions" style="display:none;">
+          <button class="btn-rerecord" id="btnRerecord">⟳ Re-record</button>
+        </div>
+
+        <div class="divider-or">or</div>
+
+        <label class="upload-trigger" for="audioFileInput">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          Upload audio file
+        </label>
+        <input type="file" id="audioFileInput" accept="audio/*,.m4a,.mp3,.wav,.ogg,.webm" style="display:none;" />
+      </div>
+
+      <div class="tips-box">
+        <p>💡 What to say in your memo</p>
+        <ul>
+          <li>What type of job was it? (e.g. water heater replacement)</li>
+          <li>Where was the job? (city or neighborhood is enough)</li>
+          <li>What problem did the customer have?</li>
+          <li>What did you do to fix it?</li>
+          <li>Any notable result or customer reaction?</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STEP 2: PHOTOS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-step">2</div>
+        <div>
+          <h2>Job Photos</h2>
+          <p>Before, during, or after shots — the more the better</p>
+        </div>
+      </div>
+
+      <div class="photo-drop-zone" id="photoDropZone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        <p>Tap to add photos</p>
+        <span>JPEG, PNG, HEIC · up to 10 photos · 20MB each</span>
+      </div>
+
+      <input type="file" id="photoInput" accept="image/*" multiple style="display:none;" />
+
+      <div class="photo-previews" id="photoPreviews"></div>
+      <div class="photo-count" id="photoCount"></div>
+    </div>
+
+    <!-- STEP 3: JOB DETAILS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-step">3</div>
+        <div>
+          <h2>Job Details</h2>
+          <p>Confirm your trade and add any notes for the AI</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="jobNameInput">Job Name <span>(optional)</span></label>
+        <input type="text" id="jobNameInput" placeholder="e.g. 123 Maple St — water heater replacement" style="width:100%;padding:10px 14px;font-size:14px;font-family:inherit;border:1px solid var(--border);border-radius:8px;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--black)'" onblur="this.style.borderColor='var(--border)'" />
+      </div>
+
+      <div class="form-group">
+        <label for="jobCityInput">Job City <span>(optional — overrides your profile city)</span></label>
+        <input type="text" id="jobCityInput" placeholder="e.g. Columbus" autocomplete="off" style="width:100%;padding:10px 14px;font-size:14px;font-family:inherit;border:1px solid var(--border);border-radius:8px;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--black)'" onblur="this.style.borderColor='var(--border)'" />
+      </div>
+
+      <div class="form-group">
+        <label for="tradeSelect">Trade</label>
+        <select id="tradeSelect">
+          <option value="">Select your trade…</option>
+          <option value="plumbing">Plumbing</option>
+          <option value="electrical">Electrical</option>
+          <option value="hvac">HVAC</option>
+          <option value="roofing">Roofing</option>
+          <option value="general">General Contractor</option>
+          <option value="remodeling">Remodeling</option>
+          <option value="windows">Windows &amp; Doors</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="notesInput">Extra Notes <span>(optional)</span></label>
+        <textarea id="notesInput" placeholder="Anything specific you want highlighted — special materials used, brand names, customer compliment, unusual challenge you solved…"></textarea>
+      </div>
+    </div>
+
+    <!-- UPLOAD PROGRESS -->
+    <div class="upload-progress" id="uploadProgress">
+      <div class="upload-progress-track">
+        <div class="upload-progress-bar" id="uploadProgressBar"></div>
+      </div>
+      <div class="upload-progress-label" id="uploadProgressLabel">Preparing…</div>
+    </div>
+
+    <!-- ERROR -->
+    <div class="error-msg" id="errorMsg"></div>
+
+    <!-- SUBMIT -->
+    <div class="submit-row">
+      <span class="submit-note">This usually takes about 30–60 seconds to process.</span>
+      <button class="btn-submit" id="btnSubmit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+        Generate Content
+      </button>
+    </div>
+  </div>
+
+  <!-- SUCCESS SCREEN -->
+  <div class="page">
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <h2>Job submitted!</h2>
+      <p>Here's what happens next — usually ready in about 60 seconds.</p>
+      <div class="next-steps">
+        <div class="next-step done">
+          <div class="next-step-dot">✓</div>
+          <div class="next-step-text">Uploaded to TradesSnap</div>
+        </div>
+        <div class="next-step active">
+          <div class="next-step-dot"></div>
+          <div class="next-step-text">Transcribing your voice memo</div>
+        </div>
+        <div class="next-step">
+          <div class="next-step-dot"></div>
+          <div class="next-step-text">Writing your blog post, GBP post &amp; caption</div>
+        </div>
+      </div>
+      <a href="dashboard.html" class="btn-dashboard">Go to Dashboard</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const { createClient } = supabase;
+    const sb = createClient(
+      'https://eqknuetauqvectbkukvu.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxa251ZXRhdXF2ZWN0Ymt1a3Z1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMjkwMzQsImV4cCI6MjA4ODcwNTAzNH0.pLHYwgQTizC_btUP04NA5_3Lrq8YHiJZ9qSbfKL-oD4'
+    );
+
+    // ── STATE ──────────────────────────────────────
+    let session       = null;
+    let profile       = null;
+    let audioBlob     = null;   // recorded or uploaded audio
+    let audioFileName = null;
+    let photos        = [];     // array of File objects
+
+    // ── AUTH GATE ──────────────────────────────────
+    async function init() {
+      const { data: { session: s } } = await sb.auth.getSession();
+      if (!s) { window.location.href = 'login.html'; return; }
+      session = s;
+
+      const { data: p } = await sb.from('profiles').select('trade').eq('id', s.user.id).single();
+      profile = p;
+
+      // Pre-select trade from profile
+      if (p?.trade) {
+        const sel = document.getElementById('tradeSelect');
+        const opt = [...sel.options].find(o => o.value === p.trade);
+        if (opt) sel.value = p.trade;
+      }
+    }
+
+    init();
+
+    // ── RECORDING ─────────────────────────────────
+    let mediaRecorder = null;
+    let recordChunks  = [];
+    let timerInterval = null;
+    let elapsedSecs   = 0;
+    let isRecording   = false;
+
+    const btnRecord   = document.getElementById('btnRecord');
+    const micIcon     = document.getElementById('micIcon');
+    const stopIcon    = document.getElementById('stopIcon');
+    const recordArea  = document.getElementById('recordArea');
+    const recordLabel = document.getElementById('recordLabel');
+    const recordTimer = document.getElementById('recordTimer');
+    const audioPlayback = document.getElementById('audioPlayback');
+    const recordActions = document.getElementById('recordActions');
+
+    function formatTime(secs) {
+      const m = Math.floor(secs / 60);
+      const s = secs % 60;
+      return `${m}:${s.toString().padStart(2, '0')}`;
+    }
+
+    btnRecord.addEventListener('click', async () => {
+      if (isRecording) {
+        stopRecording();
+      } else {
+        await startRecording();
+      }
+    });
+
+    async function startRecording() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        recordChunks = [];
+        mediaRecorder = new MediaRecorder(stream);
+
+        mediaRecorder.ondataavailable = e => {
+          if (e.data.size > 0) recordChunks.push(e.data);
+        };
+
+        mediaRecorder.onstop = () => {
+          const blob = new Blob(recordChunks, { type: 'audio/webm' });
+          audioBlob = blob;
+          audioFileName = `recording-${Date.now()}.webm`;
+          const url = URL.createObjectURL(blob);
+          audioPlayback.src = url;
+          audioPlayback.classList.add('visible');
+          recordActions.style.display = 'flex';
+          recordArea.classList.remove('active');
+          recordArea.classList.add('has-audio');
+          recordLabel.textContent = 'Recording saved ✓';
+          stream.getTracks().forEach(t => t.stop());
+        };
+
+        mediaRecorder.start();
+        isRecording = true;
+        btnRecord.classList.add('recording');
+        micIcon.style.display = 'none';
+        stopIcon.style.display = 'block';
+        recordArea.classList.add('active');
+        recordLabel.textContent = 'Recording… tap to stop';
+        recordTimer.classList.add('visible');
+
+        elapsedSecs = 0;
+        recordTimer.textContent = formatTime(0);
+        timerInterval = setInterval(() => {
+          elapsedSecs++;
+          recordTimer.textContent = formatTime(elapsedSecs);
+          if (elapsedSecs >= 300) stopRecording(); // 5min max
+        }, 1000);
+      } catch (err) {
+        showError('Microphone access denied. Please allow microphone access and try again.');
+      }
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+      }
+      isRecording = false;
+      clearInterval(timerInterval);
+      btnRecord.classList.remove('recording');
+      micIcon.style.display = 'block';
+      stopIcon.style.display = 'none';
+      recordTimer.classList.remove('visible');
+    }
+
+    document.getElementById('btnRerecord').addEventListener('click', () => {
+      audioBlob = null;
+      audioFileName = null;
+      audioPlayback.src = '';
+      audioPlayback.classList.remove('visible');
+      recordActions.style.display = 'none';
+      recordArea.classList.remove('active', 'has-audio');
+      recordLabel.textContent = 'Tap to record';
+    });
+
+    // ── AUDIO FILE UPLOAD ──────────────────────────
+    document.getElementById('audioFileInput').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      audioBlob = file;
+      audioFileName = file.name;
+      const url = URL.createObjectURL(file);
+      audioPlayback.src = url;
+      audioPlayback.classList.add('visible');
+      recordActions.style.display = 'flex';
+      recordArea.classList.add('has-audio');
+      recordLabel.textContent = `File loaded: ${file.name}`;
+    });
+
+    // ── PHOTO UPLOAD ──────────────────────────────
+    const photoDropZone = document.getElementById('photoDropZone');
+    const photoInput    = document.getElementById('photoInput');
+    const photoPreviews = document.getElementById('photoPreviews');
+    const photoCount    = document.getElementById('photoCount');
+
+    photoDropZone.addEventListener('click', () => photoInput.click());
+
+    photoDropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      photoDropZone.classList.add('dragover');
+    });
+
+    photoDropZone.addEventListener('dragleave', () => {
+      photoDropZone.classList.remove('dragover');
+    });
+
+    photoDropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      photoDropZone.classList.remove('dragover');
+      addPhotos([...e.dataTransfer.files].filter(f => f.type.startsWith('image/')));
+    });
+
+    photoInput.addEventListener('change', (e) => {
+      addPhotos([...e.target.files]);
+      e.target.value = ''; // allow re-selecting same files
+    });
+
+    function addPhotos(files) {
+      const remaining = 10 - photos.length;
+      const toAdd = files.slice(0, remaining).map(file => ({ file, label: null }));
+      photos = [...photos, ...toAdd];
+      renderPreviews();
+    }
+
+    function renderPreviews() {
+      photoPreviews.innerHTML = '';
+      photos.forEach((item, i) => {
+        const url  = URL.createObjectURL(item.file);
+        const card = document.createElement('div');
+        card.className = 'photo-card' + (item.label ? ` labeled-${item.label}` : '');
+
+        card.innerHTML = `
+          <div class="photo-thumb">
+            <img src="${url}" alt="Photo ${i+1}" />
+            <button class="photo-remove" data-index="${i}" title="Remove">✕</button>
+          </div>
+          <div class="photo-label-row">
+            <button class="photo-label-btn${item.label === 'before' ? ' active-before' : ''}" data-index="${i}" data-label="before">Before</button>
+            <button class="photo-label-btn${item.label === 'during' ? ' active-during' : ''}" data-index="${i}" data-label="during">During</button>
+            <button class="photo-label-btn${item.label === 'after'  ? ' active-after'  : ''}" data-index="${i}" data-label="after">After</button>
+          </div>`;
+
+        photoPreviews.appendChild(card);
+      });
+
+      // Remove buttons
+      photoPreviews.querySelectorAll('.photo-remove').forEach(btn => {
+        btn.addEventListener('click', () => {
+          photos.splice(parseInt(btn.dataset.index), 1);
+          renderPreviews();
+        });
+      });
+
+      // Label buttons
+      photoPreviews.querySelectorAll('.photo-label-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.dataset.index);
+          const lbl = btn.dataset.label;
+          // Toggle off if already selected
+          photos[idx].label = photos[idx].label === lbl ? null : lbl;
+          renderPreviews();
+        });
+      });
+
+      photoCount.textContent = photos.length > 0
+        ? `${photos.length} photo${photos.length !== 1 ? 's' : ''} added${photos.length === 10 ? ' (maximum)' : ''}`
+        : '';
+    }
+
+    // ── ERROR ─────────────────────────────────────
+    function showError(msg) {
+      const el = document.getElementById('errorMsg');
+      el.textContent = msg;
+      el.classList.add('visible');
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function clearError() {
+      const el = document.getElementById('errorMsg');
+      el.classList.remove('visible');
+    }
+
+    // ── SUBMIT ────────────────────────────────────
+    document.getElementById('btnSubmit').addEventListener('click', async () => {
+      clearError();
+
+      const trade   = document.getElementById('tradeSelect').value;
+      const notes   = document.getElementById('notesInput').value.trim();
+      const jobName = document.getElementById('jobNameInput').value.trim();
+      const jobCity = document.getElementById('jobCityInput').value.trim();
+
+      // Validate
+      if (!audioBlob) {
+        showError('Please record or upload a voice memo before submitting.');
+        return;
+      }
+      if (!trade) {
+        showError('Please select your trade.');
+        return;
+      }
+
+      const btn = document.getElementById('btnSubmit');
+      btn.disabled = true;
+      btn.innerHTML = `<svg style="width:18px;height:18px;animation:spin 1s linear infinite" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Uploading…`;
+
+      // Show progress bar
+      const progressEl    = document.getElementById('uploadProgress');
+      const progressBar   = document.getElementById('uploadProgressBar');
+      const progressLabel = document.getElementById('uploadProgressLabel');
+      progressEl.classList.add('visible');
+
+      function setProgress(pct, label) {
+        progressBar.style.width = pct + '%';
+        progressLabel.textContent = label;
+      }
+
+      try {
+        const userId = session.user.id;
+        const jobId  = crypto.randomUUID();
+
+        // 1. Upload voice memo to Supabase Storage
+        setProgress(15, 'Uploading voice memo…');
+        const audioExt  = audioFileName.split('.').pop();
+        const audioPath = `${userId}/${jobId}/memo.${audioExt}`;
+        const { error: audioErr } = await sb.storage
+          .from('voice-memos')
+          .upload(audioPath, audioBlob, { contentType: audioBlob.type || 'audio/webm' });
+
+        if (audioErr) throw new Error(`Audio upload failed: ${audioErr.message}`);
+
+        // 2. Upload photos
+        const photoUrls = [];
+        const photoStep = photos.length > 0 ? (65 / photos.length) : 65;
+        for (let i = 0; i < photos.length; i++) {
+          setProgress(Math.round(20 + photoStep * i), photos.length === 1
+            ? 'Uploading photo…'
+            : `Uploading photos (${i + 1} of ${photos.length})…`);
+          const { file, label } = photos[i];
+          const ext  = file.name.split('.').pop() || 'jpg';
+          const path = `${userId}/${jobId}/photo-${i+1}.${ext}`;
+          const { error: photoErr } = await sb.storage
+            .from('job-photos')
+            .upload(path, file, { contentType: file.type });
+
+          if (photoErr) throw new Error(`Photo upload failed: ${photoErr.message}`);
+          photoUrls.push({ path, label: label || 'untagged' });
+        }
+
+        // 3. Insert job record
+        setProgress(90, 'Creating your job…');
+        const { error: jobErr } = await sb.from('jobs').insert({
+          id:             jobId,
+          user_id:        userId,
+          status:         'pending',
+          voice_memo_url: audioPath,
+          photos:         photoUrls,
+          trade:          trade,
+          job_name:       jobName || null,
+          job_city:       jobCity || null,
+          voice_memo_transcript: notes || null,
+        });
+
+        if (jobErr) throw new Error(`Job save failed: ${jobErr.message}`);
+
+        // 4. Show success
+        setProgress(100, 'Done!');
+        document.getElementById('mainForm').style.display = 'none';
+        document.getElementById('successScreen').classList.add('visible');
+
+      } catch (err) {
+        showError(err.message || 'Something went wrong. Please try again.');
+        btn.disabled = false;
+        btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Generate Content`;
+      }
+    });
+
+    // spinner keyframe
+    const style = document.createElement('style');
+    style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>

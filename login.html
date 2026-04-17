@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — TradesSnap.us</title>
+  <meta name="robots" content="noindex, nofollow">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0D0F0C;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    :root {
+      --black:  #0D0F0C;
+      --card:   #181C15;
+      --border: #252A20;
+      --lime:   #FFD700;
+      --muted:  #b8c4ba;
+      --red:    #ff4444;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    .logo {
+      font-size: 1.4rem; font-weight: 900; letter-spacing: -0.04em;
+      margin-bottom: 32px; text-align: center;
+    }
+    .logo span { color: var(--lime); }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 40px;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .card-title {
+      font-size: 1.5rem; font-weight: 900; letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+    .card-sub {
+      font-size: 0.88rem; color: var(--muted); margin-bottom: 28px;
+    }
+
+    /* Google button */
+    .btn-google {
+      width: 100%; padding: 12px;
+      background: #fff; color: #3c4043;
+      border: 1px solid #dadce0; border-radius: 10px;
+      font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center;
+      justify-content: center; gap: 10px;
+      transition: box-shadow 0.2s;
+      margin-bottom: 20px;
+    }
+    .btn-google:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+    .btn-google svg { flex-shrink: 0; }
+
+    .divider {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 20px;
+    }
+    .divider::before, .divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .divider span { font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
+
+    /* Form */
+    .field { margin-bottom: 16px; }
+    label {
+      display: block; font-size: 0.8rem; font-weight: 700;
+      color: var(--muted); margin-bottom: 6px; letter-spacing: 0.02em;
+    }
+    input {
+      width: 100%; padding: 12px 14px;
+      background: #0D0F0C; border: 1px solid var(--border);
+      border-radius: 8px; color: #fff; font-size: 0.92rem;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    input:focus { border-color: var(--lime); }
+    input::placeholder { color: #444; }
+
+    .forgot {
+      display: block; text-align: right; font-size: 0.78rem;
+      color: var(--muted); margin-top: -8px; margin-bottom: 20px;
+      transition: color 0.2s;
+    }
+    .forgot:hover { color: var(--lime); }
+
+    .btn-primary {
+      width: 100%; padding: 13px;
+      background: var(--lime); color: #0D0F0C;
+      border: none; border-radius: 10px;
+      font-size: 0.95rem; font-weight: 800;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #ffe033; }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .error-msg {
+      background: rgba(255,68,68,0.1); border: 1px solid rgba(255,68,68,0.3);
+      color: #ff6b6b; font-size: 0.83rem; border-radius: 8px;
+      padding: 10px 14px; margin-bottom: 16px; display: none;
+    }
+    .error-msg.show { display: block; }
+
+    .footer-link {
+      text-align: center; margin-top: 24px;
+      font-size: 0.85rem; color: var(--muted);
+    }
+    .footer-link a { color: var(--lime); font-weight: 600; }
+    .footer-link a:hover { text-decoration: underline; }
+
+    .back-link {
+      text-align: center; margin-top: 20px;
+      font-size: 0.8rem; color: #444;
+    }
+    .back-link a { color: #555; transition: color 0.2s; }
+    .back-link a:hover { color: var(--muted); }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+</head>
+<body>
+
+  <a href="index.html" class="logo">Trades<span>Snap</span>.us</a>
+
+  <div class="card">
+    <div class="card-title">Welcome back</div>
+    <div class="card-sub">Sign in to your TradesSnap account</div>
+
+    <div class="error-msg" id="errorMsg"></div>
+
+    <form onsubmit="signInWithEmail(event)">
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="you@yourbusiness.com" required />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="••••••••" required />
+      </div>
+
+      <a href="forgot-password.html" class="forgot">Forgot password?</a>
+
+      <button type="submit" class="btn-primary" id="submitBtn">Sign In →</button>
+    </form>
+  </div>
+
+  <div class="footer-link">
+    Don't have an account? <a href="signup.html">Start your free 7-day trial</a>
+  </div>
+
+  <div class="back-link">
+    <a href="index.html">← Back to TradesSnap.us</a>
+  </div>
+
+<script>
+  const SUPABASE_URL  = 'https://eqknuetauqvectbkukvu.supabase.co';
+  const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxa251ZXRhdXF2ZWN0Ymt1a3Z1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMjkwMzQsImV4cCI6MjA4ODcwNTAzNH0.pLHYwgQTizC_btUP04NA5_3Lrq8YHiJZ9qSbfKL-oD4';
+  const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // Redirect if already logged in
+  db.auth.getSession().then(({ data: { session } }) => {
+    if (session) redirectAfterLogin(session.user);
+  });
+
+  async function redirectAfterLogin(user) {
+    const { data: profile } = await db
+      .from('profiles')
+      .select('onboarding_completed')
+      .eq('id', user.id)
+      .single();
+
+    if (profile && profile.onboarding_completed) {
+      window.location.href = 'dashboard.html';
+    } else {
+      window.location.href = 'onboarding.html';
+    }
+  }
+
+  async function signInWithEmail(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const errEl = document.getElementById('errorMsg');
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    btn.disabled = true;
+    btn.textContent = 'Signing in…';
+    errEl.classList.remove('show');
+
+    const { data, error } = await db.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      errEl.textContent = error.message === 'Invalid login credentials'
+        ? 'Incorrect email or password. Please try again.'
+        : error.message;
+      errEl.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = 'Sign In →';
+      return;
+    }
+
+    redirectAfterLogin(data.user);
+  }
+
+
+</script>
+</body>
+</html>

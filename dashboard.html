@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — TradesSnap</title>
+  <link rel="icon" href="images/favicon.ico" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0D0F0C;
+      --lime:    #FFD700;
+      --bg:      #F4F5F3;
+      --surface: #FFFFFF;
+      --border:  #E2E5E2;
+      --muted:   #6B7280;
+      --text:    #1A1C19;
+      --green:   #16A34A;
+      --orange:  #D97706;
+      --radius:  10px;
+    }
+
+    body {
+      font-family: 'Segoe UI', Inter, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── TOP NAV ── */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-mark {
+      width: 32px;
+      height: 32px;
+      background: var(--black);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-logo-mark svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .nav-logo-text {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: -0.3px;
+    }
+
+    .nav-logo-text span {
+      color: var(--lime);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nav-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-avatar {
+      width: 34px;
+      height: 34px;
+      background: var(--black);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--lime);
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .nav-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .nav-signout {
+      font-size: 13px;
+      color: var(--muted);
+      background: none;
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .nav-signout:hover {
+      color: var(--text);
+      border-color: #aaa;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 36px 24px 80px;
+    }
+
+    /* ── TRIAL BANNER ── */
+    .trial-banner {
+      background: var(--black);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .trial-banner-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .trial-pill {
+      background: var(--lime);
+      color: var(--black);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .trial-text {
+      font-size: 14px;
+      color: #d1d5db;
+    }
+
+    .trial-text strong {
+      color: #fff;
+    }
+
+    .trial-cta {
+      background: var(--lime);
+      color: var(--black);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.15s;
+    }
+
+    .trial-cta:hover { opacity: 0.85; }
+
+    /* ── WELCOME ROW ── */
+    .welcome-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .welcome-row h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: -0.5px;
+    }
+
+    .welcome-row p {
+      font-size: 15px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── NEW JOB BUTTON ── */
+    .btn-new-job {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--black);
+      color: var(--lime);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-new-job:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+
+    .btn-new-job svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--black);
+      letter-spacing: -1px;
+    }
+
+    .stat-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .section-header h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    /* ── JOBS TABLE ── */
+    .jobs-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .jobs-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .jobs-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 12px 20px;
+      background: #FAFAFA;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .jobs-table td {
+      padding: 14px 20px;
+      font-size: 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .jobs-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .jobs-table tr:hover td {
+      background: #FAFAFA;
+    }
+
+    .job-trade {
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .job-date {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .status-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .status-done {
+      background: #DCFCE7;
+      color: #15803D;
+    }
+    .status-done::before { background: #16A34A; }
+
+    .status-processing {
+      background: #FEF3C7;
+      color: #92400E;
+    }
+    .status-processing::before { background: #D97706; }
+
+    .status-pending {
+      background: #F3F4F6;
+      color: #6B7280;
+    }
+    .status-pending::before { background: #9CA3AF; }
+
+    .btn-view {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--black);
+      text-decoration: none;
+      padding: 5px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: all 0.15s;
+    }
+
+    .btn-view:hover {
+      background: var(--black);
+      color: var(--lime);
+      border-color: var(--black);
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .empty-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .empty-icon svg {
+      width: 26px;
+      height: 26px;
+      color: var(--muted);
+    }
+
+    .empty-state h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+
+    .empty-state p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    /* ── ACCOUNT CARD ── */
+    .account-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-top: 28px;
+    }
+
+    .account-card h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 18px;
+    }
+
+    .account-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .account-field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .account-field p {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--black);
+    }
+
+    .account-field p.placeholder {
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ── LOADING STATE ── */
+    .skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 4px;
+      height: 16px;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ── ENTRANCE ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .trial-banner  { animation: fadeUp 0.4s ease both; }
+    .welcome-row   { animation: fadeUp 0.4s ease both; animation-delay: 0.06s; }
+    .stats-row     { animation: fadeUp 0.4s ease both; animation-delay: 0.12s; }
+    .section-header { animation: fadeUp 0.4s ease both; animation-delay: 0.18s; }
+    .account-card  { animation: fadeUp 0.4s ease both; animation-delay: 0.28s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .account-grid { grid-template-columns: 1fr; }
+      .welcome-row { flex-direction: column; }
+      .trial-banner { flex-direction: column; gap: 12px; }
+      .jobs-table th:nth-child(3),
+      .jobs-table td:nth-child(3) { display: none; }
+      .nav-name { display: none; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="dashboard.html" class="nav-logo">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <span class="nav-logo-text">Trades<span>Snap</span></span>
+    </a>
+    <div class="nav-right">
+      <div class="nav-user">
+        <div class="nav-avatar" id="navAvatar">—</div>
+        <span class="nav-name" id="navName">Loading…</span>
+      </div>
+      <button class="nav-signout" id="signOutBtn">Sign out</button>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <!-- TRIAL BANNER -->
+    <div class="trial-banner" id="trialBanner">
+      <div class="trial-banner-left">
+        <span class="trial-pill">Free Trial</span>
+        <span class="trial-text" id="trialText">Loading trial info…</span>
+      </div>
+      <a href="billing.html" class="trial-cta">Add Payment Method →</a>
+    </div>
+
+    <!-- WELCOME ROW -->
+    <div class="welcome-row">
+      <div>
+        <h1 id="welcomeHeading">Welcome back!</h1>
+        <p id="welcomeSub">Ready to turn your next job into 3 pieces of marketing content?</p>
+      </div>
+      <a href="new-job.html" class="btn-new-job">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        New Job
+      </a>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-label">Total Jobs</div>
+        <div class="stat-value" id="statJobs">—</div>
+        <div class="stat-sub">all time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Content Pieces</div>
+        <div class="stat-value" id="statOutputs">—</div>
+        <div class="stat-sub">blog posts, GBP posts, captions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Hrs Saved</div>
+        <div class="stat-value" id="statHours">—</div>
+        <div class="stat-sub">vs. writing by hand</div>
+      </div>
+    </div>
+
+    <!-- RECENT JOBS -->
+    <div class="section-header">
+      <h2>Recent Jobs</h2>
+    </div>
+
+    <div class="jobs-card" id="jobsCard">
+      <!-- populated by JS -->
+    </div>
+
+    <!-- ACCOUNT INFO -->
+    <div class="account-card">
+      <h2>Account Info</h2>
+      <div class="account-grid">
+        <div class="account-field">
+          <label>Full Name</label>
+          <p id="acctName" class="placeholder">—</p>
+        </div>
+        <div class="account-field">
+          <label>Business Name</label>
+          <p id="acctBusiness" class="placeholder">—</p>
+        </div>
+        <div class="account-field">
+          <label>Trade</label>
+          <p id="acctTrade" class="placeholder">—</p>
+        </div>
+        <div class="account-field">
+          <label>Location</label>
+          <p id="acctLocation" class="placeholder">—</p>
+        </div>
+        <div class="account-field">
+          <label>Phone</label>
+          <p id="acctPhone" class="placeholder">—</p>
+        </div>
+        <div class="account-field">
+          <label>Member Since</label>
+          <p id="acctSince" class="placeholder">—</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const { createClient } = supabase;
+    const sb = createClient(
+      'https://eqknuetauqvectbkukvu.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxa251ZXRhdXF2ZWN0Ymt1a3Z1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMjkwMzQsImV4cCI6MjA4ODcwNTAzNH0.pLHYwgQTizC_btUP04NA5_3Lrq8YHiJZ9qSbfKL-oD4'
+    );
+
+    // ── GREETING + COUNTERS ──────────────────────────────
+    function getGreeting() {
+      const h = new Date().getHours();
+      return h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+    }
+
+    function animateCount(el, target, decimals) {
+      if (target === 0) { el.textContent = '0'; return; }
+      const duration = 700;
+      const start = performance.now();
+      function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = eased * target;
+        el.textContent = decimals ? value.toFixed(1) : Math.round(value).toString();
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    // ── HELPERS ──────────────────────────────────────────
+    function daysUntil(dateStr) {
+      const diff = new Date(dateStr) - new Date();
+      return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+    }
+
+    function formatDate(dateStr) {
+      return new Date(dateStr).toLocaleDateString('en-US', {
+        month: 'short', day: 'numeric', year: 'numeric'
+      });
+    }
+
+    function capitalize(str) {
+      if (!str) return '';
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    function getInitials(name) {
+      if (!name) return '?';
+      return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+    }
+
+    function statusBadge(status) {
+      const map = {
+        done:       { cls: 'status-done',       label: 'Done' },
+        processing: { cls: 'status-processing', label: 'Processing' },
+        pending:    { cls: 'status-pending',     label: 'Pending' },
+      };
+      const s = map[status] || map.pending;
+      return `<span class="status-badge ${s.cls}">${s.label}</span>`;
+    }
+
+    // ── INIT ─────────────────────────────────────────────
+    async function init() {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const userId = session.user.id;
+
+      // Load profile
+      const { data: profile } = await sb.from('profiles').select('*').eq('id', userId).single();
+
+      // Nav
+      const name = profile?.full_name || session.user.email.split('@')[0];
+      document.getElementById('navAvatar').textContent = getInitials(name);
+      document.getElementById('navName').textContent = name;
+
+      // Welcome
+      const firstName = name.split(' ')[0];
+      document.getElementById('welcomeHeading').textContent = `${getGreeting()}, ${firstName}!`;
+
+      // Trial banner
+      const trialEnds = profile?.trial_ends_at;
+      const daysLeft  = trialEnds ? daysUntil(trialEnds) : 0;
+      const subStatus = profile?.subscription_status || 'trialing';
+
+      const trialBanner = document.getElementById('trialBanner');
+      const trialText   = document.getElementById('trialText');
+
+      if (subStatus === 'active') {
+        trialBanner.style.background = '#14532D';
+        trialText.innerHTML = '<strong>Subscription active.</strong> Thanks for being a TradesSnap pro!';
+      } else if (daysLeft <= 3) {
+        trialBanner.style.background = '#7F1D1D';
+        trialText.innerHTML = `<strong>${daysLeft} day${daysLeft !== 1 ? 's' : ''} left</strong> in your free trial. Add a payment method to keep access.`;
+      } else {
+        trialText.innerHTML = `<strong>${daysLeft} days left</strong> in your free trial · Ends ${formatDate(trialEnds)}`;
+      }
+
+      // Account fields
+      document.getElementById('acctName').textContent     = profile?.full_name     || '—';
+      document.getElementById('acctBusiness').textContent = profile?.business_name || '—';
+      document.getElementById('acctTrade').textContent    = capitalize(profile?.trade) || '—';
+      document.getElementById('acctSince').textContent    = formatDate(session.user.created_at);
+
+      const location = [profile?.city, profile?.state].filter(Boolean).join(', ');
+      document.getElementById('acctLocation').textContent = location || '—';
+      document.getElementById('acctPhone').textContent    = profile?.phone || '—';
+
+      // Remove placeholder style where we have data
+      ['acctName','acctBusiness','acctTrade','acctLocation','acctPhone','acctSince'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el.textContent !== '—') el.classList.remove('placeholder');
+      });
+
+      // Load jobs
+      const { data: jobs } = await sb.from('jobs').select('*').eq('user_id', userId).order('created_at', { ascending: false }).limit(10);
+
+      animateCount(document.getElementById('statJobs'), jobs?.length ?? 0);
+
+      // Load outputs count
+      const { count } = await sb.from('outputs').select('*', { count: 'exact', head: true }).eq('user_id', userId);
+      const outputCount = count ?? 0;
+      animateCount(document.getElementById('statOutputs'), outputCount);
+      const hoursSaved = Math.round(outputCount * 1.5 * 10) / 10;
+      if (outputCount > 0) {
+        animateCount(document.getElementById('statHours'), hoursSaved, true);
+      } else {
+        document.getElementById('statHours').textContent = '—';
+      }
+
+      // Render jobs table
+      const jobsCard = document.getElementById('jobsCard');
+
+      jobsCard.style.animation = 'fadeUp 0.4s ease both 0.22s';
+      if (!jobs || jobs.length === 0) {
+        jobsCard.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="12" y1="18" x2="12" y2="12"/>
+                <line x1="9" y1="15" x2="15" y2="15"/>
+              </svg>
+            </div>
+            <h3>Your first job is one voice memo away.</h3>
+            <p>Record 30–90 seconds about your last job — we'll write the blog post, Google Business post, and social caption for you.</p>
+            <a href="new-job.html" class="btn-new-job">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;">
+                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+              Create Your First Job
+            </a>
+          </div>`;
+      } else {
+        const rows = jobs.map(job => `
+          <tr>
+            <td>
+              <span class="job-trade">${job.job_name || capitalize(job.trade) || 'General'}</span>
+              ${job.job_name ? `<br><span style="font-size:12px;color:var(--muted);">${capitalize(job.trade) || ''}</span>` : ''}
+            </td>
+            <td>${statusBadge(job.status)}</td>
+            <td><span class="job-date">${formatDate(job.created_at)}</span></td>
+            <td><a href="job.html?id=${job.id}" class="btn-view">View</a></td>
+          </tr>`).join('');
+
+        jobsCard.innerHTML = `
+          <table class="jobs-table">
+            <thead>
+              <tr>
+                <th>Job</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>`;
+      }
+    }
+
+    // Sign out
+    document.getElementById('signOutBtn').addEventListener('click', async () => {
+      await sb.auth.signOut();
+      window.location.href = 'login.html';
+    });
+
+    init();
+  </script>
+</body>
+</html>

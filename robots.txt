@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Block confirmation and error pages from indexing
+Disallow: /thank-you
+Disallow: /404
+
+Sitemap: https://tradessnap.us/sitemap.xml

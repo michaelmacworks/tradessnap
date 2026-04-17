@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TradesSnap — Share Bar Component</title>
+  <style>
+    /* ─── Reset & base (matches TradesSnap design tokens) ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0D0F0C;
+      color: #fff;
+      padding: 40px 24px;
+    }
+
+    :root {
+      --black:  #0D0F0C;
+      --dark:   #111410;
+      --card:   #181C15;
+      --border: #252A20;
+      --lime:   #FFD700;
+      --white:  #FFFFFF;
+      --muted:  #b8c4ba;
+      --radius: 10px;
+    }
+
+    h2 { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 24px; color: var(--lime); }
+    p.dev-note {
+      font-size: 0.75rem; color: var(--muted);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    p.dev-note strong { color: var(--white); }
+
+    /* ─── Output Card ──────────────────────────────────────────
+       This is the wrapper around each generated content block.
+       In your real dashboard, each card = one AI output.
+       Add class  data-content-type="blog | gbp | social"  and
+       data-post-url="https://yoursite.com/post-slug" on each card.
+    ──────────────────────────────────────────────────────────── */
+    .output-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .output-card-label {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--lime);
+      border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 100px;
+      padding: 3px 12px;
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+
+    /* The actual generated text — contractors see this */
+    .output-text {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: #f0efe9;
+      white-space: pre-wrap;       /* preserves line breaks in the output */
+      margin-bottom: 20px;
+    }
+
+    /* ─── Share Bar ────────────────────────────────────────────
+       Sits at the bottom of every output card.
+       Buttons: Copy Text | Copy Link | LinkedIn | Facebook
+    ──────────────────────────────────────────────────────────── */
+    .share-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.18s ease;
+      letter-spacing: -0.01em;
+    }
+
+    /* Copy Text — primary lime action */
+    .share-btn-copy-text {
+      background: var(--lime);
+      color: #0D0F0C;
+    }
+    .share-btn-copy-text:hover { background: #ffe033; transform: translateY(-1px); }
+
+    /* Copy Link — outlined */
+    .share-btn-copy-link {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.2);
+    }
+    .share-btn-copy-link:hover { border-color: var(--lime); color: var(--lime); }
+
+    /* LinkedIn */
+    .share-btn-linkedin {
+      background: #0A66C2;
+      color: #fff;
+    }
+    .share-btn-linkedin:hover { background: #0959a8; transform: translateY(-1px); }
+
+    /* Facebook */
+    .share-btn-facebook {
+      background: #1877F2;
+      color: #fff;
+    }
+    .share-btn-facebook:hover { background: #1265d8; transform: translateY(-1px); }
+
+    /* Google Business Profile
+       Uses Google's brand red. One click = copy text + open GBP editor.
+       No OAuth needed — contractor lands on GBP and pastes. */
+    .share-btn-gbp {
+      background: #EA4335;
+      color: #fff;
+    }
+    .share-btn-gbp:hover { background: #d33426; transform: translateY(-1px); }
+
+    /* Success feedback — button flashes ✓ Copied */
+    .share-btn.copied {
+      background: #2d6a2d !important;
+      color: #fff !important;
+      border-color: transparent !important;
+    }
+
+    /* Icon sizing */
+    .share-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════════════
+       DEV NOTE — remove this block before deploying
+  ════════════════════════════════════════════════════════ -->
+  <h2>⚡ TradesSnap Share Bar — Component Demo</h2>
+  <p class="dev-note">
+    <strong>How to integrate:</strong> Copy the three output cards below (and the
+    &lt;script&gt; block at the bottom) into your real dashboard page.<br>
+    On each <code>.output-card</code>, set:<br>
+    • <code>data-post-url="https://tradessnap.us/your-post-slug"</code> — the published WordPress URL<br>
+    • <code>data-content-type="blog | gbp | social"</code> — controls LinkedIn share title<br>
+    The JS wires everything automatically — no per-card setup needed.
+  </p>
+
+  <!-- ══════════════════════════════════════════════════════
+       OUTPUT CARD 1 — SEO Blog Post
+       Replace .output-text content with your dynamic AI output
+  ════════════════════════════════════════════════════════ -->
+  <div class="output-card"
+       data-content-type="blog"
+       data-post-url="https://tradessnap.us/basement-finishing-dublin-ohio">
+
+    <span class="output-card-label">📝 SEO Blog Post</span>
+
+    <div class="output-text">Finished Basement Addition in Dublin, Ohio — From Drywall to Done in 12 Days
+
+When the Martins called us about their unfinished basement in Dublin, they had one goal: a clean, comfortable bonus room their teenagers could actually use. What they got was a fully insulated, drywalled, and painted 600 sq ft living space — completed in under two weeks.
+
+We started with moisture barrier installation along the foundation walls, then framed out the space using steel-stud framing rated for basement humidity. All electrical was run to code with a dedicated 20-amp circuit for the entertainment area. Final result: a space that feels like the rest of the house, not an afterthought.
+
+Looking for a basement finishing contractor in Dublin, Ohio? Call us at (614) 555-0192 for a free estimate.</div>
+
+    <div class="share-bar">
+      <button class="share-btn share-btn-copy-text" onclick="copyText(this)">
+        <!-- Clipboard icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        </svg>
+        Copy Text
+      </button>
+      <button class="share-btn share-btn-copy-link" onclick="copyLink(this)">
+        <!-- Link icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+        </svg>
+        Copy Link
+      </button>
+      <button class="share-btn share-btn-linkedin" onclick="shareLinkedIn(this)">
+        <!-- LinkedIn icon -->
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+        </svg>
+        LinkedIn
+      </button>
+      <button class="share-btn share-btn-facebook" onclick="shareFacebook(this)">
+        <!-- Facebook icon -->
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+        Facebook
+      </button>
+      <button class="share-btn share-btn-gbp" onclick="postToGBP(this)">
+        <!-- Google 'G' icon -->
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
+        </svg>
+        Post to GBP
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       OUTPUT CARD 2 — Google Business Post
+  ════════════════════════════════════════════════════════ -->
+  <div class="output-card"
+       data-content-type="gbp"
+       data-post-url="https://tradessnap.us/basement-finishing-dublin-ohio">
+
+    <span class="output-card-label">📍 Google Business Post</span>
+
+    <div class="output-text">✅ Just wrapped a basement finishing project in Dublin, Ohio!
+
+600 sq ft transformed into a livable bonus room — insulated, drywalled, painted, and electrically upgraded in 12 days.
+
+If you've been sitting on an unfinished basement in Dublin or the surrounding area, now's the time. We have openings in April.
+
+📞 Call or text: (614) 555-0192
+🔗 See the full project photos on our website</div>
+
+    <div class="share-bar">
+      <button class="share-btn share-btn-copy-text" onclick="copyText(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        </svg>
+        Copy Text
+      </button>
+      <button class="share-btn share-btn-copy-link" onclick="copyLink(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+        </svg>
+        Copy Link
+      </button>
+      <button class="share-btn share-btn-linkedin" onclick="shareLinkedIn(this)">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+        </svg>
+        LinkedIn
+      </button>
+      <button class="share-btn share-btn-facebook" onclick="shareFacebook(this)">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+        Facebook
+      </button>
+      <button class="share-btn share-btn-gbp" onclick="postToGBP(this)">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
+        </svg>
+        Post to GBP
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       OUTPUT CARD 3 — Social Media Caption
+  ════════════════════════════════════════════════════════ -->
+  <div class="output-card"
+       data-content-type="social"
+       data-post-url="https://tradessnap.us/basement-finishing-dublin-ohio">
+
+    <span class="output-card-label">📱 Social Media Caption</span>
+
+    <div class="output-text">Before → After. 🏠
+
+Dublin basement glow-up complete. 600 square feet of "wasted space" turned into the room the whole family fights over.
+
+Insulated. Drywalled. Wired right. Done in 12 days.
+
+If your basement is still a storage graveyard — you know who to call. 📞
+
+#DublinOhio #BasementFinishing #HomeRenovation #ContractorLife #BeforeAndAfter #OhioContractor #TradesSnap</div>
+
+    <div class="share-bar">
+      <button class="share-btn share-btn-copy-text" onclick="copyText(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+        </svg>
+        Copy Text
+      </button>
+      <button class="share-btn share-btn-copy-link" onclick="copyLink(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+        </svg>
+        Copy Link
+      </button>
+      <button class="share-btn share-btn-linkedin" onclick="shareLinkedIn(this)">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+        </svg>
+        LinkedIn
+      </button>
+      <button class="share-btn share-btn-facebook" onclick="shareFacebook(this)">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+        Facebook
+      </button>
+      <button class="share-btn share-btn-gbp" onclick="postToGBP(this)">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
+        </svg>
+        Post to GBP
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       SHARE BAR JAVASCRIPT
+       Drop this block at the bottom of your dashboard page,
+       just before </body>. It handles all four button types
+       with zero dependencies — no jQuery, no libraries.
+  ════════════════════════════════════════════════════════ -->
+  <script>
+    /**
+     * getCard(btn) — walks up the DOM to find the parent .output-card.
+     * This lets us reuse the same functions across all cards without
+     * attaching separate event listeners to each one.
+     */
+    function getCard(btn) {
+      return btn.closest('.output-card');
+    }
+
+    /**
+     * flashCopied(btn, label) — temporarily changes button text/style
+     * to give the contractor visual confirmation that something copied.
+     * Resets after 2 seconds.
+     */
+    function flashCopied(btn, label = '✓ Copied!') {
+      const original = btn.innerHTML;
+      btn.classList.add('copied');
+      btn.innerHTML = label;
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.classList.remove('copied');
+        btn.disabled = false;
+      }, 2000);
+    }
+
+    /**
+     * copyText(btn) — copies the .output-text content from the
+     * parent card to the clipboard. Contractor pastes directly
+     * into GBP, Instagram, Facebook, wherever.
+     */
+    function copyText(btn) {
+      const card = getCard(btn);
+      const text = card.querySelector('.output-text').innerText.trim();
+
+      // navigator.clipboard is the modern API — works on all current browsers
+      // and mobile Safari 13.4+. Falls back to execCommand for older Android.
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text)
+          .then(() => flashCopied(btn, '✓ Copied!'))
+          .catch(() => fallbackCopy(text, btn));
+      } else {
+        fallbackCopy(text, btn);
+      }
+    }
+
+    /**
+     * fallbackCopy(text, btn) — execCommand('copy') fallback for
+     * non-HTTPS contexts (local dev) or older browsers.
+     */
+    function fallbackCopy(text, btn) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px;';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      flashCopied(btn, '✓ Copied!');
+    }
+
+    /**
+     * copyLink(btn) — copies the data-post-url from the parent card.
+     * This is the live WordPress/Webflow post URL. Contractor pastes
+     * into a text, email, or DM — the recipient sees the full post.
+     */
+    function copyLink(btn) {
+      const card = getCard(btn);
+      // Falls back to current page URL if no data-post-url is set
+      const url = card.dataset.postUrl || window.location.href;
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(url)
+          .then(() => flashCopied(btn, '✓ Link Copied!'))
+          .catch(() => fallbackCopy(url, btn));
+      } else {
+        fallbackCopy(url, btn);
+      }
+    }
+
+    /**
+     * shareLinkedIn(btn) — opens LinkedIn's URL-based share dialog.
+     * NO OAuth. NO API key. NO app review.
+     * LinkedIn reads the og:title and og:description meta tags
+     * from the post URL automatically — the contractor just clicks Post.
+     */
+    function shareLinkedIn(btn) {
+      const card = getCard(btn);
+      const url  = card.dataset.postUrl || window.location.href;
+      const type = card.dataset.contentType || '';
+
+      // Title hint for LinkedIn's share dialog pre-fill
+      const titles = {
+        blog:   'Check out our latest project',
+        gbp:    'New project completed — see the results',
+        social: 'Just finished a job — see the transformation'
+      };
+      const title = encodeURIComponent(titles[type] || 'Check out this project');
+      const encodedUrl = encodeURIComponent(url);
+
+      // LinkedIn's shareArticle endpoint — the safest, most stable URL
+      const shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${title}`;
+
+      // Opens in a centered 600×600 popup — standard social share UX
+      const w = 600, h = 600;
+      const left = Math.round((screen.width  - w) / 2);
+      const top  = Math.round((screen.height - h) / 2);
+      window.open(shareUrl, 'linkedin-share', `width=${w},height=${h},left=${left},top=${top}`);
+    }
+
+    /**
+     * shareFacebook(btn) — opens Facebook's sharer endpoint.
+     * Same approach as LinkedIn: URL-only, no OAuth required.
+     * Facebook will pull the og:image, og:title, og:description
+     * from the post URL's meta tags.
+     */
+    function shareFacebook(btn) {
+      const card = getCard(btn);
+      const url  = card.dataset.postUrl || window.location.href;
+      const encodedUrl = encodeURIComponent(url);
+
+      const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+
+      const w = 600, h = 500;
+      const left = Math.round((screen.width  - w) / 2);
+      const top  = Math.round((screen.height - h) / 2);
+      window.open(shareUrl, 'facebook-share', `width=${w},height=${h},left=${left},top=${top}`);
+    }
+
+    /**
+     * postToGBP(btn) — Google Business Profile has no public URL-based
+     * share API, so we use a two-step approach that requires zero OAuth:
+     *   1. Copy the card's output text to clipboard (contractor just pastes)
+     *   2. Open the GBP "Create post" page in a new tab
+     *
+     * The flashCopied message tells the contractor exactly what to do next
+     * so there's no confusion about why a new tab opened.
+     */
+    function postToGBP(btn) {
+      const card = getCard(btn);
+      const text = card.querySelector('.output-text').innerText.trim();
+
+      // Step 1: copy text silently
+      const doCopy = navigator.clipboard && window.isSecureContext
+        ? navigator.clipboard.writeText(text)
+        : Promise.resolve(fallbackCopy(text, { classList: { add: () => {}, remove: () => {} }, innerHTML: '', disabled: false }));
+
+      doCopy.finally(() => {
+        // Step 2: open GBP create-post tab regardless of clipboard result
+        window.open('https://business.google.com/create-post', '_blank', 'noopener,noreferrer');
+        // Flash button with instruction — contractor sees "Text copied → paste in GBP"
+        flashCopied(btn, '✓ Text copied — paste in GBP');
+      });
+    }
+  </script>
+
+</body>
+</html>

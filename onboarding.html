@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to TradesSnap.us — Let's Get Set Up</title>
+  <meta name="robots" content="noindex, nofollow">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0D0F0C; color: #fff;
+      min-height: 100vh; line-height: 1.6;
+    }
+    :root {
+      --black:  #0D0F0C;
+      --dark:   #111410;
+      --card:   #181C15;
+      --border: #252A20;
+      --lime:   #FFD700;
+      --muted:  #b8c4ba;
+      --green:  #3ECF8E;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      padding: 16px 32px; display: flex; align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(13,15,12,0.95);
+    }
+    .nav-logo { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.04em; }
+    .nav-logo span { color: var(--lime); }
+    .nav-user { margin-left: auto; font-size: 0.82rem; color: var(--muted); }
+
+    /* ── PROGRESS ── */
+    .progress-wrap {
+      max-width: 600px; margin: 0 auto;
+      padding: 32px 24px 0;
+    }
+    .steps {
+      display: flex; align-items: center; gap: 0;
+      margin-bottom: 40px;
+    }
+    .step {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      flex: 1;
+    }
+    .step-dot {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 800;
+      border: 2px solid var(--border); color: var(--muted);
+      background: var(--card); position: relative; z-index: 1;
+      transition: all 0.3s;
+    }
+    .step-dot.active { border-color: var(--lime); color: var(--lime); background: rgba(255,215,0,0.08); }
+    .step-dot.done   { border-color: var(--green); background: var(--green); color: #0D0F0C; }
+    .step-label { font-size: 0.7rem; color: var(--muted); white-space: nowrap; }
+    .step-label.active { color: var(--lime); font-weight: 700; }
+    .step-connector { flex: 1; height: 2px; background: var(--border); margin: 0 -1px; margin-bottom: 22px; }
+    .step-connector.done { background: var(--green); }
+
+    /* ── CONTENT ── */
+    .container {
+      max-width: 600px; margin: 0 auto; padding: 0 24px 60px;
+    }
+
+    /* Step panels */
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+
+    .panel-eyebrow {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--lime); margin-bottom: 10px;
+    }
+    .panel-title {
+      font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 900;
+      letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 10px;
+    }
+    .panel-sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 32px; }
+
+    /* Video embed */
+    .video-wrap {
+      position: relative; width: 100%; aspect-ratio: 16/9;
+      border-radius: 14px; overflow: hidden; background: #000;
+      margin-bottom: 32px; border: 1px solid var(--border);
+    }
+    .video-wrap iframe { width: 100%; height: 100%; border: 0; }
+    .video-placeholder {
+      width: 100%; height: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 14px;
+      background: var(--card);
+    }
+    .video-placeholder .play-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(255,215,0,0.15); border: 2px solid rgba(255,215,0,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+    }
+    .video-placeholder p { font-size: 0.85rem; color: var(--muted); }
+
+    /* Form */
+    .field { margin-bottom: 20px; }
+    label {
+      display: block; font-size: 0.8rem; font-weight: 700;
+      color: var(--muted); margin-bottom: 7px; letter-spacing: 0.02em;
+    }
+    input, select {
+      width: 100%; padding: 13px 14px;
+      background: #0D0F0C; border: 1px solid var(--border);
+      border-radius: 8px; color: #fff; font-size: 0.92rem;
+      transition: border-color 0.2s; outline: none;
+      appearance: none;
+    }
+    input:focus, select:focus { border-color: var(--lime); }
+    input::placeholder { color: #444; }
+    select option { background: #111; color: #fff; }
+
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* Buttons */
+    .btn-primary {
+      width: 100%; padding: 14px;
+      background: var(--lime); color: #0D0F0C;
+      border: none; border-radius: 10px;
+      font-size: 0.95rem; font-weight: 800;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #ffe033; }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .btn-skip {
+      width: 100%; padding: 12px; margin-top: 12px;
+      background: transparent; color: var(--muted);
+      border: 1px solid var(--border); border-radius: 10px;
+      font-size: 0.88rem; font-weight: 600; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-skip:hover { border-color: var(--muted); color: #fff; }
+
+    /* Tips list */
+    .tip-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+    .tip-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 18px;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .tip-num {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 800; color: var(--lime);
+    }
+    .tip-item h4 { font-size: 0.9rem; margin-bottom: 3px; }
+    .tip-item p { font-size: 0.82rem; color: var(--muted); }
+
+    /* Success state */
+    .success-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(62,207,142,0.12); border: 2px solid rgba(62,207,142,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; margin: 0 auto 24px;
+    }
+
+    @media (max-width: 480px) {
+      .field-row { grid-template-columns: 1fr; }
+      nav { padding: 14px 16px; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Trades<span>Snap</span>.us</div>
+  <div class="nav-user" id="navUser"></div>
+</nav>
+
+<!-- Progress bar -->
+<div class="progress-wrap">
+  <div class="steps">
+    <div class="step">
+      <div class="step-dot active" id="dot1">1</div>
+      <div class="step-label active" id="label1">Watch</div>
+    </div>
+    <div class="step-connector" id="conn1"></div>
+    <div class="step">
+      <div class="step-dot" id="dot2">2</div>
+      <div class="step-label" id="label2">Your Business</div>
+    </div>
+    <div class="step-connector" id="conn2"></div>
+    <div class="step">
+      <div class="step-dot" id="dot3">3</div>
+      <div class="step-label" id="label3">Your Trade</div>
+    </div>
+    <div class="step-connector" id="conn3"></div>
+    <div class="step">
+      <div class="step-dot" id="dot4">4</div>
+      <div class="step-label" id="label4">Done!</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ── STEP 1: Welcome video ── -->
+  <div class="step-panel active" id="panel1">
+    <div class="panel-eyebrow">Step 1 of 3</div>
+    <h1 class="panel-title">Welcome to TradesSnap.<br><span style="color:var(--lime)">Here's how it works.</span></h1>
+    <p class="panel-sub">Watch this 2-minute walkthrough before your first job — it'll make everything click.</p>
+
+    <div class="video-wrap">
+      <iframe
+        src="https://www.youtube.com/embed/j0_SHX1KExA"
+        title="TradesSnap Walkthrough"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <button class="btn-primary" onclick="goToStep(2)">Looks Good — Let's Set Up My Account →</button>
+    <button class="btn-skip" onclick="goToStep(2)">Skip video for now</button>
+  </div>
+
+  <!-- ── STEP 2: Business info ── -->
+  <div class="step-panel" id="panel2">
+    <div class="panel-eyebrow">Step 2 of 3</div>
+    <h1 class="panel-title">Tell us about<br><span style="color:var(--lime)">your business.</span></h1>
+    <p class="panel-sub">This gets woven into your content so every post sounds like it came from you — not a template.</p>
+
+    <form onsubmit="saveBusinessInfo(event)">
+      <div class="field">
+        <label for="businessName">Business Name</label>
+        <input type="text" id="businessName" placeholder="Johnson Plumbing LLC" required />
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="city">City</label>
+          <input type="text" id="city" placeholder="Dublin" required />
+        </div>
+        <div class="field">
+          <label for="state">State</label>
+          <input type="text" id="state" placeholder="OH" maxlength="2" required />
+        </div>
+      </div>
+      <div class="field">
+        <label for="phone">Business Phone <span style="font-weight:400;color:#555">(optional)</span></label>
+        <input type="tel" id="phone" placeholder="(614) 555-0100" />
+      </div>
+
+      <button type="submit" class="btn-primary" id="bizBtn">Save & Continue →</button>
+    </form>
+  </div>
+
+  <!-- ── STEP 3: Trade selection ── -->
+  <div class="step-panel" id="panel3">
+    <div class="panel-eyebrow">Step 3 of 3</div>
+    <h1 class="panel-title">What's your<br><span style="color:var(--lime)">primary trade?</span></h1>
+    <p class="panel-sub">We'll tune your AI outputs to use the right language, keywords, and tone for your trade.</p>
+
+    <div class="field">
+      <label for="trade">Primary Trade</label>
+      <select id="trade" required>
+        <option value="" disabled selected>Select your trade…</option>
+        <option value="plumbing">🔧 Plumbing</option>
+        <option value="electrical">⚡ Electrical</option>
+        <option value="hvac">❄️ HVAC</option>
+        <option value="roofing">🏠 Roofing</option>
+        <option value="general_contracting">🔨 General Contracting</option>
+        <option value="remodeling">🏗️ Remodeling</option>
+        <option value="windows_doors">🪟 Windows &amp; Doors</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+
+    <div class="tip-list">
+      <div class="tip-item">
+        <div class="tip-num">1</div>
+        <div>
+          <h4>Record right after the job</h4>
+          <p>Still in the driveway is perfect. Details are fresh and you sound natural.</p>
+        </div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">2</div>
+        <div>
+          <h4>Say the neighborhood name</h4>
+          <p>That local detail is what makes your SEO post rank in your actual service area.</p>
+        </div>
+      </div>
+      <div class="tip-item">
+        <div class="tip-num">3</div>
+        <div>
+          <h4>Shoot before and after photos</h4>
+          <p>The visual contrast is what stops homeowners scrolling and makes them call you.</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="saveTrade()">Let's Go — Take Me to My Dashboard →</button>
+  </div>
+
+  <!-- ── STEP 4: Done ── -->
+  <div class="step-panel" id="panel4">
+    <div style="text-align:center; padding: 20px 0;">
+      <div class="success-icon">✓</div>
+      <h1 class="panel-title" style="text-align:center;">You're all set,<br><span style="color:var(--lime)">let's get to work.</span></h1>
+      <p class="panel-sub" style="text-align:center; margin-bottom:40px;">Your account is ready. Your 7-day free trial has started. Go record your first job.</p>
+      <button class="btn-primary" style="max-width:360px;" onclick="window.location.href='dashboard.html'">Go to My Dashboard →</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://eqknuetauqvectbkukvu.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxa251ZXRhdXF2ZWN0Ymt1a3Z1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMjkwMzQsImV4cCI6MjA4ODcwNTAzNH0.pLHYwgQTizC_btUP04NA5_3Lrq8YHiJZ9qSbfKL-oD4';
+  const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  let currentUser = null;
+  let currentStep = 1;
+
+  // Auth check
+  db.auth.getSession().then(({ data: { session } }) => {
+    if (!session) { window.location.href = 'login.html'; return; }
+    currentUser = session.user;
+    const name = session.user.user_metadata?.full_name || session.user.email;
+    document.getElementById('navUser').textContent = name;
+  });
+
+  function goToStep(step) {
+    // Mark previous step done
+    const prevDot = document.getElementById('dot' + currentStep);
+    prevDot.classList.remove('active');
+    prevDot.classList.add('done');
+    prevDot.textContent = '✓';
+    document.getElementById('label' + currentStep).classList.remove('active');
+
+    // Mark connector done
+    if (currentStep < 4) {
+      document.getElementById('conn' + currentStep).classList.add('done');
+    }
+
+    // Hide old panel
+    document.getElementById('panel' + currentStep).classList.remove('active');
+
+    // Activate new step
+    currentStep = step;
+    document.getElementById('dot' + step).classList.add('active');
+    document.getElementById('label' + step).classList.add('active');
+    document.getElementById('panel' + step).classList.add('active');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function saveBusinessInfo(e) {
+    e.preventDefault();
+    const btn = document.getElementById('bizBtn');
+    btn.disabled = true;
+    btn.textContent = 'Saving…';
+
+    const { error } = await db.from('profiles').update({
+      business_name: document.getElementById('businessName').value.trim(),
+      city:          document.getElementById('city').value.trim(),
+      state:         document.getElementById('state').value.trim().toUpperCase(),
+      phone:         document.getElementById('phone').value.trim(),
+      updated_at:    new Date().toISOString()
+    }).eq('id', currentUser.id);
+
+    if (error) {
+      alert('Error saving: ' + error.message);
+      btn.disabled = false;
+      btn.textContent = 'Save & Continue →';
+      return;
+    }
+
+    goToStep(3);
+  }
+
+  async function saveTrade() {
+    const trade = document.getElementById('trade').value;
+    if (!trade) { alert('Please select your primary trade.'); return; }
+
+    const { error } = await db.from('profiles').update({
+      trade,
+      onboarding_completed: true,
+      updated_at: new Date().toISOString()
+    }).eq('id', currentUser.id);
+
+    if (error) { alert('Error saving: ' + error.message); return; }
+
+    goToStep(4);
+  }
+</script>
+</body>
+</html>

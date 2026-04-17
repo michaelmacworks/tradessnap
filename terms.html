@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - TradesSnap.us</title>
+  <meta name="description" content="TradesSnap.us terms of service. Month-to-month, cancel anytime, no contracts. Read our full terms here.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tradessnap.us/terms">
+  <meta property="og:title" content="Terms of Service | TradesSnap.us">
+  <meta property="og:description" content="TradesSnap.us terms of service. Month-to-month, cancel anytime, no contracts. Read our full terms here.">
+  <meta property="og:image" content="https://tradessnap.us/og-image.jpg">
+  <meta property="og:site_name" content="TradesSnap.us">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Terms of Service | TradesSnap.us">
+  <meta name="twitter:description" content="TradesSnap.us terms of service. Month-to-month, cancel anytime, no contracts. Read our full terms here.">
+  <meta name="twitter:image" content="https://tradessnap.us/og-image.jpg">
+  <link rel="canonical" href="https://tradessnap.us/terms">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0D0F0C;
+            --dark: #111410;
+            --card: #181C15;
+            --border: #252A20;
+            --lime: #FFD700;
+            --lime-dim: #C9A800;
+            --white: #FFFFFF;
+            --off: #edece4;
+            --muted: #b8c4ba;
+            --radius: 10px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+      overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            background: var(--black);
+            color: #f0efe9;
+            line-height: 1.6;
+        }
+
+        /* Announcement Bar */
+        .announcement-bar {
+            background: var(--lime);
+            color: var(--black);
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        /* ── NAV (matches index.html exactly) ── */
+        nav {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(13,15,12,0.96);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            height: 70px; max-width: 1160px; margin: 0 auto; padding: 0 28px;
+        }
+        .nav-logo { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.04em; color: #fff; text-decoration: none; }
+        .nav-logo span { color: var(--lime); }
+        .nav-links { display: flex; gap: 8px; list-style: none; }
+        .nav-links a {
+            color: var(--muted); font-size: 0.85rem; font-weight: 600;
+            padding: 7px 14px; border-radius: 7px; text-decoration: none;
+            transition: color 0.2s, background 0.2s;
+            display: flex; align-items: center; gap: 4px;
+        }
+        .nav-links a:hover { color: white; background: rgba(255,255,255,0.06); }
+        .nav-links a .chevron { font-size: 0.6rem; opacity: 0.5; }
+        .nav-right { display: flex; align-items: center; gap: 10px; }
+        .nav-login { color: var(--muted); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; text-decoration: none; }
+        .nav-login:hover { color: white; }
+        .nav-divider { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+        .btn-nav {
+            background: var(--lime); color: #0D0F0C;
+            padding: 10px 20px; border-radius: 8px; text-decoration: none;
+            font-size: 0.85rem; font-weight: 800; transition: background 0.2s;
+        }
+        .btn-nav:hover { background: #ffe033; }
+        /* ── BREADCRUMB ── */
+        .breadcrumb { border-bottom: 1px solid var(--border); background: rgba(13,15,12,0.5); }
+        .breadcrumb-inner { max-width: 1160px; margin: 0 auto; padding: 0 28px; height: 36px; display: flex; align-items: center; }
+        .breadcrumb-inner a { font-size: 0.75rem; color: #5a6050; transition: color 0.2s; text-decoration: none; }
+        .breadcrumb-inner a:hover { color: var(--muted); }
+        .breadcrumb-sep { font-size: 0.75rem; color: #3a4035; margin: 0 7px; }
+        .breadcrumb-current { font-size: 0.75rem; color: var(--muted); }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--card) 100%);
+        }
+
+        .hero-label {
+            display: inline-block;
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: var(--radius);
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .hero-meta {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .hero-intro {
+            max-width: 600px;
+            margin: 0 auto;
+            color: #f0efe9;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Main Content */
+        .content-wrapper {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        h2 {
+            font-size: 1.15rem;
+            color: var(--white);
+            font-weight: 700;
+            margin-top: 40px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        p {
+            color: #f0efe9;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        ul {
+            list-style: none;
+            margin-bottom: 16px;
+            padding-left: 0;
+        }
+
+        li {
+            color: var(--muted);
+            font-size: 0.92rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        li:before {
+            content: "●";
+            color: var(--lime);
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+        }
+
+        strong {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            border-top: 1px solid var(--border);
+            padding: 60px 20px 40px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--white);
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+            padding: 0;
+        }
+
+        .footer-column ul li:before {
+            content: "";
+        }
+
+        .footer-column a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: var(--lime);
+        }
+
+        .footer-bottom {
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .footer-copyright {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                gap: 16px;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                display: none;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    
+    /* ── GLOBAL MOBILE FIXES ── */
+    html, body { overflow-x: hidden; max-width: 100%; }
+    @media (max-width: 768px) {
+      .container, [class*="-inner"], [class*="-wrap"], [class*="-content"] {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        box-sizing: border-box;
+      }
+      section, footer, nav { max-width: 100vw; overflow-x: hidden; }
+      img { max-width: 100%; height: auto; }
+    }
+
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+</head>
+<body>
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        Turn every finished job into a Google-ready post — in under 90 seconds.
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">Trades<span>Snap</span>.us</a>
+        <div class="nav-links">
+          <a href="how-it-works.html">How It Works</a>
+          <a href="index.html#features">Features <span class="chevron">▼</span></a>
+          <a href="index.html#who-its-for">Solutions For <span class="chevron">▼</span></a>
+          <a href="pricing.html">Pricing</a>
+          <a href="about.html">About</a>
+        </div>
+        <div class="nav-right">
+          <a href="login.html" class="nav-login">LOGIN</a>
+          <div class="nav-divider"></div>
+          <a href="get-started.html" class="btn-nav">Get Started Now</a>
+        </div>
+      </div>
+    </nav>
+    <div class="breadcrumb">
+      <div class="breadcrumb-inner">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-current">Legal</span>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-current">Terms of Service</span>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-label">LEGAL</div>
+        <h1>Terms of Service</h1>
+        <div class="hero-meta">Last updated: January 1, 2025</div>
+        <p class="hero-intro">These Terms of Service govern your use of TradesSnap.us. Please read them carefully. By creating an account or using our service, you agree to these terms and our practices described herein.</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <h2>1. Agreement to Terms</h2>
+        <p>By creating an account or using TradesSnap.us, you agree to be bound by these Terms of Service. If you do not agree to these terms, you may not use our service. These Terms apply to all users of TradesSnap.us, regardless of how you access the platform.</p>
+
+        <h2>2. Description of Service</h2>
+        <p>TradesSnap.us provides AI-powered content generation designed for home service contractors. The service works as follows: you submit a voice memo and optional job photos through your dashboard; our AI analyzes your input and generates three marketing assets — an SEO-optimized blog post, a Google Business post, and a social media caption. You receive these outputs in your dashboard and are responsible for posting them yourself to your chosen platforms. We do not post content to Google, Facebook, or any social platform on your behalf. We do not maintain API connections to third-party services.</p>
+
+        <h2>3. Account Registration</h2>
+        <ul>
+            <li>You must provide accurate, current, and complete information when creating an account</li>
+            <li>You are responsible for maintaining the confidentiality of your login credentials and for all activities that occur under your account</li>
+            <li>One account is permitted per business; account sharing is prohibited</li>
+            <li>You must be at least 18 years old and operate a legitimate home service business to use this service</li>
+            <li>You agree to notify us immediately of any unauthorized access to your account</li>
+        </ul>
+
+        <h2>4. Subscription and Billing</h2>
+        <ul>
+            <li>TradesSnap.us costs $97 per month, billed monthly to your registered payment method</li>
+            <li>Your subscription renews automatically each month until you cancel</li>
+            <li>You may cancel your subscription anytime from your account dashboard; cancellation takes effect at the end of your current billing period</li>
+            <li>No refunds are issued for partial months, but you retain full access to the service through the end of your paid billing period</li>
+            <li>We reserve the right to change pricing with 30 days' notice to existing subscribers</li>
+            <li>Billing inquiries and disputes should be directed to hello@tradessnap.us</li>
+        </ul>
+
+        <h2>5. Acceptable Use</h2>
+        <p>You agree not to use TradesSnap.us for any of the following purposes:</p>
+        <ul>
+            <li>Submitting voice memos or photos containing illegal content or content that violates any applicable law</li>
+            <li>Using the service to generate content that is defamatory, fraudulent, misleading, or deceptive</li>
+            <li>Attempting to reverse-engineer, decompile, disassemble, or otherwise discover the underlying code or algorithms of the platform</li>
+            <li>Scraping, crawling, or attempting to extract data from TradesSnap.us without written permission</li>
+            <li>Reselling, sublicensing, or sharing access to the service without explicit written authorization</li>
+            <li>Submitting content that infringes on the intellectual property rights, privacy rights, or other rights of any third party</li>
+            <li>Harassment, threats, or abuse of any kind directed at our team, other users, or any person</li>
+        </ul>
+
+        <h2>6. Your Content</h2>
+        <ul>
+            <li>You retain full ownership of all voice memos, photos, and other content you submit to TradesSnap.us</li>
+            <li>You own the AI-generated marketing outputs (blog posts, Google Business posts, and social captions) once they are delivered to your dashboard</li>
+            <li>By submitting content to our service, you grant TradesSnap.us a limited, non-exclusive license to process, analyze, and generate outputs from your content solely for the purpose of providing the service to you</li>
+            <li>We do not claim ownership of your content, do not sell or license your content to third parties, and do not use your content to train our AI models</li>
+            <li>You are responsible for the accuracy and truthfulness of information contained in your voice memos and for ensuring you have the right to submit all content you provide</li>
+        </ul>
+
+        <h2>7. Our Content and Intellectual Property</h2>
+        <ul>
+            <li>TradesSnap.us, the TradesSnap.us name, logo, design, software, and all related intellectual property are owned exclusively by TradesSnap.us, LLC</li>
+            <li>You may not copy, reproduce, modify, distribute, or redistribute the TradesSnap.us platform, its code, or its structure without written permission</li>
+            <li>The AI-generated outputs (blog posts, Google Business posts, social captions) belong to you once delivered and may be used, modified, and published as you see fit</li>
+            <li>You may use the service solely for your own personal, non-commercial use as a home service contractor</li>
+        </ul>
+
+        <h2>8. Accuracy of AI-Generated Content</h2>
+        <p>Our AI generates content based on the information and context you provide in your voice memo. We configure our AI to avoid inventing facts, prices, customer names, or other details not present in your input. However, <strong>you are responsible for reviewing all generated outputs before posting them to any platform</strong>. We are not liable for inaccuracies, errors, or misleading statements in the generated content that result from incomplete, inaccurate, or misleading information in your voice memo. Always verify that generated content is accurate and aligns with your business standards before publishing.</p>
+
+        <h2>9. Limitation of Liability</h2>
+        <ul>
+            <li>TradesSnap.us is provided "as is" without warranties of any kind, express or implied</li>
+            <li>We make no guarantees regarding uptime, availability, accuracy of outputs, or any specific business results</li>
+            <li>We are not liable for indirect, incidental, consequential, special, or punitive damages arising from your use of or inability to use the service</li>
+            <li>Our total liability to you for any claim shall not exceed the amount you paid to TradesSnap.us in the 3 months immediately preceding the claim</li>
+            <li>We do not guarantee specific SEO rankings, Google Business Profile visibility, or social media engagement — outcomes depend on many factors outside our control, including platform algorithms, market conditions, and your content strategy</li>
+            <li>Some jurisdictions do not allow the exclusion of implied warranties or limitation of liability, so these limitations may not apply to you</li>
+        </ul>
+
+        <h2>10. Indemnification</h2>
+        <p>You agree to defend, indemnify, and hold harmless TradesSnap.us, LLC, its officers, directors, employees, and agents from and against any claims, damages, liabilities, costs, and expenses (including reasonable attorneys' fees) arising from or related to: (a) your use of the service; (b) your content or the content you submit; (c) any violation of these Terms by you; or (d) your violation of any applicable law or the rights of any third party.</p>
+
+        <h2>11. Service Modifications</h2>
+        <p>TradesSnap.us reserves the right to update, modify, or discontinue any feature, functionality, or aspect of the service at any time, with or without notice. For significant changes that materially affect core functionality or your ability to use the service, we will make reasonable efforts to provide advance notice. Continued use of the service after changes constitute your acceptance of those changes.</p>
+
+        <h2>12. Termination</h2>
+        <ul>
+            <li>You may cancel your subscription anytime from your account dashboard</li>
+            <li>TradesSnap.us may suspend or terminate your account at any time if we determine you have violated these Terms, engaged in prohibited conduct, or otherwise used the service in a manner we deem harmful or inappropriate</li>
+            <li>Upon cancellation or termination, your access to the service ends at the close of your current billing period (if you cancelled) or immediately (if we terminated your account)</li>
+            <li>Sections of these Terms that are intended to survive termination (such as Limitation of Liability, Indemnification, and Intellectual Property) shall remain in effect</li>
+        </ul>
+
+        <h2>13. Governing Law</h2>
+        <p>These Terms of Service are governed by and construed in accordance with the laws of the State of Ohio, United States, without regard to its conflict of laws principles. You agree that any dispute arising out of or relating to these Terms or your use of TradesSnap.us shall be resolved exclusively in the state or federal courts located in Ohio, and you consent to the jurisdiction and venue of such courts.</p>
+
+        <h2>14. Changes to Terms</h2>
+        <p>We may modify these Terms of Service at any time. We will notify you by email of any material changes, and the updated Terms will include a revised "Last updated" date. Your continued use of TradesSnap.us after such notification constitutes your acceptance of the updated Terms. If you do not agree with any changes, you may cancel your subscription at any time.</p>
+
+        <h2>15. Contact</h2>
+        <p>If you have any questions about these Terms of Service, or if you need to report a violation, please contact us at <strong>hello@tradessnap.us</strong>.</p>
+
+        <p style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.9rem;">
+            <strong>TradesSnap.us, LLC</strong><br>
+            Turn every finished job into a Google-ready post
+        </p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Product</h3>
+                    <ul>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#trades">Trades</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Follow</h3>
+                    <ul>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-logo">⚡ TradesSnap.us</div>
+                <div class="footer-copyright">&copy; 2026 TradesSnap.us, LLC. All rights reserved. · <a href="tel:6145943904" style="color:inherit;">(614) 594-3904</a></div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

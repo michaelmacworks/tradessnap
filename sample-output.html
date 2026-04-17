@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>See a Real TradesSnap Output — Plumbing Example</title>
+  <meta name="description" content="Watch a 60-second voice memo transform into an SEO blog post, Google Business update, and social caption — in under 2 minutes. Real output. Real results.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tradessnap.us/sample-output">
+  <meta property="og:title" content="See What TradesSnap Actually Produces | Real Plumbing Example">
+  <meta property="og:description" content="A 60-second voice memo from a Dublin plumber → SEO blog post, Google Business post, and social caption. See the full output.">
+  <meta property="og:image" content="https://tradessnap.us/og-image.jpg">
+  <meta property="og:site_name" content="TradesSnap.us">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="See What TradesSnap Actually Produces | Real Plumbing Example">
+  <meta name="twitter:description" content="A 60-second voice memo → 3 marketing assets. See the full output from a real plumbing job.">
+  <meta name="twitter:image" content="https://tradessnap.us/og-image.jpg">
+  <link rel="canonical" href="https://tradessnap.us/sample-output">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0D0F0C;
+      color: #fff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    :root {
+      --black:    #0D0F0C;
+      --dark:     #111410;
+      --card:     #181C15;
+      --border:   #252A20;
+      --lime:     #FFD700;
+      --lime-dim: #C9A800;
+      --white:    #FFFFFF;
+      --muted:    #b8c4ba;
+      --radius:   10px;
+      --google-blue: #1a73e8;
+    }
+
+    h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.04em; }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.03em; }
+    h3 { font-size: 1.1rem; font-weight: 700; }
+    p  { color: #f0efe9; }
+    .lime  { color: var(--lime); }
+    .muted { color: var(--muted); }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+    .container-wide { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+    section { padding: 72px 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 10px;
+      font-weight: 800; font-size: 0.95rem; cursor: pointer;
+      border: none; transition: all 0.2s;
+    }
+    .btn-lime { background: var(--lime); color: #0D0F0C; }
+    .btn-lime:hover { background: #ffe033; transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--lime); border: 2px solid var(--lime); }
+    .btn-outline:hover { background: var(--lime); color: #0D0F0C; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,15,12,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 32px;
+      display: flex; align-items: center; gap: 24px;
+    }
+    .nav-logo { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.04em; }
+    .nav-logo span { color: var(--lime); }
+    .nav-links { display: flex; gap: 24px; margin-left: auto; }
+    .nav-links a { font-size: 0.88rem; font-weight: 600; color: var(--muted); transition: color 0.2s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta { margin-left: 16px; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 72px 0 60px;
+      border-bottom: 1px solid var(--border);
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.25);
+      color: var(--lime); font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 40px; margin-bottom: 24px;
+    }
+    .hero p { color: var(--muted); font-size: 1.1rem; max-width: 580px; margin-top: 16px; line-height: 1.7; }
+    .trade-pills { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+    .trade-pill {
+      padding: 6px 14px; border-radius: 40px; font-size: 0.78rem; font-weight: 600;
+      border: 1px solid var(--border); color: var(--muted); cursor: default;
+    }
+    .trade-pill.active {
+      background: rgba(255,215,0,0.1); border-color: rgba(255,215,0,0.35);
+      color: var(--lime);
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      display: inline-block; font-size: 0.72rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--lime); margin-bottom: 10px;
+    }
+
+    /* ── INPUT SECTION ── */
+    .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+
+    /* Memo card */
+    .memo-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+    }
+    .memo-header {
+      background: #1e2419; padding: 14px 20px;
+      display: flex; align-items: center; gap: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .rec-dot {
+      width: 10px; height: 10px; border-radius: 50%; background: #ff4444;
+      box-shadow: 0 0 0 3px rgba(255,68,68,0.2);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(255,68,68,0.2); }
+      50% { box-shadow: 0 0 0 6px rgba(255,68,68,0.08); }
+    }
+    .memo-header span { font-size: 0.78rem; font-weight: 700; color: var(--muted); letter-spacing: 0.04em; }
+    .memo-header .duration { margin-left: auto; font-size: 0.72rem; color: #555; font-variant-numeric: tabular-nums; }
+    .waveform {
+      padding: 16px 20px 6px;
+      display: flex; align-items: center; gap: 2px; height: 52px;
+    }
+    .wave-bar {
+      flex: 1; border-radius: 2px; background: var(--lime); opacity: 0.35;
+      min-height: 3px;
+    }
+    .memo-transcript {
+      padding: 6px 20px 24px;
+      font-size: 0.88rem; color: var(--muted); line-height: 1.75; font-style: italic;
+    }
+    .memo-transcript strong { color: #fff; font-style: normal; }
+
+    /* Photos card */
+    .photos-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+    }
+    .photos-header {
+      background: #1e2419; padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .photos-header span { font-size: 0.78rem; font-weight: 700; color: var(--muted); }
+    .photos-header .count {
+      margin-left: auto; background: rgba(255,215,0,0.12);
+      color: var(--lime); font-size: 0.7rem; font-weight: 800;
+      padding: 3px 10px; border-radius: 20px;
+    }
+    .photo-thumbs {
+      padding: 16px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .photo-thumb {
+      position: relative; border-radius: 10px; overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .photo-tag {
+      position: absolute; bottom: 8px; left: 8px;
+      font-size: 0.75rem; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 5px;
+    }
+    .photo-tag.before { background: #DC2626; color: #fff; }
+    .photo-tag.after  { background: #16A34A; color: #fff; }
+
+    /* ── TRANSFORM DIVIDER ── */
+    .transform-divider {
+      text-align: center; padding: 48px 0;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+    }
+    .transform-badge {
+      background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 40px; padding: 10px 24px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .transform-badge .spinner {
+      width: 16px; height: 16px; border: 2px solid rgba(255,215,0,0.3);
+      border-top-color: var(--lime); border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .transform-badge span { font-size: 0.85rem; font-weight: 700; color: var(--lime); }
+    .transform-divider .arrow { font-size: 1.5rem; color: var(--border); }
+    .output-count {
+      font-size: 0.78rem; color: var(--muted); font-weight: 600; letter-spacing: 0.04em;
+    }
+
+    /* ── OUTPUT LABELS ── */
+    .output-block { margin-bottom: 64px; }
+    .output-block:last-child { margin-bottom: 0; }
+    .output-label-row {
+      display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
+    }
+    .output-num {
+      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 900; color: var(--lime);
+    }
+    .output-label-row h3 { font-size: 1rem; }
+    .output-label-row p { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+    .copy-badge {
+      margin-left: auto; background: var(--card); border: 1px solid var(--border);
+      color: var(--muted); font-size: 0.72rem; font-weight: 700;
+      padding: 5px 12px; border-radius: 6px; cursor: pointer;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .copy-badge:hover { border-color: var(--lime); color: var(--lime); }
+
+    /* ── OUTPUT 1: BLOG POST ── */
+    .blog-mockup {
+      background: #fff; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.4);
+    }
+    .blog-browser-bar {
+      background: #f1f3f4; padding: 10px 16px;
+      display: flex; align-items: center; gap: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    .browser-dots { display: flex; gap: 6px; }
+    .browser-dots span { width: 10px; height: 10px; border-radius: 50%; }
+    .browser-dots span:nth-child(1) { background: #ff5f57; }
+    .browser-dots span:nth-child(2) { background: #febc2e; }
+    .browser-dots span:nth-child(3) { background: #28c840; }
+    .browser-url {
+      flex: 1; background: #fff; border: 1px solid #ddd; border-radius: 6px;
+      padding: 4px 12px; font-size: 0.72rem; color: #555;
+      font-family: monospace; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+    }
+    .blog-content { padding: 40px 48px 48px; }
+    .blog-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+    .blog-cat {
+      background: #fff3cd; color: #8a6d00; font-size: 0.7rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 10px; border-radius: 4px;
+    }
+    .blog-date { font-size: 0.75rem; color: #555; }
+    .blog-read { font-size: 0.75rem; color: #555; }
+    .blog-h1 {
+      font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 800; line-height: 1.2;
+      color: #111; letter-spacing: -0.02em; margin-bottom: 14px;
+    }
+    .blog-byline { font-size: 0.8rem; color: #555; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #eee; }
+    .blog-hero-img {
+      width: 100%; aspect-ratio: 16/7; object-fit: cover; border-radius: 10px; margin-bottom: 28px;
+    }
+    .blog-body { font-size: 0.95rem; color: #2c2c2c; line-height: 1.8; }
+    .blog-body p { margin-bottom: 18px; color: #2c2c2c; }
+    .blog-body h2 { font-size: 1.2rem; font-weight: 800; color: #111; margin: 28px 0 12px; }
+    .blog-body ul { margin: 0 0 18px 20px; }
+    .blog-body ul li { margin-bottom: 6px; font-size: 0.93rem; color: #2c2c2c; line-height: 1.65; }
+    .blog-body .cta-inline {
+      background: #fff8dc; border: 1px solid #ffe566; border-radius: 10px;
+      padding: 20px 24px; margin: 24px 0;
+    }
+    .blog-body .cta-inline p { color: #6a5000; font-weight: 600; margin: 0; font-size: 0.9rem; }
+    .blog-seo-bar {
+      background: #f8f9fa; border-top: 1px solid #eee;
+      padding: 12px 48px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+    .seo-tag {
+      font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 12px;
+    }
+    .seo-tag.green { background: #d4edda; color: #155724; }
+    .seo-tag.blue  { background: #cce5ff; color: #004085; }
+    .seo-wc { font-size: 0.72rem; color: #555; margin-left: auto; }
+
+    /* ── OUTPUT 2: GOOGLE BUSINESS ── */
+    .google-mockup {
+      background: #fff; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.4); max-width: 520px;
+    }
+    .google-header {
+      padding: 14px 18px; border-bottom: 1px solid #e8eaed;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .google-logo {
+      font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em;
+    }
+    .g-b { color: #4285f4; }
+    .g-r { color: #ea4335; }
+    .g-y { color: #fbbc04; }
+    .g-g { color: #34a853; }
+    .google-header span { font-size: 0.72rem; color: #555; margin-left: 2px; }
+    .gbp-card { padding: 20px 18px; }
+    .gbp-biz-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .gbp-avatar {
+      width: 44px; height: 44px; border-radius: 50%; background: #1a73e8;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: 1rem; flex-shrink: 0;
+    }
+    .gbp-biz-name { font-size: 0.9rem; font-weight: 700; color: #111; }
+    .gbp-biz-cat { font-size: 0.75rem; color: #555; }
+    .gbp-image {
+      width: 100%; aspect-ratio: 16/9; object-fit: cover;
+      border-radius: 10px; margin-bottom: 14px;
+    }
+    .gbp-post-text { font-size: 0.87rem; color: #3c4043; line-height: 1.65; margin-bottom: 14px; }
+    .gbp-cta-btn {
+      display: inline-block; border: 1px solid #dadce0; border-radius: 6px;
+      padding: 8px 18px; font-size: 0.82rem; font-weight: 600; color: var(--google-blue);
+      margin-bottom: 12px;
+    }
+    .gbp-footer { font-size: 0.7rem; color: #666; border-top: 1px solid #f0f0f0; padding-top: 10px; }
+
+    /* ── OUTPUT 3: SOCIAL CAPTION ── */
+    .social-mockup {
+      background: #fff; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.4); max-width: 420px;
+    }
+    .insta-top { display: flex; align-items: center; gap: 10px; padding: 12px 16px; }
+    .insta-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: 0.75rem;
+    }
+    .insta-user { flex: 1; }
+    .insta-handle { font-size: 0.82rem; font-weight: 700; color: #111; }
+    .insta-loc { font-size: 0.68rem; color: #555; }
+    .insta-more { color: #555; font-weight: 700; letter-spacing: 1px; font-size: 0.9rem; }
+    .insta-media-wrap { position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; }
+    .insta-media-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .insta-carousel-pip {
+      position: absolute; top: 10px; right: 10px;
+      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
+    }
+    .insta-dots {
+      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 5px;
+    }
+    .insta-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); }
+    .insta-dot.active { background: #fff; }
+    .insta-actions {
+      display: flex; justify-content: space-between;
+      padding: 10px 16px 4px;
+    }
+    .insta-left { display: flex; gap: 14px; }
+    .insta-icon { width: 22px; height: 22px; stroke: #111; fill: none; stroke-width: 2; }
+    .insta-likes { font-size: 0.82rem; font-weight: 700; color: #111; padding: 0 16px 6px; }
+    .insta-caption-text {
+      font-size: 0.82rem; color: #111; padding: 0 16px 6px; line-height: 1.6;
+    }
+    .insta-caption-text strong { font-weight: 700; }
+    .insta-tags { font-size: 0.78rem; color: #385185; padding: 0 16px 6px; line-height: 1.6; }
+    .insta-time { font-size: 0.65rem; color: #666; text-transform: uppercase; letter-spacing: 0.04em; padding: 0 16px 16px; }
+
+    /* ── SIDE BY SIDE LAYOUT for outputs 2 & 3 ── */
+    .side-by-side { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; margin-top: 8px; }
+
+    /* ── CTA BANNER ── */
+    .cta-section { padding: 72px 0; }
+    .cta-banner {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 56px 48px; text-align: center;
+    }
+    .cta-banner h2 { margin-bottom: 16px; }
+    .cta-banner p { color: var(--muted); margin-bottom: 32px; font-size: 1.05rem; }
+    .cta-btn-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer { background: #080908; border-top: 1px solid var(--border); padding: 60px 0 32px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+    .footer-logo { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.04em; display: block; margin-bottom: 12px; }
+    .footer-logo span { color: var(--lime); }
+    .footer-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+    .footer-col h4 { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lime); margin-bottom: 14px; }
+    .footer-col a { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 8px; transition: color 0.2s; }
+    .footer-col a:hover { color: #fff; }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; gap: 12px; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { color: var(--muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--lime); }
+
+    /* ── MOBILE ── */
+    html, body { overflow-x: hidden; max-width: 100%; }
+    @media (max-width: 800px) {
+      .input-grid { grid-template-columns: 1fr; }
+      .side-by-side { grid-template-columns: 1fr; }
+      .google-mockup, .social-mockup { max-width: 100%; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+    }
+    @media (max-width: 768px) {
+      .container, .container-wide { padding-left: 20px; padding-right: 20px; }
+      section { padding: 52px 0; }
+      .blog-content { padding: 28px 24px 32px; }
+      .blog-seo-bar { padding: 12px 24px; }
+      .cta-banner { padding: 36px 24px; }
+      nav .nav-links { display: none; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 14px; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { padding: 0 16px !important; }
+      h1 { font-size: clamp(1.9rem, 8vw, 2.8rem) !important; }
+      h2 { font-size: clamp(1.5rem, 6vw, 2rem) !important; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Trades<span>Snap</span>.us</a>
+    <div class="nav-links">
+      <a href="how-it-works.html">How It Works</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav-cta">
+      <a href="get-started.html" class="btn btn-lime" style="padding:10px 20px;font-size:0.85rem;border-radius:8px;">Get Early Access →</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ─── HERO ─── -->
+<div class="hero">
+  <div class="container">
+    <div class="eyebrow">🔧 Live Demo — Plumbing</div>
+    <h1>This is what one job<br><span class="lime">looks like when it works for you.</span></h1>
+    <p>A Dublin plumber recorded a 58-second voice memo from his truck. Below is the exact SEO blog post, Google Business update, and social caption TradesSnap generated — unedited, ready to post.</p>
+    <div class="trade-pills">
+      <span class="trade-pill active">🔧 Plumbing</span>
+      <a href="for-electrical.html" class="trade-pill">⚡ Electrical</a>
+      <a href="for-hvac.html" class="trade-pill">❄️ HVAC</a>
+      <a href="for-roofing.html" class="trade-pill">🏠 Roofing</a>
+      <a href="for-contractor.html" class="trade-pill">🔨 Contracting</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ─── INPUT ─── -->
+<section>
+  <div class="container">
+    <div class="section-label">Step 1 — The Input</div>
+    <h2>A 58-second memo.<br><span class="lime">Two job-site photos.</span></h2>
+
+    <div class="input-grid">
+
+      <!-- Voice memo -->
+      <div class="memo-card">
+        <div class="memo-header">
+          <div class="rec-dot"></div>
+          <span>VOICE MEMO — TRANSCRIBED</span>
+          <span class="duration">0:58</span>
+        </div>
+        <div class="waveform" id="waveform"></div>
+        <div class="memo-transcript">
+          "Just finished up a <strong>water heater replacement out in Dublin</strong> — Muirfield neighborhood. Homeowner called us first thing this morning, woke up to <strong>no hot water</strong>. Turned out the old 40-gallon had been leaking from the bottom for weeks, she just hadn't noticed. We pulled it, put in a new <strong>Rheem 50-gallon high-efficiency unit</strong>, ran fresh PEX supply lines, brought the pressure relief valve up to current code. Whole job was <strong>done before lunch — about 3 hours</strong>. Customer was really happy, said she'd been putting it off because she thought it'd be way more expensive than it was."
+        </div>
+      </div>
+
+      <!-- Photos -->
+      <div class="photos-card">
+        <div class="photos-header">
+          <span>📸 JOB PHOTOS UPLOADED</span>
+          <span class="count">2 photos</span>
+        </div>
+        <div class="photo-thumbs">
+          <div class="photo-thumb">
+            <img src="images/plumbing/plumbing-before-1.webp" alt="Before: corroded water heater" loading="lazy" />
+            <span class="photo-tag before">BEFORE</span>
+          </div>
+          <div class="photo-thumb">
+            <img src="images/plumbing/plumbing-after-5.webp" alt="After: new Rheem water heater installed" loading="lazy" />
+            <span class="photo-tag after">AFTER ✓</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── TRANSFORM DIVIDER ─── -->
+<div class="transform-divider">
+  <div class="arrow">↓</div>
+  <div class="transform-badge">
+    <div class="spinner"></div>
+    <span>TradesSnap generated 3 assets in 52 seconds</span>
+  </div>
+  <div class="arrow">↓</div>
+  <p class="output-count muted">3 assets ready to copy and post</p>
+</div>
+
+
+<!-- ─── OUTPUTS ─── -->
+<section>
+  <div class="container">
+    <div class="section-label">Step 2 — The Output</div>
+    <h2 style="margin-bottom: 48px;">Three assets.<br><span class="lime">Zero editing required.</span></h2>
+
+    <!-- OUTPUT 1: Blog Post -->
+    <div class="output-block">
+      <div class="output-label-row">
+        <div class="output-num">1</div>
+        <div>
+          <h3>SEO Blog Post</h3>
+          <p class="muted">Published to your website. Ranks on Google for local searches.</p>
+        </div>
+        <button class="copy-badge" onclick="this.textContent='✓ Copied!'">📋 Copy Post</button>
+      </div>
+
+      <div class="blog-mockup">
+        <div class="blog-browser-bar">
+          <div class="browser-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="browser-url">yourdomain.com/blog/water-heater-replacement-dublin-oh</div>
+        </div>
+        <div class="blog-content">
+          <div class="blog-meta">
+            <span class="blog-cat">Plumbing Tips</span>
+            <span class="blog-date">March 10, 2026</span>
+            <span class="blog-read">· 4 min read</span>
+          </div>
+          <h1 class="blog-h1">No Hot Water This Morning? What a Dublin Homeowner Did — and How We Had It Fixed Before Lunch</h1>
+          <div class="blog-byline">By Your Plumbing Co · Dublin, Ohio</div>
+          <img class="blog-hero-img" src="images/plumbing/plumbing-after-5.webp" alt="New Rheem water heater installed in Dublin Ohio home" loading="lazy" />
+          <div class="blog-body">
+            <p>There's nothing quite like waking up to a cold shower — especially when you had no idea anything was wrong the night before. That's exactly what happened to a homeowner in the Muirfield neighborhood of Dublin, Ohio earlier this week. She called us first thing in the morning, and by lunchtime, she had a brand-new, high-efficiency water heater and fully restored hot water.</p>
+
+            <p>Here's what we found, what we did, and what you should watch for in your own home.</p>
+
+            <h2>What Was Wrong With the Old Unit</h2>
+            <p>The home had an aging 40-gallon tank water heater that had been quietly leaking from the base for weeks. Slow leaks at the bottom of a tank are one of the most common — and most overlooked — signs that a water heater is nearing the end of its life. Because the leak was small and located behind the unit, the homeowner hadn't noticed it until the tank finally failed completely and stopped producing hot water.</p>
+
+            <p>By the time we arrived, the unit was beyond repair. Sediment buildup in the tank, a compromised pressure relief valve, and the ongoing leak made replacement the only smart option.</p>
+
+            <h2>What We Installed</h2>
+            <ul>
+              <li><strong>Rheem Performance Platinum 50-gallon high-efficiency water heater</strong> — increased capacity over the old 40-gallon unit, better energy efficiency, and a solid warranty</li>
+              <li>Fresh <strong>PEX supply lines</strong> throughout — flexible, corrosion-resistant, and built to last</li>
+              <li>New <strong>pressure relief valve</strong> brought up to current Ohio code</li>
+            </ul>
+
+            <p>The entire job — removal of the old unit, installation, line work, and code compliance — was completed in approximately 3 hours. The homeowner told us she'd been putting the repair off because she assumed it would be expensive. In most cases, a standard water heater replacement in the Dublin area is more straightforward — and more affordable — than homeowners expect.</p>
+
+            <div class="cta-inline">
+              <p>💧 Noticing any of these signs? Rusty water, popping or rumbling sounds, visible moisture near the base, or water that takes longer than usual to heat up — these are all early warnings. Give us a call before it becomes an emergency.</p>
+            </div>
+
+            <h2>Signs Your Water Heater May Be Failing</h2>
+            <ul>
+              <li>Water around the base of the unit — even a small puddle</li>
+              <li>Rust-colored or metallic-tasting hot water</li>
+              <li>Popping, rumbling, or banging sounds during heating</li>
+              <li>Water that takes significantly longer to get hot</li>
+              <li>Unit is 10+ years old</li>
+            </ul>
+
+            <p>If you're a homeowner in Dublin, Westerville, Powell, or the surrounding Columbus area and you're seeing any of these signs, don't wait for a complete failure. We offer same-day assessments and can usually complete a standard replacement in a single visit.</p>
+          </div>
+        </div>
+        <div class="blog-seo-bar">
+          <span class="seo-tag green">✓ Local keywords</span>
+          <span class="seo-tag green">✓ 480 words</span>
+          <span class="seo-tag blue">Dublin OH · Water heater replacement</span>
+          <span class="seo-wc">Ready to publish</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- OUTPUT 2 & 3: Side by side -->
+    <div class="output-block">
+      <div class="side-by-side">
+
+        <!-- Google Business -->
+        <div>
+          <div class="output-label-row">
+            <div class="output-num">2</div>
+            <div>
+              <h3>Google Business Post</h3>
+              <p class="muted">Shows up on your Google profile. Drives local calls.</p>
+            </div>
+          </div>
+          <button class="copy-badge" style="margin-bottom:16px;" onclick="this.textContent='✓ Copied!'">📋 Copy Post</button>
+
+          <div class="google-mockup">
+            <div class="google-header">
+              <span class="google-logo">
+                <span class="g-b">G</span><span class="g-r">o</span><span class="g-y">o</span><span class="g-b">g</span><span class="g-g">l</span><span class="g-r">e</span>
+              </span>
+              <span>Business Profile</span>
+            </div>
+            <div class="gbp-card">
+              <div class="gbp-biz-row">
+                <div class="gbp-avatar">YP</div>
+                <div>
+                  <div class="gbp-biz-name">Your Plumbing Co</div>
+                  <div class="gbp-biz-cat">Plumber · Dublin, OH</div>
+                </div>
+              </div>
+              <img class="gbp-image" src="images/plumbing/plumbing-after-5.webp" alt="New water heater installed in Dublin Ohio" loading="lazy" />
+              <div class="gbp-post-text">
+                Same-day water heater replacement in Dublin's Muirfield neighborhood. 🚿<br><br>
+                A homeowner called us this morning with no hot water — her 40-gallon tank had been leaking from the base and finally gave out overnight. We were on-site within the hour.<br><br>
+                New Rheem 50-gallon high-efficiency unit installed, fresh PEX lines run, pressure relief valve brought up to code. Done before lunch.<br><br>
+                If your water heater is 10+ years old or you're seeing any moisture near the base — don't wait for a cold shower to call. We offer same-day service across Dublin, Powell, and Westerville.
+              </div>
+              <a href="get-started.html" class="gbp-cta-btn">Call to Book →</a>
+              <div class="gbp-footer">Posted today · Google Business Profile</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Caption -->
+        <div>
+          <div class="output-label-row">
+            <div class="output-num">3</div>
+            <div>
+              <h3>Social Caption</h3>
+              <p class="muted">Ready for Instagram, Facebook, and Nextdoor.</p>
+            </div>
+          </div>
+          <button class="copy-badge" style="margin-bottom:16px;" onclick="this.textContent='✓ Copied!'">📋 Copy Caption</button>
+
+          <div class="social-mockup">
+            <div class="insta-top">
+              <div class="insta-avatar">YP</div>
+              <div class="insta-user">
+                <div class="insta-handle">your_plumbing_co</div>
+                <div class="insta-loc">Dublin, Ohio</div>
+              </div>
+              <div class="insta-more">•••</div>
+            </div>
+            <div class="insta-media-wrap">
+              <img src="images/plumbing/plumbing-after-5.webp" alt="New water heater installed" loading="lazy" />
+              <div class="insta-carousel-pip">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20" height="20" style="filter:drop-shadow(0 1px 3px rgba(0,0,0,0.6))"><path d="M22 7H20V5a3 3 0 0 0-3-3H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h2v2a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V10a3 3 0 0 0-3-3zm-15 13H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v2H10a3 3 0 0 0-3 3v10zm16 2H10a1 1 0 0 1-1-1V10a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1z"/></svg>
+              </div>
+              <div class="insta-dots">
+                <div class="insta-dot active"></div>
+                <div class="insta-dot"></div>
+              </div>
+            </div>
+            <div class="insta-actions">
+              <div class="insta-left">
+                <svg class="insta-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                <svg class="insta-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                <svg class="insta-icon" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              </div>
+              <svg class="insta-icon" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+            </div>
+            <div class="insta-likes">❤️ <strong>312 likes</strong></div>
+            <div class="insta-caption-text">
+              <strong>your_plumbing_co</strong> Cold shower at 6am. No warning. 🚿❄️ That was this Dublin homeowner's morning — and ours started with her call.<br><br>
+              Old 40-gallon tank had been slowly leaking for weeks. By the time it gave out, there was no saving it. We pulled it, put in a new Rheem 50-gallon high-efficiency unit, ran fresh PEX lines, and had her back to hot water before noon. 💪<br><br>
+              3 hours. Done. Muirfield neighborhood — we work all across Dublin and the surrounding area.<br><br>
+              When's the last time you thought about your water heater? 👇
+            </div>
+            <div class="insta-tags">#DublinOH #DublinPlumber #WaterHeater #MuirfieldDublin #BlueCollarProud #HomeRepair 🏠</div>
+            <div class="insta-time">2 hours ago</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ─── CTA ─── -->
+<div class="cta-section">
+  <div class="container">
+    <div class="cta-banner">
+      <div class="section-label">Your turn</div>
+      <h2>58 seconds of talking.<br><span class="lime">3 assets that work while you sleep.</span></h2>
+      <p>Join contractors across the trades who are turning every job into local marketing — without hiring anyone or learning anything new.</p>
+      <div class="cta-btn-row">
+        <a href="get-started.html" class="btn btn-lime">Get Early Access →</a>
+        <a href="how-it-works.html" class="btn btn-outline">See How It Works</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="container-wide">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="footer-logo">Trades<span>Snap</span>.us</a>
+        <p class="footer-desc">AI-powered marketing automation for home service contractors. Turn your best work into your best marketing — in under 2 minutes per job.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Trades</h4>
+        <a href="for-plumbers.html">🔧 Plumbing</a>
+        <a href="for-electrical.html">⚡ Electrical</a>
+        <a href="for-hvac.html">❄️ HVAC</a>
+        <a href="for-roofing.html">🏠 Roofing</a>
+        <a href="for-contractor.html">🔨 Contracting</a>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="tips.html">Tips &amp; Best Practices</a>
+        <a href="sample-output.html">See a Sample Output</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="mailto:hello@tradessnap.us">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 TradesSnap.us · A <a href="https://TradesXL.US" target="_blank" rel="noopener noreferrer" style="color:inherit;">TradesXL.US</a> Company · Built for the blue-collar professional.</span>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="mailto:hello@tradessnap.us">hello@tradessnap.us</a>
+        <a href="tel:6145943904">(614) 594-3904</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Generate random waveform bars
+  const waveform = document.getElementById('waveform');
+  const heights = [8,14,22,18,30,24,38,28,20,34,40,32,24,36,28,18,32,38,22,28,34,20,16,26,30,36,24,18,28,22,14,20,28,32,24,18,30,22,16,24];
+  heights.forEach(h => {
+    const bar = document.createElement('div');
+    bar.className = 'wave-bar';
+    bar.style.height = h + 'px';
+    bar.style.opacity = (0.25 + (h / 40) * 0.65).toFixed(2);
+    waveform.appendChild(bar);
+  });
+
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.boxShadow =
+      window.scrollY > 10 ? '0 4px 32px rgba(0,0,0,0.6)' : 'none';
+  });
+</script>
+</body>
+</html>

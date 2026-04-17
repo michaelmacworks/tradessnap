@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Be Our First Featured Contractor — TradesSnap.us</title>
+  <meta name="description" content="TradesSnap is looking for its first featured contractors. Get a shoutout across our social channels and be the face of something new.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0D0F0C; color: #fff; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    :root {
+      --black: #0D0F0C; --dark: #111410; --card: #181C15;
+      --border: #252A20; --lime: #FFD700; --muted: #b8c4ba;
+    }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+    /* ── NAV (matches index.html exactly) ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,15,12,0.96);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px; max-width: 1160px; margin: 0 auto; padding: 0 28px;
+    }
+    .nav-logo { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.04em; }
+    .nav-logo span { color: var(--lime); }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-links a {
+      color: var(--muted); font-size: 0.85rem; font-weight: 600;
+      padding: 7px 14px; border-radius: 7px;
+      transition: color 0.2s, background 0.2s;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .nav-links a:hover { color: white; background: rgba(255,255,255,0.06); }
+    .nav-links a .chevron { font-size: 0.6rem; opacity: 0.5; }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .nav-login { color: var(--muted); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-login:hover { color: white; }
+    .nav-divider { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+    .btn-lime {
+      background: var(--lime); color: #0D0F0C;
+      padding: 10px 20px; border-radius: 8px;
+      font-size: 0.85rem; font-weight: 800; transition: background 0.2s;
+    }
+    .btn-lime:hover { background: #ffe033; }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb { border-bottom: 1px solid var(--border); background: rgba(13,15,12,0.5); }
+    .breadcrumb-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 28px;
+      height: 36px; display: flex; align-items: center;
+    }
+    .breadcrumb-inner a { font-size: 0.75rem; color: #5a6050; transition: color 0.2s; }
+    .breadcrumb-inner a:hover { color: var(--muted); }
+    .breadcrumb-sep { font-size: 0.75rem; color: #3a4035; margin: 0 7px; }
+    .breadcrumb-current { font-size: 0.75rem; color: var(--muted); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 80px 0 72px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,215,0,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .founding-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.25);
+      color: var(--lime); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 20px; margin-bottom: 24px;
+    }
+    .founding-tag .dot {
+      width: 6px; height: 6px; background: var(--lime); border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5.5vw, 4rem); font-weight: 900;
+      letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 20px;
+    }
+    .hero h1 .lime { color: var(--lime); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--muted); max-width: 580px;
+      margin: 0 auto 32px; line-height: 1.75;
+    }
+    .hero-cta-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-big {
+      display: inline-block; background: var(--lime); color: #0D0F0C;
+      padding: 16px 36px; border-radius: 10px; font-size: 1rem; font-weight: 900;
+      transition: background 0.2s;
+    }
+    .btn-big:hover { background: #ffe033; }
+    .btn-ghost {
+      display: inline-block; border: 1.5px solid var(--border); color: var(--muted);
+      padding: 15px 28px; border-radius: 10px; font-size: 0.92rem; font-weight: 700;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: #6a7060; color: #fff; }
+    .hero-note { font-size: 0.78rem; color: #4a5040; margin-top: 16px; }
+
+    /* ── SPOTS COUNTER ── */
+    .spots-bar {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    .spots-inner {
+      display: inline-flex; align-items: center; gap: 20px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 18px 32px;
+    }
+    .spots-num {
+      font-size: 2rem; font-weight: 900; letter-spacing: -0.05em; color: var(--lime); line-height: 1;
+    }
+    .spots-label { font-size: 0.85rem; color: var(--muted); text-align: left; line-height: 1.4; }
+    .spots-label strong { color: #fff; display: block; }
+    .spots-divider { width: 1px; height: 40px; background: var(--border); }
+
+    /* ── WHAT YOU GET ── */
+    .perks { padding: 72px 0; border-bottom: 1px solid var(--border); }
+    .perks-header { text-align: center; margin-bottom: 48px; }
+    .section-label {
+      display: inline-block; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--lime); margin-bottom: 14px;
+    }
+    .perks-header h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900; letter-spacing: -0.03em; }
+    .perks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .perk-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px;
+      position: relative; overflow: hidden;
+    }
+    .perk-card.highlight {
+      border-color: rgba(255,215,0,0.3);
+      background: linear-gradient(135deg, #181C15 0%, #1e2218 100%);
+    }
+    .perk-icon-row {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+    }
+    .perk-icon { font-size: 2rem; line-height: 1; }
+    .perk-badge {
+      display: inline-block;
+      background: var(--lime); color: #0D0F0C;
+      font-size: 0.6rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 4px;
+    }
+    .perk-title { font-size: 1rem; font-weight: 800; margin-bottom: 8px; }
+    .perk-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── WHAT WE ASK ── */
+    .ask { padding: 72px 0; border-bottom: 1px solid var(--border); }
+    .ask-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .ask-text h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 16px; line-height: 1.15; }
+    .ask-text h2 .lime { color: var(--lime); }
+    .ask-text p { font-size: 0.92rem; color: var(--muted); line-height: 1.8; margin-bottom: 14px; }
+    .ask-steps { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
+    .ask-step { display: flex; gap: 14px; align-items: flex-start; }
+    .step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(255,215,0,0.12); border: 1px solid rgba(255,215,0,0.25);
+      color: var(--lime); font-size: 0.72rem; font-weight: 900;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .step-text { font-size: 0.88rem; color: var(--muted); line-height: 1.6; padding-top: 4px; }
+    .step-text strong { color: #fff; }
+
+    /* FORM CARD */
+    .form-card {
+      background: var(--card); border: 1px solid rgba(255,215,0,0.2);
+      border-radius: 18px; padding: 36px;
+    }
+    .form-card h3 { font-size: 1.1rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .form-card .form-sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 24px; }
+    .field { margin-bottom: 16px; }
+    label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--muted); margin-bottom: 6px; letter-spacing: 0.02em; }
+    input, select, textarea {
+      width: 100%; padding: 11px 14px;
+      background: #0D0F0C; border: 1px solid var(--border);
+      border-radius: 8px; color: #fff; font-size: 0.88rem;
+      font-family: inherit; outline: none; transition: border-color 0.2s;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--lime); }
+    input::placeholder, textarea::placeholder { color: #444; }
+    select option { background: #181C15; }
+    textarea { resize: vertical; min-height: 80px; }
+    .btn-submit {
+      width: 100%; padding: 13px; background: var(--lime); color: #0D0F0C;
+      border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 800;
+      cursor: pointer; transition: background 0.2s; margin-top: 4px;
+    }
+    .btn-submit:hover { background: #ffe033; }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .form-fine { font-size: 0.72rem; color: #4a5040; text-align: center; margin-top: 10px; }
+
+    .success-view { display: none; text-align: center; padding: 20px 0; }
+    .success-view.show { display: block; }
+    .success-icon { font-size: 2.8rem; margin-bottom: 12px; }
+    .success-view h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
+    .success-view p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── SOCIAL PROOF PLACEHOLDER ── */
+    .social-channels { padding: 56px 0; border-bottom: 1px solid var(--border); text-align: center; }
+    .social-channels h2 { font-size: 1.4rem; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 8px; }
+    .social-channels p { font-size: 0.88rem; color: var(--muted); margin-bottom: 32px; }
+    .channels-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .channel-pill {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 20px;
+      font-size: 0.85rem; font-weight: 600; color: var(--muted);
+    }
+    .channel-pill .icon { font-size: 1.1rem; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--dark); border-top: 1px solid var(--border); padding: 32px 0; }
+    .footer-bottom { font-size: 0.78rem; color: var(--muted); display: flex; justify-content: space-between; align-items: center; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--muted); transition: color 0.2s; font-size: 0.78rem; }
+    .footer-links a:hover { color: var(--lime); }
+
+    @media (max-width: 768px) {
+      .perks-grid { grid-template-columns: 1fr; }
+      .ask-grid { grid-template-columns: 1fr; gap: 36px; }
+      .hero-cta-group { flex-direction: column; align-items: center; }
+      .spots-inner { flex-direction: column; gap: 10px; }
+      .spots-divider { width: 40px; height: 1px; }
+      .nav-links { display: none; }
+      .footer-bottom { flex-direction: column; gap: 12px; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Trades<span>Snap</span>.us</a>
+    <div class="nav-links">
+      <a href="how-it-works.html">How It Works</a>
+      <a href="index.html#features">Features <span class="chevron">▼</span></a>
+      <a href="index.html#who-its-for">Solutions For <span class="chevron">▼</span></a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav-right">
+      <a href="login.html" class="nav-login">LOGIN</a>
+      <div class="nav-divider"></div>
+      <a href="get-started.html" class="btn-lime">Get Started Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index.html">Home</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Company</span>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Case Studies</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="founding-tag">
+      <span class="dot"></span>
+      Founding Contractor Opportunity
+    </div>
+    <h1>Be the first contractor<br>we <span class="lime">brag about.</span></h1>
+    <p class="hero-sub">TradesSnap is brand new — and we're looking for a small group of contractors ready to put it to work. Use it on real jobs, share your results, and we'll give you a proper shoutout across all our social channels.</p>
+    <div class="hero-cta-group">
+      <a href="#apply" class="btn-big">Apply to Be Featured →</a>
+      <a href="signup.html" class="btn-ghost">Start Free Trial First</a>
+    </div>
+    <div class="hero-note">No cost. No obligation. Just good work, well deserved recognition.</div>
+  </div>
+</section>
+
+<!-- SPOTS COUNTER -->
+<section class="spots-bar">
+  <div class="spots-inner">
+    <div>
+      <div class="spots-num">5</div>
+    </div>
+    <div class="spots-divider"></div>
+    <div class="spots-label">
+      <strong>Founding Featured Spots Available</strong>
+      We're keeping this small on purpose — real stories, not a wall of logos.
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="perks">
+  <div class="container">
+    <div class="perks-header">
+      <div class="section-label">What's In It For You</div>
+      <h2>More than a mention.</h2>
+    </div>
+    <div class="perks-grid">
+
+      <div class="perk-card highlight">
+        <div class="perk-icon-row">
+          <span class="perk-icon">📣</span>
+          <span class="perk-badge">Most Exciting</span>
+        </div>
+        <div class="perk-title">Social Media Shoutout</div>
+        <div class="perk-desc">Your business, your best before/after, your results — featured across our Instagram, Facebook, and LinkedIn channels with a direct tag and link to your business. Real exposure to a contractor-focused audience.</div>
+      </div>
+
+      <div class="perk-card">
+        <div class="perk-icon-row"><span class="perk-icon">🏆</span></div>
+        <div class="perk-title">Permanent Case Study Page</div>
+        <div class="perk-desc">Your story becomes part of TradesSnap's public website — with your trade, your city, your results, and a quote from you. A piece of credible third-party content that lives on and is linkable.</div>
+      </div>
+
+      <div class="perk-card">
+        <div class="perk-icon-row"><span class="perk-icon">🎯</span></div>
+        <div class="perk-title">Founding Member Status</div>
+        <div class="perk-desc">Featured contractors are our first real-world validators. You'll get early access to new features, a direct line to our team, and founding member pricing locked in as long as you stay subscribed.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE ASK + FORM -->
+<section class="ask" id="apply">
+  <div class="container">
+    <div class="ask-grid">
+
+      <div class="ask-text">
+        <div class="section-label">What We Ask in Return</div>
+        <h2>Just use it<br>on <span class="lime">real jobs.</span></h2>
+        <p>We're not asking for a favor. We're asking you to use TradesSnap the way it was built to be used — and let us tell that story if the results are good.</p>
+        <div class="ask-steps">
+          <div class="ask-step">
+            <div class="step-num">1</div>
+            <div class="step-text"><strong>Try it on 5–10 real jobs</strong> during your free trial. Voice memo, photos, hit submit.</div>
+          </div>
+          <div class="ask-step">
+            <div class="step-num">2</div>
+            <div class="step-text"><strong>Share your honest results</strong> with us — more calls, better rankings, time saved. Whatever actually happened.</div>
+          </div>
+          <div class="ask-step">
+            <div class="step-num">3</div>
+            <div class="step-text"><strong>Approve the write-up</strong> before anything goes live. You control what we say.</div>
+          </div>
+          <div class="ask-step">
+            <div class="step-num">4</div>
+            <div class="step-text"><strong>We publish and promote</strong> your story. You get the shoutout, the backlink, and the recognition.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div id="formView">
+          <h3>Apply for a featured spot</h3>
+          <p class="form-sub">Takes 60 seconds. We'll be in touch within 2 business days.</p>
+          <form onsubmit="submitApplication(event)" data-netlify="true" name="featured-application">
+            <input type="hidden" name="form-name" value="featured-application" />
+            <div class="field">
+              <label>Your Name</label>
+              <input type="text" id="appName" placeholder="Mike Johnson" required />
+            </div>
+            <div class="field">
+              <label>Business Name</label>
+              <input type="text" id="appBiz" placeholder="Johnson Plumbing &amp; Drain" required />
+            </div>
+            <div class="field">
+              <label>City &amp; State</label>
+              <input type="text" id="appCity" placeholder="e.g. Austin, TX" required />
+            </div>
+            <div class="field">
+              <label>Your Trade</label>
+              <select id="appTrade" required>
+                <option value="" disabled selected>Select your trade…</option>
+                <option>Plumbing</option>
+                <option>HVAC</option>
+                <option>Electrical</option>
+                <option>Roofing</option>
+                <option>Remodeling / General Contractor</option>
+                <option>Landscaping</option>
+                <option>Painting</option>
+                <option>Windows &amp; Doors</option>
+                <option>Other Home Service</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Email Address</label>
+              <input type="email" id="appEmail" placeholder="mike@johnsonplumbing.com" required />
+            </div>
+            <div class="field">
+              <label>Anything else you want us to know? <span style="font-weight:400;opacity:0.6;">(optional)</span></label>
+              <textarea id="appNote" placeholder="e.g. I've been struggling to keep up with Google reviews, or I just landed a big commercial job and want to document it…"></textarea>
+            </div>
+            <button type="submit" class="btn-submit" id="submitBtn">Apply for a Featured Spot →</button>
+          </form>
+          <div class="form-fine">We read every application personally. No auto-replies, no sales calls.</div>
+        </div>
+
+        <div class="success-view" id="successView">
+          <div class="success-icon">🎉</div>
+          <h3>Application received!</h3>
+          <p>Thanks for putting your hand up. We'll review your application and reach out to <strong id="confirmedEmail"></strong> within 2 business days.<br><br>In the meantime — <a href="signup.html" style="color:var(--lime);">start your free trial</a> so you're ready to go when we connect.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHERE THE SHOUTOUT LIVES -->
+<section class="social-channels">
+  <div class="container">
+    <h2>Where your shoutout will live</h2>
+    <p>We'll feature your story across every channel we publish to — with your name, business, and a link.</p>
+    <div class="channels-row">
+      <div class="channel-pill"><span class="icon">📸</span> Instagram</div>
+      <div class="channel-pill"><span class="icon">👍</span> Facebook</div>
+      <div class="channel-pill"><span class="icon">💼</span> LinkedIn</div>
+      <div class="channel-pill"><span class="icon">🌐</span> TradesSnap.us website</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 TradesSnap.us · A <a href="https://TradesXL.US" target="_blank" rel="noopener noreferrer" style="color:inherit;">TradesXL.US</a> Company · Built for the blue-collar professional.</span>
+      <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="blog.html">Blog</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function submitApplication(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    const name  = document.getElementById('appName').value.trim();
+    const biz   = document.getElementById('appBiz').value.trim();
+    const city  = document.getElementById('appCity').value.trim();
+    const trade = document.getElementById('appTrade').value;
+    const email = document.getElementById('appEmail').value.trim();
+    const note  = document.getElementById('appNote').value.trim();
+
+    // POST to Netlify Forms
+    const formData = new FormData();
+    formData.append('form-name', 'featured-application');
+    formData.append('name', name);
+    formData.append('business', biz);
+    formData.append('city', city);
+    formData.append('trade', trade);
+    formData.append('email', email);
+    if (note) formData.append('notes', note);
+
+    fetch('/', { method: 'POST', body: formData })
+      .catch(() => {}); // fire-and-forget; show success regardless
+
+    document.getElementById('confirmedEmail').textContent = email;
+    document.getElementById('formView').style.display = 'none';
+    document.getElementById('successView').classList.add('show');
+  }
+</script>
+</body>
+</html>

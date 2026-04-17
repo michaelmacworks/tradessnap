@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Billing — TradesSnap</title>
+  <link rel="icon" href="images/favicon.ico" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0D0F0C;
+      --lime:    #FFD700;
+      --bg:      #F4F5F3;
+      --surface: #FFFFFF;
+      --border:  #E2E5E2;
+      --muted:   #6B7280;
+      --text:    #1A1C19;
+      --green:   #16A34A;
+      --radius:  10px;
+    }
+
+    body {
+      font-family: 'Segoe UI', Inter, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--text);
+    }
+    .nav-logo-mark {
+      width: 32px; height: 32px;
+      background: var(--black); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo-mark svg { width: 18px; height: 18px; }
+    .nav-logo-text {
+      font-size: 1.05rem; font-weight: 900; letter-spacing: -0.03em;
+    }
+    .nav-logo-text span { color: var(--lime); }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .nav-link {
+      font-size: 0.85rem; color: var(--muted); text-decoration: none;
+      padding: 6px 10px; border-radius: 6px; transition: background 0.2s;
+    }
+    .nav-link:hover { background: var(--bg); color: var(--text); }
+    .nav-link.active { color: var(--text); font-weight: 600; }
+
+    /* ── PAGE LAYOUT ── */
+    .page-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    .page-header { margin-bottom: 32px; }
+    .page-title { font-size: 1.6rem; font-weight: 900; letter-spacing: -0.03em; }
+    .page-sub { font-size: 0.9rem; color: var(--muted); margin-top: 4px; }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+    .card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-size: 1rem; font-weight: 800; letter-spacing: -0.02em;
+    }
+
+    /* ── PLAN CARD ── */
+    .plan-box {
+      background: var(--black);
+      color: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .plan-box::after {
+      content: '';
+      position: absolute;
+      top: -30px; right: -30px;
+      width: 120px; height: 120px;
+      background: var(--lime);
+      border-radius: 50%;
+      opacity: 0.08;
+    }
+    .plan-name {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--lime); text-transform: uppercase; margin-bottom: 4px;
+    }
+    .plan-price {
+      font-size: 2.2rem; font-weight: 900; letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .plan-price span { font-size: 1rem; font-weight: 400; opacity: 0.6; }
+    .plan-desc { font-size: 0.85rem; opacity: 0.7; margin-top: 6px; }
+    .plan-features {
+      margin-top: 16px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .plan-feature {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.85rem; opacity: 0.85;
+    }
+    .plan-feature::before {
+      content: '✓';
+      color: var(--lime); font-weight: 700; flex-shrink: 0;
+    }
+
+    /* ── STATUS BADGE ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 700;
+    }
+    .badge-trial {
+      background: rgba(234,179,8,0.12); color: #b45309;
+    }
+    .badge-active {
+      background: rgba(22,163,74,0.1); color: var(--green);
+    }
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* ── TRIAL PROGRESS ── */
+    .trial-info {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .trial-label { font-size: 0.85rem; color: var(--muted); }
+    .trial-days { font-size: 0.85rem; font-weight: 700; }
+    .progress-bar {
+      height: 6px; background: var(--border); border-radius: 3px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; border-radius: 3px;
+      background: var(--lime);
+      transition: width 0.6s ease;
+    }
+    .trial-note {
+      font-size: 0.8rem; color: var(--muted); margin-top: 10px;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      padding: 10px 20px; border-radius: 8px;
+      font-size: 0.88rem; font-weight: 700;
+      cursor: pointer; border: none; transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 6px;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--lime); color: var(--black);
+    }
+    .btn-primary:hover { background: #ffe033; }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover { border-color: #aaa; }
+    .btn-lg {
+      width: 100%; justify-content: center;
+      padding: 14px; font-size: 1rem; border-radius: 10px;
+      margin-top: 20px;
+    }
+    .btn-danger {
+      background: transparent;
+      border: 1.5px solid #fca5a5;
+      color: #dc2626;
+      font-size: 0.82rem;
+    }
+    .btn-danger:hover { background: rgba(220,38,38,0.05); }
+
+    /* ── INVOICE TABLE ── */
+    .invoice-table { width: 100%; border-collapse: collapse; }
+    .invoice-table th {
+      text-align: left; font-size: 0.72rem; font-weight: 700;
+      color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 0 12px 10px; border-bottom: 1px solid var(--border);
+    }
+    .invoice-table td {
+      padding: 12px; font-size: 0.85rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .invoice-table tr:last-child td { border-bottom: none; }
+    .invoice-table tr:hover td { background: var(--bg); }
+    .invoice-status {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 0.75rem; font-weight: 700;
+      padding: 2px 8px; border-radius: 20px;
+      background: rgba(22,163,74,0.1); color: var(--green);
+    }
+    .invoice-dl {
+      color: var(--muted); font-size: 0.8rem; text-decoration: none;
+      padding: 4px 8px; border-radius: 6px; transition: background 0.2s;
+    }
+    .invoice-dl:hover { background: var(--bg); color: var(--text); }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center; padding: 40px 20px; color: var(--muted);
+    }
+    .empty-state .empty-icon { font-size: 2rem; margin-bottom: 8px; }
+    .empty-state p { font-size: 0.88rem; }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      border: none; border-top: 1px solid var(--border); margin: 4px 0 20px;
+    }
+
+    /* ── DANGER ZONE ── */
+    .danger-zone {
+      border-color: #fca5a5;
+    }
+    .danger-title { color: #dc2626; }
+
+    /* ── LOADING ── */
+    .skeleton {
+      background: linear-gradient(90deg, var(--border) 25%, #d8dbd8 50%, var(--border) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 6px;
+    }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="dashboard.html" class="nav-logo">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+        <path d="M2 17l10 5 10-5"/>
+        <path d="M2 12l10 5 10-5"/>
+      </svg>
+    </div>
+    <div class="nav-logo-text">Trades<span>Snap</span></div>
+  </a>
+  <div class="nav-actions">
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+    <a href="new-job.html" class="nav-link">New Job</a>
+    <a href="billing.html" class="nav-link active">Billing</a>
+  </div>
+</nav>
+
+<!-- PAGE -->
+<div class="page-wrap">
+
+  <div class="page-header">
+    <div class="page-title">Billing &amp; Subscription</div>
+    <div class="page-sub">Manage your plan, payment method, and invoices.</div>
+  </div>
+
+  <!-- CURRENT PLAN -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Current Plan</div>
+      <span class="badge badge-trial" id="planBadge">
+        <span class="badge-dot"></span> Free Trial
+      </span>
+    </div>
+
+    <div class="plan-box">
+      <div class="plan-name">TradesSnap Pro</div>
+      <div class="plan-price">$97 <span>/ month</span></div>
+      <div class="plan-desc">Everything you need to turn job sites into marketing content.</div>
+      <div class="plan-features">
+        <div class="plan-feature">Unlimited job submissions</div>
+        <div class="plan-feature">SEO blog post per job</div>
+        <div class="plan-feature">Google Business post per job</div>
+        <div class="plan-feature">Social media caption + hashtags</div>
+        <div class="plan-feature">Before / During / After photo labels</div>
+        <div class="plan-feature">AI transcription via OpenAI Whisper</div>
+      </div>
+    </div>
+
+    <!-- Trial progress (shown during trial) -->
+    <div id="trialProgress" style="margin-top:20px;">
+      <div class="trial-info">
+        <span class="trial-label">Free trial progress</span>
+        <span class="trial-days" id="trialDaysLeft">— days remaining</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="trialProgressFill" style="width:0%"></div>
+      </div>
+      <div class="trial-note" id="trialNote">Your trial ends and billing begins automatically.</div>
+    </div>
+
+    <button class="btn btn-primary btn-lg" id="subscribeBtn" onclick="startCheckout()">
+      🔒 Subscribe Now — $97/month
+    </button>
+    <div style="text-align:center; font-size:0.78rem; color:var(--muted); margin-top:8px;">
+      Cancel anytime. No contracts.
+    </div>
+  </div>
+
+  <!-- PAYMENT METHOD -->
+  <div class="card" id="paymentCard" style="display:none;">
+    <div class="card-header">
+      <div class="card-title">Payment Method</div>
+      <button class="btn btn-outline" onclick="updatePayment()">Update</button>
+    </div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:8px 14px; font-size:0.9rem; font-weight:700; letter-spacing:0.04em;" id="cardDisplay">
+        •••• •••• •••• ——
+      </div>
+      <div style="font-size:0.85rem; color:var(--muted);" id="cardExpiry">Expires ——</div>
+    </div>
+  </div>
+
+  <!-- INVOICES -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Invoice History</div>
+    </div>
+    <div id="invoiceList">
+      <div class="empty-state">
+        <div class="empty-icon">🧾</div>
+        <p>No invoices yet — they'll appear here once your subscription is active.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DANGER ZONE -->
+  <div class="card danger-zone" id="cancelCard" style="display:none;">
+    <div class="card-header" style="margin-bottom:6px;">
+      <div class="card-title danger-title">Cancel Subscription</div>
+    </div>
+    <hr class="section-divider">
+    <p style="font-size:0.88rem; color:var(--muted); margin-bottom:16px; line-height:1.6;">
+      Cancelling will keep your account active until the end of the current billing period. After that, you'll lose access to new job submissions but can still view past jobs.
+    </p>
+    <button class="btn btn-danger" onclick="cancelSubscription()">Cancel my subscription</button>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+  const SUPABASE_URL = 'https://eqknuetauqvectbkukvu.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxa251ZXRhdXF2ZWN0Ymt1a3Z1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMjkwMzQsImV4cCI6MjA4ODcwNTAzNH0.pLHYwgQTizC_btUP04NA5_3Lrq8YHiJZ9qSbfKL-oD4';
+  const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // Auth guard
+  db.auth.getSession().then(({ data: { session } }) => {
+    if (!session) { window.location.href = 'login.html'; return; }
+    loadBilling(session.user);
+  });
+
+  async function loadBilling(user) {
+    const { data: profile } = await db
+      .from('profiles')
+      .select('created_at, subscription_status, trial_ends_at')
+      .eq('id', user.id)
+      .single();
+
+    if (!profile) return;
+
+    const now = new Date();
+    const trialEnd = profile.trial_ends_at
+      ? new Date(profile.trial_ends_at)
+      : new Date(new Date(profile.created_at).getTime() + 7 * 24 * 60 * 60 * 1000);
+
+    const daysLeft = Math.max(0, Math.ceil((trialEnd - now) / (1000 * 60 * 60 * 24)));
+    const totalDays = 7;
+    const daysUsed = totalDays - daysLeft;
+    const pct = Math.min(100, Math.round((daysUsed / totalDays) * 100));
+
+    const isActive = profile.subscription_status === 'active';
+
+    // Update badge
+    const badge = document.getElementById('planBadge');
+    if (isActive) {
+      badge.className = 'badge badge-active';
+      badge.innerHTML = '<span class="badge-dot"></span> Active';
+    }
+
+    // Trial progress
+    document.getElementById('trialDaysLeft').textContent = daysLeft + ' days remaining';
+    document.getElementById('trialProgressFill').style.width = pct + '%';
+
+    if (daysLeft <= 3) {
+      document.getElementById('trialNote').textContent =
+        '⚠️ Your trial ends soon — subscribe to keep creating content.';
+      document.getElementById('trialNote').style.color = '#d97706';
+    }
+
+    if (isActive) {
+      document.getElementById('trialProgress').style.display = 'none';
+      document.getElementById('subscribeBtn').textContent = '✓ Subscribed — Manage Billing';
+      document.getElementById('subscribeBtn').style.background = '#dcfce7';
+      document.getElementById('subscribeBtn').style.color = 'var(--green)';
+      document.getElementById('paymentCard').style.display = 'block';
+      document.getElementById('cancelCard').style.display = 'block';
+    }
+  }
+
+  function startCheckout() {
+    const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/8x214na297UAc5l71ibAs01';
+    window.location.href = STRIPE_PAYMENT_LINK;
+  }
+
+  function updatePayment() {
+    const STRIPE_PORTAL = 'https://billing.stripe.com/p/login/7sYaEX6PXb6M1qHfxObAs00';
+    window.location.href = STRIPE_PORTAL;
+  }
+
+  function cancelSubscription() {
+    if (confirm('Are you sure you want to cancel your subscription? You\'ll keep access until the end of your current billing period.')) {
+      const STRIPE_PORTAL = 'https://billing.stripe.com/p/login/7sYaEX6PXb6M1qHfxObAs00';
+      window.location.href = STRIPE_PORTAL;
+    }
+  }
+</script>
+</body>
+</html>

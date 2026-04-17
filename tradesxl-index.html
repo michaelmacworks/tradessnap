@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TradesXL — Marketing for the Contractors That Build America</title>
+  <meta name="description" content="TradesXL gives trades businesses the tools and expertise to get clear on what's working, cut what isn't, and look like the premium operation they are." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tradesxl.us" />
+  <meta property="og:title" content="TradesXL — Marketing for the Contractors That Build America" />
+  <meta property="og:description" content="The digital tool belt for contractors who build America." />
+  <link rel="canonical" href="https://tradesxl.us" />
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0D0F0C;
+      color: #fff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ─── TOKENS ─── */
+    :root {
+      --black:    #0D0F0C;
+      --dark:     #111410;
+      --card:     #181C15;
+      --border:   #252A20;
+      --gold:     #FFD700;
+      --gold-dim: #C9A800;
+      --white:    #FFFFFF;
+      --off:      #edece4;
+      --muted:    #b8c4ba;
+      --radius:   10px;
+    }
+
+    /* ─── TYPE ─── */
+    h1 { font-size: clamp(2.8rem, 6.5vw, 5.2rem); font-weight: 900; line-height: 1.0; letter-spacing: -0.02em; }
+    h2 { font-size: clamp(2rem, 4vw, 3.6rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.01em; }
+    h3 { font-size: 1.2rem; font-weight: 700; }
+    p  { color: #f0efe9; }
+    .gold  { color: var(--gold); }
+    .muted { color: var(--muted); }
+
+    /* ─── LAYOUT ─── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold); border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 100px; padding: 4px 14px; margin-bottom: 16px;
+    }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-header p { color: var(--muted); font-size: 1.05rem; max-width: 580px; margin: 12px auto 0; }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 15px 28px; border-radius: var(--radius);
+      font-weight: 800; font-size: 0.95rem; cursor: pointer;
+      transition: all 0.2s ease; border: none; letter-spacing: -0.01em;
+    }
+    .btn-gold    { background: var(--gold); color: #0D0F0C; }
+    .btn-gold:hover { background: #ffe033; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; color: white;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-lg { padding: 18px 36px; font-size: 1rem; border-radius: 12px; }
+
+    /* ─── ANNOUNCE BAR ─── */
+    .announce-bar {
+      background: var(--gold); padding: 11px 24px;
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+      font-size: 0.82rem; font-weight: 700; color: #0D0F0C;
+    }
+    .announce-bar .tag {
+      background: #0D0F0C; color: var(--gold);
+      font-size: 0.65rem; font-weight: 900; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 3px 10px; border-radius: 4px;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,15,12,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 900; font-size: 1.3rem; letter-spacing: -0.03em;
+    }
+    .nav-logo .xl { color: var(--gold); }
+    .nav-links {
+      display: flex; list-style: none; gap: 32px;
+    }
+    .nav-links a {
+      font-size: 0.88rem; font-weight: 600; color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: white; }
+    .nav-cta {
+      background: var(--gold); color: #0D0F0C;
+      font-weight: 800; font-size: 0.85rem;
+      padding: 9px 20px; border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .nav-cta:hover { background: #ffe033; transform: translateY(-1px); }
+    .nav-hamburger {
+      display: none; flex-direction: column; justify-content: center; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px; z-index: 200;
+    }
+    .nav-hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: white; border-radius: 2px;
+      transition: all 0.25s ease;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile nav drawer */
+    .nav-mobile {
+      display: none;
+      position: fixed; top: 64px; left: 0; right: 0;
+      background: rgba(13,15,12,0.98);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 28px 28px;
+      flex-direction: column; gap: 4px;
+      z-index: 99;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-size: 1.05rem; font-weight: 700; color: var(--muted);
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile a:hover { color: white; }
+    .nav-mobile .nav-mobile-cta {
+      margin-top: 12px;
+      background: var(--gold); color: #0D0F0C;
+      text-align: center; padding: 14px; border-radius: 8px;
+      font-weight: 800; border-bottom: none;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 88vh;
+      display: flex; align-items: center;
+      padding: 80px 0 100px;
+      position: relative; overflow: hidden;
+    }
+
+    /* Video background */
+    .hero-video-wrap {
+      position: absolute; inset: 0; z-index: 0;
+      overflow: hidden;
+    }
+    .hero-video-wrap video {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      min-width: 100%; min-height: 100%;
+      width: auto; height: auto;
+      object-fit: cover;
+      filter: blur(3px);
+      scale: 1.05;
+    }
+    /* Dark overlay — keeps text readable, lets warmth of sunrise bleed through */
+    .hero-video-wrap::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(13,15,12,0.55) 0%,
+          rgba(13,15,12,0.45) 50%,
+          rgba(13,15,12,0.85) 100%),
+        linear-gradient(to right, rgba(13,15,12,0.3) 0%, transparent 60%);
+    }
+    /* Fallback gradient if video hasn't loaded */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(255,160,30,0.18) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 40% at 20% 70%, rgba(255,215,0,0.06) 0%, transparent 60%),
+        linear-gradient(175deg, #1a1200 0%, #0D0F0C 50%, #0a0c0a 100%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 28px;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: 28px;
+      position: relative; z-index: 1;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.2);
+      border-radius: 100px; padding: 6px 16px;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .hero-eyebrow-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gold); animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .hero h1 { max-width: 900px; }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--white); max-width: 580px; line-height: 1.7;
+    }
+    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+    .hero-stats {
+      display: flex; gap: 48px; margin-top: 16px;
+      flex-wrap: wrap; justify-content: center;
+    }
+    .hero-stat-number {
+      font-size: 2.2rem; font-weight: 900;
+      letter-spacing: -0.04em; color: var(--gold);
+    }
+    .hero-stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+    .hero-stat { text-align: center; }
+
+    /* ─── DIVIDER ─── */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    /* ─── TRUST BAR ─── */
+    .trust-bar { padding: 32px 0; }
+    .trust-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 48px; flex-wrap: wrap;
+    }
+    .trust-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .trust-items { display: flex; gap: 32px; align-items: center; flex-wrap: wrap; justify-content: center; }
+    .trust-item { font-size: 0.9rem; font-weight: 700; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .trust-item:hover { color: var(--gold); }
+
+    /* ─── PRODUCTS SECTION ─── */
+    .products { padding: 100px 0; }
+    .products-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Card scroll-reveal */
+    .product-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      display: flex; flex-direction: row;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      position: relative; overflow: hidden;
+      opacity: 0; transform: translateY(40px);
+      min-height: 280px;
+    }
+    .product-card.revealed {
+      opacity: 1; transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s, box-shadow 0.3s;
+    }
+    .product-card:nth-child(2) { transition-delay: 0.12s; }
+    .product-card:nth-child(3) { transition-delay: 0.24s; }
+
+    .product-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+    .product-card.live { border-color: rgba(255,215,0,0.25); }
+    .product-card.live:hover { border-color: rgba(255,215,0,0.6); box-shadow: 0 24px 60px rgba(255,215,0,0.1); }
+    .product-card.logic-card { border-color: rgba(100,180,255,0.3); }
+    .product-card.logic-card:hover { border-color: rgba(100,180,255,0.65); box-shadow: 0 24px 60px rgba(100,180,255,0.1); }
+    .product-card.look-card { border-color: rgba(201,125,255,0.3); }
+    .product-card.look-card:hover { border-color: rgba(201,125,255,0.65); box-shadow: 0 24px 60px rgba(201,125,255,0.1); }
+
+    /* Card visual panel — left side */
+    .card-visual {
+      width: 420px; flex-shrink: 0;
+      position: relative; overflow: hidden;
+      border-radius: 20px 0 0 20px;
+    }
+    .card-visual-snap {
+      background: linear-gradient(135deg, #1a1600 0%, #2a2100 40%, #111410 100%);
+    }
+    .card-visual-logic {
+      background: linear-gradient(135deg, #001a2a 0%, #002244 40%, #0D0F0C 100%);
+    }
+    .card-visual-look {
+      background: linear-gradient(135deg, #1a0028 0%, #2a0044 40%, #0D0F0C 100%);
+    }
+
+    /* Snap mockup */
+    .snap-mockup {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      padding: 20px;
+    }
+    .snap-phone {
+      width: 72px; height: 120px; border-radius: 12px;
+      background: #0D0F0C; border: 2px solid rgba(255,215,0,0.4);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+      flex-shrink: 0;
+    }
+    .snap-phone-lens {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(255,215,0,0.15); border: 2px solid rgba(255,215,0,0.5);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+    }
+    .snap-phone-btn {
+      width: 20px; height: 4px; border-radius: 2px;
+      background: var(--gold); opacity: 0.7;
+    }
+    .snap-outputs {
+      display: flex; flex-direction: column; gap: 8px; flex: 1;
+    }
+    .snap-output-row {
+      background: rgba(255,215,0,0.06); border: 1px solid rgba(255,215,0,0.15);
+      border-radius: 6px; padding: 7px 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .snap-output-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+    .snap-output-line { height: 5px; border-radius: 3px; background: rgba(255,215,0,0.3); flex: 1; }
+    .snap-arrow {
+      font-size: 1.2rem; color: var(--gold); opacity: 0.8; flex-shrink: 0;
+    }
+
+    /* Logic mockup */
+    .logic-mockup {
+      position: absolute; inset: 0; padding: 20px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .logic-header-row {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logic-label { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #64b4ff; opacity: 0.7; }
+    .logic-score-wrap { display: flex; align-items: center; gap: 8px; }
+    .logic-score { font-size: 1.6rem; font-weight: 900; color: #ff5300; letter-spacing: -0.04em; }
+    .logic-score-denom { font-size: 0.7rem; color: rgba(255,255,255,0.3); }
+    .logic-bars { display: flex; flex-direction: column; gap: 7px; flex: 1; }
+    .logic-bar-row { display: flex; align-items: center; gap: 8px; }
+    .logic-bar-label { font-size: 0.62rem; color: rgba(255,255,255,0.4); width: 80px; flex-shrink: 0; }
+    .logic-bar-track { flex: 1; height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+    .logic-bar-fill { height: 100%; border-radius: 3px; }
+    .logic-bar-badge { font-size: 0.55rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+
+    /* Look mockup */
+    .look-mockup {
+      position: absolute; inset: 0; padding: 20px;
+      display: flex; gap: 12px; align-items: center;
+    }
+    .look-brand-stack { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .look-logo-block {
+      background: rgba(201,125,255,0.1); border: 1px solid rgba(201,125,255,0.2);
+      border-radius: 8px; padding: 10px 14px;
+      font-size: 0.9rem; font-weight: 900; letter-spacing: -0.02em; color: rgba(255,255,255,0.8);
+    }
+    .look-color-row { display: flex; gap: 6px; }
+    .look-swatch {
+      width: 28px; height: 28px; border-radius: 6px;
+    }
+    .look-type-lines { display: flex; flex-direction: column; gap: 5px; }
+    .look-type-line { height: 5px; border-radius: 3px; background: rgba(201,125,255,0.25); }
+    .look-phone-preview {
+      width: 64px; height: 110px; border-radius: 10px;
+      background: #0D0F0C; border: 2px solid rgba(201,125,255,0.3);
+      display: flex; flex-direction: column; overflow: hidden; flex-shrink: 0;
+    }
+    .look-phone-header { height: 28px; background: rgba(201,125,255,0.15); display: flex; align-items: center; justify-content: center; }
+    .look-phone-content { flex: 1; padding: 6px; display: flex; flex-direction: column; gap: 4px; }
+    .look-phone-line { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.08); }
+
+    /* Shine sweep animation on hover */
+    .card-visual::after {
+      content: '';
+      position: absolute; top: 0; left: -100%;
+      width: 60%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+      transition: left 0.5s ease;
+    }
+    .product-card:hover .card-visual::after { left: 150%; }
+
+    /* Card body */
+    .card-body { padding: 36px 40px; display: flex; flex-direction: column; gap: 16px; flex: 1; justify-content: center; }
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; }
+    .card-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .card-icon.snap { background: rgba(255,215,0,0.12); }
+    .card-icon.logic { background: rgba(100,180,255,0.1); }
+    .card-icon.look { background: rgba(201,125,255,0.1); }
+    .card-badge {
+      font-size: 0.65rem; font-weight: 900; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 4px 12px; border-radius: 100px;
+    }
+    .badge-live { background: rgba(72,199,89,0.15); color: #48c759; border: 1px solid rgba(72,199,89,0.3); }
+    .badge-soon { background: rgba(255,215,0,0.08); color: var(--gold-dim); border: 1px solid rgba(255,215,0,0.2); }
+    .card-name { font-size: 1.7rem; font-weight: 900; letter-spacing: -0.01em; }
+    .card-name span { color: var(--gold); }
+    .card-domain { font-size: 0.75rem; color: var(--muted); font-weight: 600; margin-top: -10px; }
+    .card-headline { font-size: 1.05rem; font-weight: 800; color: white; line-height: 1.3; }
+    .card-tagline { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+    .card-features { display: flex; flex-direction: column; gap: 10px; }
+    .card-feature {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.88rem; color: var(--off);
+    }
+    .card-feature-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gold); margin-top: 7px; flex-shrink: 0;
+    }
+    .card-feature-dot.blue { background: #64b4ff; }
+    .card-feature-dot.purple { background: #c97dff; }
+    .card-cta { margin-top: auto; padding-top: 8px; }
+    .btn-card-live {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold); color: #0D0F0C;
+      font-weight: 800; font-size: 0.9rem;
+      padding: 14px 24px; border-radius: 8px;
+      transition: all 0.2s; width: 100%; justify-content: center;
+    }
+    .btn-card-live:hover { background: #ffe033; transform: translateY(-1px); }
+    .btn-card-waitlist {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 14px 24px; border-radius: 8px;
+      font-weight: 800; font-size: 0.9rem;
+      transition: all 0.2s; text-decoration: none;
+    }
+    .btn-waitlist-logic {
+      background: rgba(100,180,255,0.1); color: #64b4ff;
+      border: 1px solid rgba(100,180,255,0.3);
+    }
+    .btn-waitlist-logic:hover { background: rgba(100,180,255,0.2); border-color: rgba(100,180,255,0.6); transform: translateY(-1px); }
+    .btn-waitlist-look {
+      background: rgba(201,125,255,0.1); color: #c97dff;
+      border: 1px solid rgba(201,125,255,0.3);
+    }
+    .btn-waitlist-look:hover { background: rgba(201,125,255,0.2); border-color: rgba(201,125,255,0.6); transform: translateY(-1px); }
+
+    /* Top accent line on live card */
+    .product-card.live::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px; z-index: 1;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    /* ─── PHILOSOPHY SECTION ─── */
+    .philosophy { padding: 100px 0; background: var(--dark); }
+    .philosophy-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 28px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    @media (max-width: 768px) {
+      .philosophy-inner { grid-template-columns: 1fr; gap: 48px; }
+    }
+    .philosophy-left h2 { margin-bottom: 20px; }
+    .philosophy-left p { color: var(--muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 16px; }
+    .philosophy-right { display: flex; flex-direction: column; gap: 20px; }
+    .principle-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 24px 28px;
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+    .principle-number {
+      font-size: 1.6rem; font-weight: 900; color: var(--gold);
+      letter-spacing: -0.04em; line-height: 1; flex-shrink: 0;
+      width: 36px;
+    }
+    .principle-title { font-weight: 800; font-size: 1rem; margin-bottom: 4px; }
+    .principle-body { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ─── PROGRESSION SECTION ─── */
+    .progression { padding: 100px 0; }
+    .progression-steps {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+      margin-top: 0; position: relative;
+    }
+    .progression-steps::before {
+      content: '';
+      position: absolute; top: 36px; left: 16.5%; right: 16.5%;
+      height: 1px; background: linear-gradient(90deg, var(--gold), rgba(255,215,0,0.2), rgba(255,215,0,0.1));
+      z-index: 0;
+    }
+    @media (max-width: 768px) {
+      .progression-steps { grid-template-columns: 1fr; }
+      .progression-steps::before { display: none; }
+    }
+    .step {
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; padding: 0 28px; position: relative; z-index: 1;
+    }
+    .step-number {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--card); border: 2px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; font-weight: 900; color: var(--gold);
+      letter-spacing: -0.04em; margin-bottom: 24px;
+    }
+    .step:nth-child(2) .step-number { border-color: rgba(255,215,0,0.4); color: rgba(255,215,0,0.6); }
+    .step:nth-child(3) .step-number { border-color: rgba(255,215,0,0.2); color: rgba(255,215,0,0.3); }
+    .step-title { font-size: 1.1rem; font-weight: 800; margin-bottom: 10px; }
+    .step-body { font-size: 0.88rem; color: var(--muted); line-height: 1.6; max-width: 240px; }
+
+    /* ─── CTA SECTION ─── */
+    .cta-section {
+      padding: 100px 0;
+      background: linear-gradient(180deg, var(--dark) 0%, var(--black) 100%);
+      text-align: center;
+    }
+    .cta-inner { max-width: 680px; margin: 0 auto; padding: 0 28px; }
+    .cta-inner h2 { margin-bottom: 16px; }
+    .cta-inner p { color: var(--muted); font-size: 1.05rem; margin-bottom: 36px; line-height: 1.7; }
+    .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 0;
+    }
+    .footer-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 24px;
+    }
+    .footer-logo {
+      font-size: 1.1rem; font-weight: 900; letter-spacing: -0.03em;
+    }
+    .footer-logo .xl { color: var(--gold); }
+    .footer-tagline { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.82rem; color: var(--muted); transition: color 0.2s; }
+    .footer-links a:hover { color: white; }
+    .footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 768px) {
+      /* Announce bar */
+      .announce-bar { flex-wrap: wrap; gap: 6px; text-align: center; font-size: 0.78rem; padding: 10px 16px; }
+
+      /* Hero */
+      .hero { padding: 60px 0 72px; min-height: 80vh; }
+      .hero-ctas { flex-direction: column; align-items: stretch; }
+      .hero-ctas .btn { text-align: center; justify-content: center; }
+      .hero-stats { gap: 28px; }
+
+      /* Trust bar */
+      .trust-inner { gap: 16px; }
+      .trust-items { gap: 16px; }
+
+      /* Sections */
+      .products { padding: 64px 0; }
+      .philosophy { padding: 64px 0; }
+      .progression { padding: 64px 0; }
+      .cta-section { padding: 64px 0; }
+      .section-header { margin-bottom: 40px; }
+
+      /* Cards stack vertically on mobile */
+      .product-card { flex-direction: column; min-height: unset; }
+      .card-visual { width: 100%; height: 220px; border-radius: 20px 20px 0 0; }
+      .card-body { padding: 24px 24px 28px; }
+
+      /* Progression steps spacing */
+      .step { padding: 0 16px 40px; }
+      .step:last-child { padding-bottom: 0; }
+
+      /* CTA buttons */
+      .cta-buttons { flex-direction: column; align-items: stretch; }
+      .cta-buttons .btn { text-align: center; justify-content: center; }
+
+      /* Footer */
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 28px; }
+      .footer-links { gap: 16px; }
+      .footer-copy { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Announce Bar ─────────────────────────────────────────────────── -->
+<div class="announce-bar">
+  <span class="tag">New</span>
+  <span>TradesSnap is live — turn any job into marketing content in 90 seconds.</span>
+  <a href="https://tradessnap.us" style="font-weight:900; text-decoration:underline; color:#0D0F0C;">Try it free →</a>
+</div>
+
+<!-- ── Nav ────────────────────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="tradesxl-logo.png" alt="TradesXL" height="32" style="display:block;" /><span style="white-space:nowrap;letter-spacing:-0.03em;">Trades<span class="gold">XL</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#philosophy">Why TradesXL</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+    </ul>
+    <a href="https://tradessnap.us/get-started" class="nav-cta">Get Started Free →</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile nav drawer -->
+<div class="nav-mobile" id="nav-mobile">
+  <a href="#products">Products</a>
+  <a href="#philosophy">Why TradesXL</a>
+  <a href="#how-it-works">How It Works</a>
+  <a href="https://tradessnap.us/get-started" class="nav-mobile-cta">Get Started Free →</a>
+</div>
+
+<!-- ── Hero ───────────────────────────────────────────────────────────── -->
+<section class="hero">
+
+  <!-- Background video: save your MP4 as "hero-bg.mp4" in this folder -->
+  <div class="hero-video-wrap">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="hero-bg.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      <span>Built for American Contractors 🇺🇸</span>
+    </div>
+
+    <h1>
+      The digital tool belt<br>
+      for contractors that<br>
+      <span class="gold">build America.</span>
+    </h1>
+
+    <p class="hero-sub">
+      TradesXL is a suite of AI-powered tools built for trades business owners who are done guessing at marketing and ready to look like the premium operation they are.
+    </p>
+
+    <div class="hero-ctas">
+      <a href="https://tradessnap.us/get-started" class="btn btn-gold btn-lg">Start with TradesSnap — Free →</a>
+      <a href="#products" class="btn btn-outline btn-lg">See the full suite</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-number">90s</div>
+        <div class="hero-stat-label">from job site to published content</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">3</div>
+        <div class="hero-stat-label">tools built for the trades</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">0</div>
+        <div class="hero-stat-label">marketing degrees required</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ── Trust Bar ──────────────────────────────────────────────────────── -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <span class="trust-label">Built for</span>
+    <div class="trust-items">
+      <a href="https://tradessnap.us/for-roofing.html" class="trust-item">🏠 Roofers</a>
+      <a href="https://tradessnap.us/for-hvac.html" class="trust-item">❄️ HVAC</a>
+      <a href="https://tradessnap.us/for-electrical.html" class="trust-item">⚡ Electricians</a>
+      <a href="https://tradessnap.us/for-plumbers.html" class="trust-item">🔧 Plumbers</a>
+      <a href="https://tradessnap.us/for-windows.html" class="trust-item">🪟 Windows & Siding</a>
+      <a href="https://tradessnap.us/for-landscaping.html" class="trust-item">🌿 Landscapers</a>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- ── Products ───────────────────────────────────────────────────────── -->
+<section class="products" id="products">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">The Suite</span>
+      <h2>Three tools.<br><span class="gold">One clear edge.</span></h2>
+      <p>Each tool solves a different part of the marketing problem every contractor faces. Start with one. Grow into all three.</p>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- TradesSnap -->
+      <div class="product-card live">
+        <div class="card-visual card-visual-snap">
+          <img src="tradessnap-cover-art.jpg" alt="TradesSnap — From job site to marketing in seconds" style="width:100%;height:100%;object-fit:contain;object-position:center;display:block;background:#0D0F0C;" />
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-badge badge-live">● Live Now</span>
+          </div>
+          <div>
+            <div class="card-name">Trades<span>Snap</span></div>
+            <div class="card-domain">tradessnap.us</div>
+          </div>
+          <div class="card-headline">60 seconds on the job site.<br>3 assets ready to post.</div>
+          <p class="card-tagline">Voice memo + job photo → SEO blog post, Google Business update, and social caption. Done before you load the trailer. No typing. No agency. No extra time.</p>
+          <div class="card-features">
+            <div class="card-feature">
+              <div class="card-feature-dot"></div>
+              <span>One voice note turns into content that ranks on Google</span>
+            </div>
+            <div class="card-feature">
+              <div class="card-feature-dot"></div>
+              <span>Auto-tagged with your city, neighborhood, and trade</span>
+            </div>
+            <div class="card-feature">
+              <div class="card-feature-dot"></div>
+              <span>Pushes to your website, Google profile, and social simultaneously</span>
+            </div>
+          </div>
+          <div class="card-cta">
+            <a href="https://tradessnap.us" class="btn-card-live">Try it free for 7 days →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- TradesLogic -->
+      <div class="product-card logic-card">
+        <div class="card-visual card-visual-logic">
+          <img src="tradeslogic-cover-art.jpg" alt="TradesLogic — Find out what your marketing is costing you" style="width:100%;height:100%;object-fit:contain;object-position:center;display:block;background:#0D0F0C;" />
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-badge badge-soon">Coming Soon</span>
+          </div>
+          <div>
+            <div class="card-name">Trades<span style="color:#64b4ff">Logic</span></div>
+            <div class="card-domain">tradeslogic.us</div>
+          </div>
+          <div class="card-headline" style="color:#64b4ff">Stop guessing.<br>Start winning.</div>
+          <p class="card-tagline">Paste your URL and get a full marketing clarity score in 60 seconds. TradesLogic diagnoses exactly which channels are sending you jobs — and which ones are quietly draining your budget every single month.</p>
+          <div class="card-features">
+            <div class="card-feature">
+              <div class="card-feature-dot blue"></div>
+              <span>Flags the 5 revenue leaks killing your pipeline — ranked by damage</span>
+            </div>
+            <div class="card-feature">
+              <div class="card-feature-dot blue"></div>
+              <span>Shows which competitors are outranking you and exactly why</span>
+            </div>
+            <div class="card-feature">
+              <div class="card-feature-dot blue"></div>
+              <span>Built on the Marketing Clarity OS framework — proven across 400+ B2B audits</span>
+            </div>
+          </div>
+          <div class="card-cta">
+            <a href="mailto:hello@tradessnap.us?subject=TradesLogic%20Waitlist&body=I'd%20like%20to%20join%20the%20TradesLogic%20waitlist." class="btn-card-waitlist btn-waitlist-logic">Join the Waitlist →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- TradesLook -->
+      <div class="product-card look-card">
+        <div class="card-visual card-visual-look">
+          <div class="look-mockup">
+            <div class="look-brand-stack">
+              <div class="look-logo-block">Premier Roofing Co.</div>
+              <div class="look-color-row">
+                <div class="look-swatch" style="background:#FFD700"></div>
+                <div class="look-swatch" style="background:#0D0F0C"></div>
+                <div class="look-swatch" style="background:#c97dff;opacity:0.6"></div>
+                <div class="look-swatch" style="background:rgba(255,255,255,0.15)"></div>
+              </div>
+              <div class="look-type-lines">
+                <div class="look-type-line" style="width:90%"></div>
+                <div class="look-type-line" style="width:65%"></div>
+                <div class="look-type-line" style="width:80%"></div>
+              </div>
+            </div>
+            <div class="look-phone-preview">
+              <div class="look-phone-header">
+                <span style="font-size:0.5rem;font-weight:800;color:rgba(201,125,255,0.8)">WEBSITE</span>
+              </div>
+              <div class="look-phone-content">
+                <div class="look-phone-line" style="width:80%"></div>
+                <div class="look-phone-line" style="width:60%"></div>
+                <div style="height:4px;border-radius:2px;background:rgba(201,125,255,0.3);width:50%"></div>
+                <div class="look-phone-line" style="width:90%"></div>
+                <div class="look-phone-line" style="width:70%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-top">
+            <span class="card-badge badge-soon">Coming Soon</span>
+          </div>
+          <div>
+            <div class="card-name">Trades<span style="color:#c97dff">Look</span></div>
+            <div class="card-domain">tradeslook.us</div>
+          </div>
+          <div class="card-headline" style="color:#c97dff">Look like you already won.</div>
+          <p class="card-tagline">Your work is premium. Your brand should walk in before you do. TradesLook builds your complete visual identity — trucks, uniforms, website, social — so you look like the $2M operation you're building before you get there.</p>
+          <div class="card-features">
+            <div class="card-feature">
+              <div class="card-feature-dot purple"></div>
+              <span>Full brand identity built for trades — logo, colors, typography, the works</span>
+            </div>
+            <div class="card-feature">
+              <div class="card-feature-dot purple"></div>
+              <span>Website and Google profile templates that rank AND convert</span>
+            </div>
+            <div class="card-feature">
+              <div class="card-feature-dot purple"></div>
+              <span>Command premium pricing by looking like you already charge it</span>
+            </div>
+          </div>
+          <div class="card-cta">
+            <a href="mailto:hello@tradessnap.us?subject=TradesLook%20Waitlist&body=I'd%20like%20to%20join%20the%20TradesLook%20waitlist." class="btn-card-waitlist btn-waitlist-look">Join the Waitlist →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Philosophy ─────────────────────────────────────────────────────── -->
+<section class="philosophy" id="philosophy">
+  <div class="philosophy-inner">
+    <div class="philosophy-left">
+      <span class="section-label">Why TradesXL</span>
+      <h2>Clarity is the<br><span class="gold">competitive edge.</span></h2>
+      <p>Most marketing advice for contractors is built for someone else. More channels. More spend. More complexity. None of it fits a business where the owner is also swinging the hammer.</p>
+      <p>TradesXL is built on one principle: the contractor who is clearest about what they do, where they work, and why they're better wins the job. Every tool we build starts there.</p>
+    </div>
+    <div class="philosophy-right">
+      <div class="principle-card">
+        <div class="principle-number">01</div>
+        <div>
+          <div class="principle-title">Zero keyboard time on the job site</div>
+          <div class="principle-body">If a tool requires a contractor to sit down and type for an hour, it's broken. Every TradesXL product works the way a tradesman works — fast, field-first, no extra steps.</div>
+        </div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-number">02</div>
+        <div>
+          <div class="principle-title">Your best work deserves to be seen</div>
+          <div class="principle-body">Contractors do incredible work every day that nobody ever sees. TradesXL turns that invisible work into visibility — on Google, social, and everywhere homeowners are looking.</div>
+        </div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-number">03</div>
+        <div>
+          <div class="principle-title">American blue-collar, built differently</div>
+          <div class="principle-body">This isn't a Silicon Valley tool jammed into a trade context. It's built from the ground up for the way a roofer, HVAC tech, or electrician actually runs their day.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How It Works ───────────────────────────────────────────────────── -->
+<section class="progression" id="how-it-works">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">The Progression</span>
+      <h2>Start small.<br><span class="gold">Grow into it.</span></h2>
+      <p>TradesXL is built so you can start with one tool today and grow into a full marketing operation as your business scales.</p>
+    </div>
+
+    <div class="progression-steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">Snap every job</div>
+        <p class="step-body">Start with TradesSnap. Turn job photos and voice memos into content automatically. Build your local presence without adding work to your day.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">Know what's working</div>
+        <p class="step-body">Add TradesLogic to find out where your marketing is leaking money. Cut the noise, double down on the channels that are actually sending you jobs.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">Look the part</div>
+        <p class="step-body">Bring in TradesLook to build a brand presence that commands premium pricing. When you look like the best in your market, you attract the best customers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ────────────────────────────────────────────────────────────── -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <span class="section-label">Ready to get started?</span>
+    <h2>Your best work<br><span class="gold">should be seen.</span></h2>
+    <p>Start with TradesSnap for free. No marketing degree, no agency fees, no extra time. Just snap the job and let the tool do the rest.</p>
+    <div class="cta-buttons">
+      <a href="https://tradessnap.us/get-started" class="btn btn-gold btn-lg">Start Free — TradesSnap →</a>
+      <a href="mailto:hello@tradessnap.us" class="btn btn-outline btn-lg">Talk to a real person</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Trades<span class="gold">XL</span></div>
+      <div class="footer-tagline">Marketing for the Contractors That Build America.</div>
+    </div>
+    <div class="footer-links">
+      <a href="https://tradessnap.us">TradesSnap</a>
+      <a href="#products">TradesLogic</a>
+      <a href="#products">TradesLook</a>
+      <a href="mailto:hello@tradessnap.us">Contact</a>
+      <a href="tel:6145943904">(614) 594-3904</a>
+    </div>
+    <div class="footer-copy">© 2026 TradesXL. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  // Card scroll-reveal
+  const cards = document.querySelectorAll('.product-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  cards.forEach(card => observer.observe(card));
+
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('nav-mobile');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+  });
+  // Close menu when a link is tapped
+  mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileNav.classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>

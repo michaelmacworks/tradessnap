@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Job Results — TradesSnap</title>
+  <link rel="icon" href="images/favicon.ico" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #0D0F0C;
+      --lime:    #FFD700;
+      --bg:      #F4F5F3;
+      --surface: #FFFFFF;
+      --border:  #E2E5E2;
+      --muted:   #6B7280;
+      --text:    #1A1C19;
+      --green:   #16A34A;
+      --radius:  10px;
+    }
+
+    body {
+      font-family: 'Segoe UI', Inter, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-mark {
+      width: 32px; height: 32px;
+      background: var(--black);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .nav-logo-mark svg { width: 18px; height: 18px; }
+
+    .nav-logo-text {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: -0.3px;
+    }
+
+    .nav-logo-text span { color: var(--lime); }
+
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-back:hover { color: var(--text); }
+    .nav-back svg { width: 16px; height: 16px; }
+
+    /* ── PAGE ── */
+    .page {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 36px 24px 80px;
+    }
+
+    /* ── STATUS HEADER ── */
+    .job-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .job-header h1 {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--black);
+      letter-spacing: -0.5px;
+    }
+
+    .job-meta {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+
+    .status-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+    }
+
+    .status-done       { background: #DCFCE7; color: #15803D; }
+    .status-done::before { background: #16A34A; }
+    .status-generating { background: #FEF3C7; color: #92400E; }
+    .status-generating::before { background: #D97706; animation: pulse 1.5s infinite; }
+    .status-processing { background: #EFF6FF; color: #1D4ED8; }
+    .status-processing::before { background: #3B82F6; animation: pulse 1.5s infinite; }
+    .status-pending    { background: #F3F4F6; color: #6B7280; }
+    .status-pending::before { background: #9CA3AF; }
+    .status-failed     { background: #FEF2F2; color: #DC2626; }
+    .status-failed::before { background: #DC2626; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ── PROCESSING STATE ── */
+    .processing-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 60px 20px;
+      text-align: center;
+      display: none;
+    }
+
+    .processing-card.visible { display: block; }
+
+    .processing-spinner {
+      width: 48px; height: 48px;
+      border: 3px solid var(--border);
+      border-top-color: var(--black);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .processing-card h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 8px;
+    }
+
+    .processing-card p {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 340px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .processing-step {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--black);
+      margin-top: 20px;
+    }
+
+    /* ── OUTPUT CARDS ── */
+    .outputs { display: none; }
+    .outputs.visible { display: block; }
+
+    .output-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .output-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: #FAFAFA;
+    }
+
+    .output-card-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .output-icon {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+
+    .output-icon-blog   { background: #EFF6FF; }
+    .output-icon-gbp    { background: #F0FDF4; }
+    .output-icon-social { background: #FDF4FF; }
+
+    .output-card-title h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .output-card-title p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    .btn-copy {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--black);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 7px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-copy:hover {
+      background: var(--black);
+      color: var(--lime);
+      border-color: var(--black);
+    }
+
+    .btn-copy.copied {
+      background: #DCFCE7;
+      color: #15803D;
+      border-color: #BBF7D0;
+    }
+
+    .btn-copy svg { width: 14px; height: 14px; }
+
+    /* ── SHARE BAR ──────────────────────────────────────────────
+       Footer strip on each output card. Keeps Copy in the header
+       for quick access; share actions live here at card bottom.
+    ─────────────────────────────────────────────────────────── */
+    .share-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 10px 20px 12px;
+      border-top: 1px solid var(--border);
+      background: #F8F9FA;
+      align-items: center;
+    }
+
+    /* Instruction hint — sets expectation that this is a 2-step flow,
+       not a one-tap publish. Prevents contractor confusion. */
+    .share-hint {
+      width: 100%;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .share-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+    /* Copy Link — matches existing btn-copy style */
+    .share-btn-copy-link {
+      background: var(--surface);
+      color: var(--black);
+      border: 1px solid var(--border);
+    }
+    .share-btn-copy-link:hover { background: var(--black); color: var(--lime); border-color: var(--black); }
+
+    /* LinkedIn */
+    .share-btn-linkedin { background: #0A66C2; color: #fff; }
+    .share-btn-linkedin:hover { background: #0959a8; }
+
+    /* Facebook */
+    .share-btn-facebook { background: #1877F2; color: #fff; }
+    .share-btn-facebook:hover { background: #1265d8; }
+
+    /* Google Business Profile */
+    .share-btn-gbp { background: #EA4335; color: #fff; }
+    .share-btn-gbp:hover { background: #d33426; }
+
+    /* Success flash */
+    .share-btn.flash-ok {
+      background: #DCFCE7 !important;
+      color: #15803D !important;
+      border-color: #BBF7D0 !important;
+    }
+
+    .output-content {
+      padding: 20px;
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* ── TRANSCRIPT SECTION ── */
+    .transcript-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .transcript-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .transcript-toggle h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .transcript-toggle svg {
+      width: 16px; height: 16px;
+      color: var(--muted);
+      transition: transform 0.2s;
+    }
+
+    .transcript-toggle.open svg { transform: rotate(180deg); }
+
+    .transcript-body {
+      display: none;
+      padding: 0 20px 20px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+
+    .transcript-body.visible { display: block; }
+
+    /* ── NEW JOB CTA ── */
+    .new-job-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .new-job-row p {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .btn-new-job {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--black);
+      color: var(--lime);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 11px 22px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .btn-new-job:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+
+    /* ── ERROR STATE ── */
+    .error-card {
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      border-radius: var(--radius);
+      padding: 28px;
+      text-align: center;
+      display: none;
+    }
+
+    .error-card.visible { display: block; }
+
+    .error-card h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #DC2626;
+      margin-bottom: 8px;
+    }
+
+    .error-card p {
+      font-size: 14px;
+      color: #7F1D1D;
+    }
+
+    /* ── PHOTOS ── */
+    .photos-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .photos-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: #FAFAFA;
+    }
+
+    .photos-card-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .photos-card-header h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .btn-save-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--black);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .btn-save-all:hover { background: #2d302c; transform: translateY(-1px); }
+    .btn-save-all:active { transform: translateY(0); }
+    .btn-save-all svg { width: 15px; height: 15px; }
+    .btn-save-all.saved {
+      background: #16A34A;
+    }
+
+    .photos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      padding: 16px;
+    }
+
+    .photo-item {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: #f0f0f0;
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-badge {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    .badge-before  { background: #DC2626; color: #fff; }
+    .badge-during  { background: #C9960C; color: #fff; }
+    .badge-after   { background: #16A34A; color: #fff; }
+    .badge-untagged { background: rgba(0,0,0,0.5); color: #fff; }
+
+    .photo-save {
+      position: absolute;
+      top: 8px; right: 8px;
+      width: 30px; height: 30px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transition: opacity 0.15s, background 0.15s;
+    }
+
+    .photo-item:hover .photo-save { opacity: 1; }
+    .photo-save:hover { background: rgba(0,0,0,0.85); }
+    .photo-save svg { width: 15px; height: 15px; }
+
+    /* Mobile: always show save buttons (no hover on touch) */
+    @media (hover: none) {
+      .photo-save { opacity: 1; }
+    }
+
+    .photo-save.saved {
+      background: #16A34A;
+      opacity: 1;
+    }
+
+    /* ── PRIMARY OUTPUT (GBP) ── */
+    .output-card-primary {
+      border: 2px solid var(--black);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    .output-card-primary .output-card-header {
+      background: var(--black);
+    }
+    .output-card-primary .output-card-title h2 {
+      color: #fff;
+    }
+    .output-card-primary .output-card-title p {
+      color: rgba(255,255,255,0.6);
+    }
+    .output-card-primary .output-icon-gbp {
+      background: rgba(255,215,0,0.15);
+    }
+    .output-card-primary .btn-copy {
+      background: transparent;
+      color: var(--lime);
+      border-color: rgba(255,255,255,0.2);
+    }
+    .output-card-primary .btn-copy:hover {
+      background: var(--lime);
+      color: var(--black);
+      border-color: var(--lime);
+    }
+    .output-card-primary .btn-copy.copied {
+      background: #16A34A;
+      color: #fff;
+      border-color: #16A34A;
+    }
+    .primary-label {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--lime);
+      margin-bottom: 2px;
+    }
+
+    /* ── GUIDED SHARE FLOW ── */
+    .share-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 10px 20px 12px;
+      border-top: 1px solid var(--border);
+      background: #F8F9FA;
+      align-items: center;
+    }
+
+    .share-step-hint {
+      width: 100%;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s;
+    }
+    .share-step-hint .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--border);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .share-step-hint.active .step-num {
+      background: var(--black);
+      color: var(--lime);
+    }
+    .share-step-hint.active {
+      color: var(--black);
+    }
+
+    .share-platforms {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      opacity: 0.35;
+      pointer-events: none;
+      transition: all 0.3s;
+    }
+    .share-platforms.unlocked {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ── STAGGERED OUTPUT REVEAL ── */
+    .output-reveal {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+
+    .output-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      .output-card-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .new-job-row { flex-direction: column; }
+      .photos-grid { grid-template-columns: repeat(2, 1fr); }
+      .photos-card-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       ── POSTING WIZARD OVERLAY ──
+       Full-screen step-by-step guide that walks the user through
+       saving photos → copying text → opening GBP to paste.
+       Appears automatically when job results are ready.
+    ═══════════════════════════════════════════════════════════ */
+    .wizard-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .wizard-overlay.hidden { display: none; }
+
+    /* ── Top bar: progress + skip ── */
+    .wizard-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .wizard-dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .wizard-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+      transition: all 0.25s;
+    }
+    .wizard-dot.active {
+      background: var(--black);
+      width: 24px;
+      border-radius: 5px;
+    }
+    .wizard-dot.done { background: var(--green); }
+
+    .wizard-skip {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: color 0.15s;
+    }
+    .wizard-skip:hover { color: var(--text); }
+
+    /* ── Step panels ── */
+    .wizard-steps {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .wizard-step {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 32px 24px 24px;
+      opacity: 0;
+      transform: translateX(40px);
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .wizard-step.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+    .wizard-step.exit {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+
+    .wizard-step-label {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .wizard-step h2 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--black);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .wizard-step .wizard-sub {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    /* ── Photos step ── */
+    .wizard-photos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .wizard-photo-item {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: #f0f0f0;
+    }
+
+    .wizard-photo-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .wizard-photo-badge {
+      position: absolute;
+      bottom: 6px; left: 6px;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    /* ── Copy step ── */
+    .wizard-text-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text);
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 24px;
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+    }
+
+    /* ── Bottom action area ── */
+    .wizard-actions {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 4px;
+    }
+
+    .wizard-btn-primary {
+      width: 100%;
+      padding: 18px;
+      font-size: 17px;
+      font-weight: 800;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.15s;
+    }
+
+    .wizard-btn-black {
+      background: var(--black);
+      color: var(--lime);
+    }
+    .wizard-btn-black:hover { background: #2d302c; transform: translateY(-1px); }
+    .wizard-btn-black:active { transform: none; }
+
+    .wizard-btn-green {
+      background: #16A34A;
+      color: #fff;
+    }
+    .wizard-btn-green:hover { background: #15803d; transform: translateY(-1px); }
+    .wizard-btn-green:active { transform: none; }
+
+    .wizard-btn-red {
+      background: #EA4335;
+      color: #fff;
+    }
+    .wizard-btn-red:hover { background: #d33426; transform: translateY(-1px); }
+    .wizard-btn-red:active { transform: none; }
+
+    .wizard-btn-next {
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      background: transparent;
+      color: var(--muted);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .wizard-btn-next:hover { border-color: var(--text); color: var(--text); }
+
+    .wizard-copied-confirm {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--green);
+      opacity: 0;
+      transition: opacity 0.3s;
+      min-height: 20px;
+    }
+    .wizard-copied-confirm.show { opacity: 1; }
+
+    @media (max-width: 400px) {
+      .wizard-step h2 { font-size: 22px; }
+      .wizard-step .wizard-sub { font-size: 15px; }
+      .wizard-btn-primary { font-size: 16px; padding: 16px; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════════════════
+       POSTING WIZARD — full-screen overlay, 3 steps
+       Step 1: Save photos  |  Step 2: Copy text  |  Step 3: Post
+  ══════════════════════════════════════════════════════════ -->
+  <div class="wizard-overlay hidden" id="wizardOverlay">
+
+    <!-- Top bar -->
+    <div class="wizard-topbar">
+      <div class="wizard-dots">
+        <div class="wizard-dot active" id="wDot1"></div>
+        <div class="wizard-dot" id="wDot2"></div>
+        <div class="wizard-dot" id="wDot3"></div>
+      </div>
+      <button class="wizard-skip" onclick="closeWizard()">Skip walkthrough</button>
+    </div>
+
+    <div class="wizard-steps">
+
+      <!-- ── STEP 1: Save Photos ── -->
+      <div class="wizard-step active" id="wStep1">
+        <p class="wizard-step-label">Step 1 of 3</p>
+        <h2>Here are your job photos.</h2>
+        <p class="wizard-sub">Save them to your phone now — you'll attach one when you post to Google.</p>
+        <p class="wizard-sub" style="margin-top:8px;">👉 When the share sheet opens, tap <strong>Save Image</strong> (iPhone) or <strong>Save to Photos</strong> (Android) to add them to your camera roll.</p>
+        <div class="wizard-photos-grid" id="wizardPhotosGrid"></div>
+        <div class="wizard-actions">
+          <button class="wizard-btn-primary wizard-btn-black" id="wBtnSaveAll" onclick="wizardSaveAll()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Save Photos to Phone
+          </button>
+          <button class="wizard-btn-next" onclick="wizardNext(2)">Next — Copy my post →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 2: Copy Text ── -->
+      <div class="wizard-step" id="wStep2">
+        <p class="wizard-step-label">Step 2 of 3</p>
+        <h2>This is your Google Business post.</h2>
+        <p class="wizard-sub">Tap Copy — then we'll open Google Business Profile so you can paste it.</p>
+        <div class="wizard-text-box" id="wizardGbpText"></div>
+        <div class="wizard-actions">
+          <button class="wizard-btn-primary wizard-btn-black" id="wBtnCopy" onclick="wizardCopy()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            Copy My Post
+          </button>
+          <div class="wizard-copied-confirm" id="wCopiedConfirm">✓ Copied! Ready to paste.</div>
+          <button class="wizard-btn-next" id="wBtnNext2" onclick="wizardNext(3)">Next — Open Google Business →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 3: Post to GBP ── -->
+      <div class="wizard-step" id="wStep3">
+        <p class="wizard-step-label">Step 3 of 3</p>
+        <h2>Your post is copied.</h2>
+        <p class="wizard-sub">Tap the button below. Google Business Profile will open — tap in the text field and paste. Then add a photo from your camera roll and hit Publish.</p>
+        <div style="background:#FFF8E1;border:1px solid #FFD700;border-radius:12px;padding:20px;margin-bottom:24px;">
+          <p style="font-size:15px;font-weight:700;color:#92400E;margin-bottom:6px;">Quick reminder:</p>
+          <ol style="font-size:14px;color:#78350F;line-height:2;padding-left:20px;">
+            <li>Tap the post text field</li>
+            <li>Long-press → Paste</li>
+            <li>Add a photo from your camera roll</li>
+            <li>Hit Publish</li>
+          </ol>
+        </div>
+        <div class="wizard-actions">
+          <button class="wizard-btn-primary wizard-btn-red" onclick="wizardOpenGBP()">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px;"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>
+            Open Google Business &amp; Paste
+          </button>
+          <button class="wizard-btn-next" onclick="closeWizard()">Done — Show me everything</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <nav>
+    <a href="dashboard.html" class="nav-logo">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <span class="nav-logo-text">Trades<span>Snap</span></span>
+    </a>
+    <a href="dashboard.html" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+      </svg>
+      Back to Dashboard
+    </a>
+  </nav>
+
+  <div class="page">
+
+    <!-- HEADER -->
+    <div class="job-header">
+      <div>
+        <h1 id="jobTitle">Loading job…</h1>
+        <div class="job-meta" id="jobMeta"></div>
+      </div>
+      <span class="status-badge" id="statusBadge"></span>
+    </div>
+
+    <!-- PROCESSING STATE -->
+    <div class="processing-card" id="processingCard">
+      <div class="processing-spinner"></div>
+      <h2>Generating your content…</h2>
+      <p>Hang tight — we're transcribing your voice memo and writing your blog post, Google Business post, and social caption.</p>
+      <div class="processing-step" id="processingStep">This usually takes about 60 seconds.</div>
+    </div>
+
+    <!-- ERROR STATE -->
+    <div class="error-card" id="errorCard">
+      <h2>Something went wrong</h2>
+      <p>There was an error processing this job. Please try submitting a new job, or contact support if the problem continues.</p>
+    </div>
+
+    <!-- TRANSCRIPT -->
+    <div class="transcript-card" id="transcriptCard" style="display:none;">
+      <div class="transcript-toggle" id="transcriptToggle">
+        <h3>Voice Memo Transcript</h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </div>
+      <div class="transcript-body" id="transcriptBody"></div>
+    </div>
+
+    <!-- OUTPUTS -->
+    <div class="outputs" id="outputs">
+
+      <!-- ★ GBP Post — PRIMARY OUTPUT ★ -->
+      <div class="output-card output-card-primary">
+        <div class="output-card-header">
+          <div class="output-card-title">
+            <div class="output-icon output-icon-gbp">📍</div>
+            <div>
+              <p class="primary-label">Start here</p>
+              <h2>Google Business Post</h2>
+              <p>Copy, save a photo below, then paste into GBP</p>
+            </div>
+          </div>
+          <button class="btn-copy" data-target="gbpContent" data-card="gbp">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            Copy
+          </button>
+        </div>
+        <div class="output-content" id="gbpContent"></div>
+        <div class="share-bar" data-card="gbp">
+          <div class="share-step-hint active" id="gbpStep">
+            <span class="step-num">1</span>
+            <span>Copy your text above, then open Google Business Profile</span>
+          </div>
+          <div class="share-platforms" id="gbpPlatforms">
+            <button class="share-btn share-btn-gbp" onclick="postToGBP('gbpContent')">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>
+              Open GBP &amp; Paste
+            </button>
+            <button class="share-btn share-btn-copy-link" onclick="copyJobLink(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              Copy Link
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Photos — positioned right after GBP so user can save a photo for GBP -->
+      <div class="photos-card" id="photosCard" style="display:none;">
+        <div class="photos-card-header">
+          <div class="photos-card-header-left">
+            <span style="font-size:18px;">📸</span>
+            <h2>Job Photos — Save to Camera Roll</h2>
+          </div>
+          <button class="btn-save-all" id="btnSaveAll" onclick="saveAllPhotos()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Save All
+          </button>
+        </div>
+        <div class="photos-grid" id="photosGrid"></div>
+      </div>
+
+      <!-- Blog Post -->
+      <div class="output-card">
+        <div class="output-card-header">
+          <div class="output-card-title">
+            <div class="output-icon output-icon-blog">📝</div>
+            <div>
+              <h2>SEO Blog Post</h2>
+              <p>Paste into your website or WordPress</p>
+            </div>
+          </div>
+          <button class="btn-copy" data-target="blogContent" data-card="blog">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            Copy
+          </button>
+        </div>
+        <div class="output-content" id="blogContent"></div>
+        <div class="share-bar" data-card="blog">
+          <div class="share-step-hint active">
+            <span class="step-num">1</span>
+            <span>Copy your text above, then share it</span>
+          </div>
+          <div class="share-platforms">
+            <button class="share-btn share-btn-copy-link" onclick="copyJobLink(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              Copy Link
+            </button>
+            <button class="share-btn share-btn-linkedin" onclick="shareLinkedIn()">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              LinkedIn
+            </button>
+            <button class="share-btn share-btn-facebook" onclick="shareFacebook()">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              Facebook
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social Caption -->
+      <div class="output-card">
+        <div class="output-card-header">
+          <div class="output-card-title">
+            <div class="output-icon output-icon-social">📱</div>
+            <div>
+              <h2>Social Media Caption</h2>
+              <p>Facebook · Instagram · Nextdoor</p>
+            </div>
+          </div>
+          <button class="btn-copy" data-target="socialContent" data-card="social">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            Copy
+          </button>
+        </div>
+        <div class="output-content" id="socialContent"></div>
+        <div class="share-bar" data-card="social">
+          <div class="share-step-hint active">
+            <span class="step-num">1</span>
+            <span>Copy your text above, then share it</span>
+          </div>
+          <div class="share-platforms">
+            <button class="share-btn share-btn-copy-link" onclick="copyJobLink(this)">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              Copy Link
+            </button>
+            <button class="share-btn share-btn-facebook" onclick="shareFacebook()">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              Facebook
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- New Job CTA -->
+      <div class="new-job-row">
+        <p>Ready to turn your next job into content?</p>
+        <a href="new-job.html" class="btn-new-job">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          New Job
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const { createClient } = supabase
+    const sb = createClient(
+      'https://eqknuetauqvectbkukvu.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxa251ZXRhdXF2ZWN0Ymt1a3Z1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxMjkwMzQsImV4cCI6MjA4ODcwNTAzNH0.pLHYwgQTizC_btUP04NA5_3Lrq8YHiJZ9qSbfKL-oD4'
+    )
+
+    // Detect mobile so we use the native share sheet on phones but a clean
+    // file download on desktop (macOS exposes navigator.share too, which
+    // would open AirDrop instead of saving the file directly).
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+
+    const jobId = new URLSearchParams(window.location.search).get('id')
+    let pollInterval = null
+
+    function capitalize(str) {
+      return str ? str.charAt(0).toUpperCase() + str.slice(1) : ''
+    }
+
+    function formatDate(d) {
+      return new Date(d).toLocaleDateString('en-US', {
+        month: 'long', day: 'numeric', year: 'numeric',
+        hour: 'numeric', minute: '2-digit'
+      })
+    }
+
+    function setStatus(status) {
+      const badge = document.getElementById('statusBadge')
+      const map = {
+        done:       { cls: 'status-done',       label: 'Done' },
+        generating: { cls: 'status-generating', label: 'Generating…' },
+        processing: { cls: 'status-processing', label: 'Processing…' },
+        pending:    { cls: 'status-pending',     label: 'Pending' },
+        failed:     { cls: 'status-failed',      label: 'Failed' },
+      }
+      const s = map[status] || map.pending
+      badge.className = `status-badge ${s.cls}`
+      badge.textContent = s.label
+    }
+
+    async function showOutputs(job, output) {
+      document.getElementById('processingCard').classList.remove('visible')
+
+      // Pre-mark output cards as invisible before parent becomes visible
+      document.querySelectorAll('.output-card, .new-job-row').forEach(el => {
+        el.classList.add('output-reveal')
+      })
+
+      document.getElementById('outputs').classList.add('visible')
+
+      // Transcript toggle
+      if (job.voice_memo_transcript) {
+        document.getElementById('transcriptCard').style.display = 'block'
+        document.getElementById('transcriptBody').textContent = job.voice_memo_transcript
+      }
+
+      document.getElementById('blogContent').textContent   = output.blog_post            || '—'
+      document.getElementById('gbpContent').textContent    = output.google_business_post  || '—'
+      document.getElementById('socialContent').textContent = output.social_caption        || '—'
+
+      // Load photos — store signed URLs for save-all and wizard
+      window._photoUrls   = []
+      window._photoLabels = []   // parallel array — label for each URL
+      const photos = job.photos || []
+      if (photos.length > 0) {
+        const grid = document.getElementById('photosGrid')
+        const wizardGrid = document.getElementById('wizardPhotosGrid')
+        const card = document.getElementById('photosCard')
+        card.style.display = 'block'
+        grid.innerHTML = ''
+        wizardGrid.innerHTML = ''
+
+        for (const photo of photos) {
+          const path  = typeof photo === 'string' ? photo : photo.path
+          const label = typeof photo === 'string' ? 'untagged' : (photo.label || 'untagged')
+
+          const { data: signed } = await sb.storage
+            .from('job-photos')
+            .createSignedUrl(path, 3600)
+
+          if (!signed?.signedUrl) continue
+
+          window._photoUrls.push(signed.signedUrl)
+          window._photoLabels.push(label)
+          const badgeClass = `badge-${label}`
+          const badgeLabel = label.charAt(0).toUpperCase() + label.slice(1)
+
+          // Main page photo grid
+          const item = document.createElement('div')
+          item.className = 'photo-item'
+          item.innerHTML = `
+            <img src="${signed.signedUrl}" alt="${badgeLabel} photo" loading="lazy" />
+            <span class="photo-badge ${badgeClass}">${badgeLabel}</span>
+            <button class="photo-save" onclick="savePhoto(this, '${signed.signedUrl}', '${label}')" title="Save to Camera Roll">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+            </button>`
+          grid.appendChild(item)
+
+          // Wizard photo grid (simpler — no individual save buttons, Save All handles it)
+          const wizItem = document.createElement('div')
+          wizItem.className = 'wizard-photo-item'
+          wizItem.innerHTML = `
+            <img src="${signed.signedUrl}" alt="${badgeLabel} photo" loading="lazy" />
+            <span class="wizard-photo-badge ${badgeClass}">${badgeLabel}</span>`
+          wizardGrid.appendChild(wizItem)
+        }
+      }
+
+      // Populate wizard GBP text box
+      document.getElementById('wizardGbpText').textContent = output.google_business_post || '—'
+
+      // Stagger output cards into view
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.output-card').forEach((card, i) => {
+          setTimeout(() => card.classList.add('is-visible'), i * 130)
+        })
+        const newJobRow = document.querySelector('.new-job-row')
+        if (newJobRow) setTimeout(() => newJobRow.classList.add('is-visible'), 3 * 130)
+      })
+
+      // Open wizard only once per job (not on return visits)
+      const wizardKey = `wizard_seen_${job.id}`
+      if (!localStorage.getItem(wizardKey)) {
+        localStorage.setItem(wizardKey, '1')
+        openWizard(photos.length > 0)
+      }
+    }
+
+    // ══════════════════════════════════════════════════════════════
+    // WIZARD — 3-step posting guide
+    // ══════════════════════════════════════════════════════════════
+    let _wizardCopied = false
+
+    function openWizard(hasPhotos) {
+      // If no photos, skip step 1 — go straight to step 2
+      if (!hasPhotos) {
+        document.getElementById('wDot1').classList.remove('active')
+        document.getElementById('wDot1').classList.add('done')
+        document.getElementById('wDot2').classList.add('active')
+        // Remove step 1 dots from display (only 2 steps)
+        document.getElementById('wDot1').style.display = 'none'
+        _goToStep(2, false)
+      }
+      document.getElementById('wizardOverlay').classList.remove('hidden')
+    }
+
+    function closeWizard() {
+      const overlay = document.getElementById('wizardOverlay')
+      overlay.classList.add('hidden')
+      // Scroll page to top of outputs
+      document.getElementById('outputs').scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+
+    function _goToStep(stepNum, animate) {
+      ;[1, 2, 3].forEach(n => {
+        const el = document.getElementById(`wStep${n}`)
+        if (!el) return
+        el.classList.remove('active', 'exit')
+        if (n === stepNum) {
+          if (animate) {
+            el.style.transform = 'translateX(40px)'
+            el.style.opacity = '0'
+            requestAnimationFrame(() => {
+              el.classList.add('active')
+              el.style.transform = ''
+              el.style.opacity = ''
+            })
+          } else {
+            el.classList.add('active')
+          }
+        }
+      })
+    }
+
+    function wizardNext(toStep) {
+      // Animate current step out
+      const currentEl = document.querySelector('.wizard-step.active')
+      if (currentEl) {
+        currentEl.classList.add('exit')
+        currentEl.classList.remove('active')
+        setTimeout(() => { if (currentEl) currentEl.classList.remove('exit') }, 350)
+      }
+      // Update dots
+      ;[1, 2, 3].forEach(n => {
+        const dot = document.getElementById(`wDot${n}`)
+        if (!dot) return
+        dot.classList.remove('active', 'done')
+        if (n < toStep) dot.classList.add('done')
+        if (n === toStep) dot.classList.add('active')
+      })
+      // Show next step
+      setTimeout(() => _goToStep(toStep, true), 50)
+    }
+
+    async function wizardSaveAll() {
+      const btn = document.getElementById('wBtnSaveAll')
+      const urls = window._photoUrls || []
+      if (!urls.length) { wizardNext(2); return }
+
+      btn.disabled = true
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Saving…`
+
+      // Try Web Share API (mobile only — opens native share sheet / Save to Camera Roll)
+      if (isMobile && navigator.share && navigator.canShare) {
+        try {
+          const files = []
+          for (let i = 0; i < urls.length; i++) {
+            const resp = await fetch(urls[i])
+            const blob = await resp.blob()
+            files.push(new File([blob], `job-photo-${i + 1}.jpg`, { type: blob.type }))
+          }
+          if (navigator.canShare({ files })) {
+            await navigator.share({ files, title: 'Job Photos — TradesSnap' })
+            btn.className = 'wizard-btn-primary wizard-btn-green'
+            btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><polyline points="20 6 9 17 4 12"/></svg> Photos Saved!`
+            btn.disabled = false
+            setTimeout(() => wizardNext(2), 1200)
+            return
+          }
+        } catch (err) {
+          if (err.name === 'AbortError') { btn.disabled = false; btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Save Photos to Phone`; return }
+        }
+      }
+
+      // Desktop fallback: download each file
+      for (let i = 0; i < urls.length; i++) {
+        try {
+          const resp = await fetch(urls[i])
+          const blob = await resp.blob()
+          const blobUrl = URL.createObjectURL(blob)
+          const a = document.createElement('a')
+          a.href = blobUrl; a.download = `job-photo-${i + 1}.jpg`
+          document.body.appendChild(a); a.click()
+          document.body.removeChild(a); URL.revokeObjectURL(blobUrl)
+        } catch (e) {}
+      }
+      btn.className = 'wizard-btn-primary wizard-btn-green'
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><polyline points="20 6 9 17 4 12"/></svg> Downloaded!`
+      btn.disabled = false
+      setTimeout(() => wizardNext(2), 1200)
+    }
+
+    function wizardCopy() {
+      const text = document.getElementById('gbpContent')?.textContent?.trim() || ''
+      navigator.clipboard.writeText(text).then(() => {
+        _wizardCopied = true
+        const btn = document.getElementById('wBtnCopy')
+        btn.className = 'wizard-btn-primary wizard-btn-green'
+        btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><polyline points="20 6 9 17 4 12"/></svg> Copied!`
+        document.getElementById('wCopiedConfirm').classList.add('show')
+        // Auto-advance after 1.5s
+        setTimeout(() => wizardNext(3), 1500)
+      })
+    }
+
+    function wizardOpenGBP() {
+      // Copy text again in case clipboard was cleared, then open GBP
+      const text = document.getElementById('gbpContent')?.textContent?.trim() || ''
+      navigator.clipboard.writeText(text).finally(() => {
+        window.open('https://business.google.com/create-post', '_blank', 'noopener,noreferrer')
+      })
+    }
+
+    // ══════════════════════════════════════════════════════════════
+
+    async function loadJob() {
+      if (!jobId) {
+        window.location.href = 'dashboard.html'
+        return
+      }
+
+      const { data: { session } } = await sb.auth.getSession()
+      if (!session) { window.location.href = 'login.html'; return }
+
+      const { data: job, error } = await sb
+        .from('jobs')
+        .select('*')
+        .eq('id', jobId)
+        .single()
+
+      if (error || !job) { window.location.href = 'dashboard.html'; return }
+
+      // Header
+      document.getElementById('jobTitle').textContent =
+        job.job_name || `${capitalize(job.trade) || 'Job'} — ${formatDate(job.created_at)}`
+      document.getElementById('jobMeta').textContent =
+        job.job_name
+          ? `${capitalize(job.trade) || 'Job'} · Submitted ${formatDate(job.created_at)}`
+          : `Submitted ${formatDate(job.created_at)}`
+
+      setStatus(job.status)
+
+      if (job.status === 'done') {
+        // Load outputs
+        const { data: output } = await sb
+          .from('outputs')
+          .select('*')
+          .eq('job_id', jobId)
+          .single()
+
+        if (output) {
+          showOutputs(job, output)
+        }
+      } else if (job.status === 'failed') {
+        document.getElementById('processingCard').classList.remove('visible')
+        document.getElementById('errorCard').classList.add('visible')
+      } else {
+        // Still processing — show spinner and poll
+        document.getElementById('processingCard').classList.add('visible')
+        const stepEl = document.getElementById('processingStep')
+
+        const steps = {
+          pending:    'Waiting to start…',
+          processing: 'Transcribing your voice memo…',
+          generating: 'Writing your blog post, GBP post, and caption…',
+        }
+        stepEl.textContent = steps[job.status] || 'Working on it…'
+
+        // Rotating messages — cycle through descriptive status messages every 3s
+        const rotatingMessages = {
+          pending:    ['Waiting to start…', 'Getting in queue…'],
+          processing: ['Transcribing your voice memo…', 'Converting speech to text…', 'Picking up the key details…'],
+          generating: ['Writing your SEO blog post…', 'Crafting your Google Business post…', 'Creating your social caption…', 'Adding your local keywords…', 'Almost ready…'],
+        }
+
+        let msgStatus = job.status
+        let msgIndex  = 0
+        const initMsgs = rotatingMessages[msgStatus] || ['Working on it…']
+        stepEl.textContent = initMsgs[0]
+
+        const msgInterval = setInterval(() => {
+          const msgs = rotatingMessages[msgStatus] || ['Working on it…']
+          msgIndex = (msgIndex + 1) % msgs.length
+          stepEl.textContent = msgs[msgIndex]
+        }, 3000)
+
+        // Poll every 5 seconds
+        pollInterval = setInterval(async () => {
+          const { data: updated } = await sb
+            .from('jobs')
+            .select('*')
+            .eq('id', jobId)
+            .single()
+
+          if (!updated) return
+          setStatus(updated.status)
+
+          // Switch message pool when status changes
+          if (updated.status !== msgStatus) {
+            msgStatus = updated.status
+            msgIndex  = 0
+            const msgs = rotatingMessages[msgStatus] || ['Working on it…']
+            stepEl.textContent = msgs[0]
+          }
+
+          if (updated.status === 'done') {
+            clearInterval(pollInterval)
+            clearInterval(msgInterval)
+            const { data: output } = await sb
+              .from('outputs')
+              .select('*')
+              .eq('job_id', jobId)
+              .single()
+            if (output) showOutputs(updated, output)
+          } else if (updated.status === 'failed') {
+            clearInterval(pollInterval)
+            clearInterval(msgInterval)
+            document.getElementById('processingCard').classList.remove('visible')
+            document.getElementById('errorCard').classList.add('visible')
+          }
+        }, 5000)
+      }
+    }
+
+    // ── Guided Share Flow ────────────────────────────────────────────
+    // When user copies text, unlock the share buttons for that card.
+
+    document.querySelectorAll('.btn-copy').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const content = document.getElementById(btn.dataset.target)?.textContent || ''
+        navigator.clipboard.writeText(content).then(() => {
+          btn.classList.add('copied')
+          btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><polyline points="20 6 9 17 4 12"/></svg> Copied!`
+
+          // Unlock the share bar for this card
+          const card = btn.closest('.output-card')
+          if (card) {
+            const bar = card.querySelector('.share-bar')
+            if (bar) {
+              const platforms = bar.querySelector('.share-platforms')
+              const hint = bar.querySelector('.share-step-hint')
+              if (platforms) platforms.classList.add('unlocked')
+              if (hint) {
+                hint.querySelector('.step-num').textContent = '2'
+                hint.querySelector('span:last-child').textContent = 'Now tap a platform to share it'
+              }
+            }
+          }
+
+          setTimeout(() => {
+            btn.classList.remove('copied')
+            btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy`
+          }, 2000)
+        })
+      })
+    })
+
+    // ── Share Bar functions ──────────────────────────────────────────
+    function flashShareBtn(btn, label) {
+      const orig = btn.innerHTML
+      btn.classList.add('flash-ok')
+      btn.textContent = label
+      btn.disabled = true
+      setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('flash-ok'); btn.disabled = false }, 2000)
+    }
+
+    function copyJobLink(btn) {
+      navigator.clipboard.writeText(window.location.href)
+        .then(() => flashShareBtn(btn, '✓ Link Copied!'))
+        .catch(() => flashShareBtn(btn, '✓ Link Copied!'))
+    }
+
+    function shareLinkedIn() {
+      const url = encodeURIComponent(window.location.href)
+      const w = 600, h = 600
+      const left = Math.round((screen.width - w) / 2)
+      const top  = Math.round((screen.height - h) / 2)
+      window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}`, 'li-share', `width=${w},height=${h},left=${left},top=${top}`)
+    }
+
+    function shareFacebook() {
+      const url = encodeURIComponent(window.location.href)
+      const w = 600, h = 500
+      const left = Math.round((screen.width - w) / 2)
+      const top  = Math.round((screen.height - h) / 2)
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, 'fb-share', `width=${w},height=${h},left=${left},top=${top}`)
+    }
+
+    function postToGBP(contentId) {
+      const text = document.getElementById(contentId)?.textContent?.trim() || ''
+      const btn = event.currentTarget
+      navigator.clipboard.writeText(text).finally(() => {
+        window.open('https://business.google.com/create-post', '_blank', 'noopener,noreferrer')
+        flashShareBtn(btn, '✓ Text copied — paste in GBP')
+      })
+    }
+
+    // ── Photo Save Functions ────────────────────────────────────────
+    // Uses Web Share API on mobile (native share sheet → Camera Roll,
+    // AirDrop, Messages, etc.) with fetch+blob download fallback on desktop.
+
+    // Bakes a Before / During / After badge onto the image using Canvas
+    // so the label is part of the downloaded file, not just a CSS overlay.
+    async function bakeLabel(url, label) {
+      const BADGE_COLORS = {
+        before:   '#DC2626',   // red
+        during:   '#C9960C',   // gold
+        after:    '#16A34A',   // green
+      }
+      const color = BADGE_COLORS[label]
+
+      // Load the image (crossOrigin needed for Supabase signed URLs)
+      const img = await new Promise((resolve, reject) => {
+        const i = new Image()
+        i.crossOrigin = 'anonymous'
+        i.onload  = () => resolve(i)
+        i.onerror = reject
+        i.src = url
+      })
+
+      const canvas = document.createElement('canvas')
+      canvas.width  = img.naturalWidth
+      canvas.height = img.naturalHeight
+      const ctx = canvas.getContext('2d')
+      ctx.drawImage(img, 0, 0)
+
+      if (color) {
+        const text     = label.charAt(0).toUpperCase() + label.slice(1)
+        const scale    = Math.max(img.naturalWidth / 400, 1)
+        const pad      = Math.round(10 * scale)
+        const fontSize = Math.round(15 * scale)
+        const radius   = Math.round(5 * scale)
+
+        ctx.font = `700 ${fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`
+        const textW  = ctx.measureText(text).width
+        const badgeW = Math.round(textW + pad * 2)
+        const badgeH = Math.round(fontSize * 1.6)
+        const x = Math.round(12 * scale)
+        const y = canvas.height - Math.round(14 * scale) - badgeH
+
+        // Rounded rect
+        ctx.fillStyle = color
+        ctx.beginPath()
+        if (ctx.roundRect) {
+          ctx.roundRect(x, y, badgeW, badgeH, radius)
+        } else {
+          ctx.moveTo(x + radius, y)
+          ctx.lineTo(x + badgeW - radius, y)
+          ctx.quadraticCurveTo(x + badgeW, y, x + badgeW, y + radius)
+          ctx.lineTo(x + badgeW, y + badgeH - radius)
+          ctx.quadraticCurveTo(x + badgeW, y + badgeH, x + badgeW - radius, y + badgeH)
+          ctx.lineTo(x + radius, y + badgeH)
+          ctx.quadraticCurveTo(x, y + badgeH, x, y + badgeH - radius)
+          ctx.lineTo(x, y + radius)
+          ctx.quadraticCurveTo(x, y, x + radius, y)
+          ctx.closePath()
+        }
+        ctx.fill()
+
+        ctx.fillStyle     = '#ffffff'
+        ctx.textBaseline  = 'middle'
+        ctx.fillText(text, x + pad, y + badgeH / 2)
+      }
+
+      return new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.92))
+    }
+
+    async function savePhoto(btn, url, label) {
+      try {
+        // Bake the Before / During / After badge into the image
+        const blob = await bakeLabel(url, label || 'untagged')
+        const file = new File([blob], 'tradessnap-photo.jpg', { type: 'image/jpeg' })
+
+        // Try Web Share API first (mobile only — gives native "Save Image" option)
+        if (isMobile && navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({ files: [file], title: 'TradesSnap Job Photo' })
+          btn.classList.add('saved')
+          btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><polyline points="20 6 9 17 4 12"/></svg>`
+          return
+        }
+
+        // Desktop fallback: trigger download from the baked blob
+        const blobUrl = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = blobUrl
+        a.download = 'tradessnap-photo.jpg'
+        document.body.appendChild(a)
+        a.click()
+        document.body.removeChild(a)
+        URL.revokeObjectURL(blobUrl)
+
+        btn.classList.add('saved')
+        btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><polyline points="20 6 9 17 4 12"/></svg>`
+      } catch (err) {
+        // User cancelled share sheet — that's fine, don't show error
+        if (err.name !== 'AbortError') console.warn('Photo save failed:', err)
+      }
+    }
+
+    async function saveAllPhotos() {
+      const btn = document.getElementById('btnSaveAll')
+      const urls = window._photoUrls || []
+      if (!urls.length) return
+
+      btn.disabled = true
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Saving…`
+
+      const labels = window._photoLabels || []
+
+      // Bake labels into all photos first
+      const bakedBlobs = []
+      for (let i = 0; i < urls.length; i++) {
+        try {
+          bakedBlobs.push(await bakeLabel(urls[i], labels[i] || 'untagged'))
+        } catch (err) {
+          console.warn('bakeLabel failed for photo', i, err)
+          // Fall back to plain fetch if canvas fails (e.g. CORS issue)
+          const resp = await fetch(urls[i])
+          bakedBlobs.push(await resp.blob())
+        }
+      }
+
+      // Try Web Share API with all baked files (mobile only)
+      if (isMobile && navigator.share && navigator.canShare) {
+        try {
+          const files = bakedBlobs.map((blob, i) =>
+            new File([blob], `tradessnap-photo-${i + 1}.jpg`, { type: 'image/jpeg' })
+          )
+          if (navigator.canShare({ files })) {
+            await navigator.share({ files, title: 'TradesSnap Job Photos' })
+            btn.classList.add('saved')
+            btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><polyline points="20 6 9 17 4 12"/></svg> Saved!`
+            // Mark all individual buttons too
+            document.querySelectorAll('.photo-save').forEach(b => {
+              b.classList.add('saved')
+              b.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><polyline points="20 6 9 17 4 12"/></svg>`
+            })
+            btn.disabled = false
+            return
+          }
+        } catch (err) {
+          if (err.name === 'AbortError') { btn.disabled = false; btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Save All`; return }
+        }
+      }
+
+      // Desktop fallback: download each baked blob sequentially
+      for (let i = 0; i < bakedBlobs.length; i++) {
+        try {
+          const blobUrl = URL.createObjectURL(bakedBlobs[i])
+          const a = document.createElement('a')
+          a.href = blobUrl
+          a.download = `tradessnap-photo-${i + 1}.jpg`
+          document.body.appendChild(a)
+          a.click()
+          document.body.removeChild(a)
+          URL.revokeObjectURL(blobUrl)
+        } catch (err) { console.warn('Failed to save photo', i, err) }
+      }
+
+      btn.classList.add('saved')
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><polyline points="20 6 9 17 4 12"/></svg> Saved!`
+      document.querySelectorAll('.photo-save').forEach(b => {
+        b.classList.add('saved')
+        b.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><polyline points="20 6 9 17 4 12"/></svg>`
+      })
+      btn.disabled = false
+    }
+    // ────────────────────────────────────────────────────────────────
+
+    // Transcript toggle
+    document.getElementById('transcriptToggle').addEventListener('click', function() {
+      this.classList.toggle('open')
+      document.getElementById('transcriptBody').classList.toggle('visible')
+    })
+
+    loadJob()
+  </script>
+</body>
+</html>

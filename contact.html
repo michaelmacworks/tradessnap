@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — TradesSnap.us</title>
+  <meta name="description" content="Get in touch with the TradesSnap team. We respond to every message within one business day.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0D0F0C; color: #fff; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    :root {
+      --black: #0D0F0C; --dark: #111410; --card: #181C15;
+      --border: #252A20; --lime: #FFD700; --muted: #b8c4ba;
+    }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── NAV (matches index.html exactly) ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,15,12,0.96);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px; max-width: 1160px; margin: 0 auto; padding: 0 28px;
+    }
+    .nav-logo { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.04em; }
+    .nav-logo span { color: var(--lime); }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-links a {
+      color: var(--muted); font-size: 0.85rem; font-weight: 600;
+      padding: 7px 14px; border-radius: 7px;
+      transition: color 0.2s, background 0.2s;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .nav-links a:hover { color: white; background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: white; }
+    .nav-links a .chevron { font-size: 0.6rem; opacity: 0.5; }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .nav-login { color: var(--muted); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-login:hover { color: white; }
+    .nav-divider { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+    .btn-lime {
+      background: var(--lime); color: #0D0F0C;
+      padding: 10px 20px; border-radius: 8px;
+      font-size: 0.85rem; font-weight: 800; transition: background 0.2s;
+    }
+    .btn-lime:hover { background: #ffe033; }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb { border-bottom: 1px solid var(--border); background: rgba(13,15,12,0.5); }
+    .breadcrumb-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 28px;
+      height: 36px; display: flex; align-items: center;
+    }
+    .breadcrumb-inner a { font-size: 0.75rem; color: #5a6050; transition: color 0.2s; }
+    .breadcrumb-inner a:hover { color: var(--muted); }
+    .breadcrumb-sep { font-size: 0.75rem; color: #3a4035; margin: 0 7px; }
+    .breadcrumb-current { font-size: 0.75rem; color: var(--muted); }
+
+    /* PAGE LAYOUT */
+    .page { padding: 72px 0 80px; }
+    .page-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 64px; align-items: start; }
+
+    .section-label {
+      display: inline-block; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--lime); margin-bottom: 14px;
+    }
+    .page-info h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 16px; }
+    .page-info > p { font-size: 0.92rem; color: var(--muted); line-height: 1.8; margin-bottom: 32px; }
+
+    /* CONTACT METHODS */
+    .contact-method {
+      display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px;
+    }
+    .method-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--card); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .method-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+    .method-value { font-size: 0.88rem; color: #fff; }
+    .method-value a { color: var(--lime); transition: opacity 0.2s; }
+    .method-value a:hover { opacity: 0.8; }
+    .method-note { font-size: 0.78rem; color: #5a6050; margin-top: 2px; }
+
+    /* FORM CARD */
+    .form-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 40px;
+    }
+    .form-card h2 { font-size: 1.2rem; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 24px; }
+
+    .field { margin-bottom: 18px; }
+    label { display: block; font-size: 0.78rem; font-weight: 700; color: var(--muted); margin-bottom: 6px; letter-spacing: 0.02em; }
+    input, select, textarea {
+      width: 100%; padding: 12px 14px;
+      background: #0D0F0C; border: 1px solid var(--border);
+      border-radius: 8px; color: #fff; font-size: 0.9rem;
+      font-family: inherit; transition: border-color 0.2s; outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--lime); }
+    input::placeholder, textarea::placeholder { color: #444; }
+    select option { background: #181C15; }
+    textarea { resize: vertical; min-height: 120px; }
+
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .btn-submit {
+      width: 100%; padding: 14px; background: var(--lime); color: #0D0F0C;
+      border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 800;
+      cursor: pointer; transition: background 0.2s; margin-top: 4px;
+    }
+    .btn-submit:hover { background: #ffe033; }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .success-msg {
+      display: none; text-align: center; padding: 20px;
+    }
+    .success-msg.show { display: block; }
+    .success-msg .checkmark { font-size: 2.5rem; margin-bottom: 12px; }
+    .success-msg h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; }
+    .success-msg p { font-size: 0.85rem; color: var(--muted); }
+
+    .error-msg {
+      background: rgba(255,68,68,0.1); border: 1px solid rgba(255,68,68,0.3);
+      color: #ff6b6b; font-size: 0.83rem; border-radius: 8px;
+      padding: 10px 14px; margin-bottom: 16px; display: none;
+    }
+    .error-msg.show { display: block; }
+
+    /* FOOTER */
+    footer { background: var(--dark); border-top: 1px solid var(--border); padding: 32px 0; }
+    .footer-bottom { font-size: 0.78rem; color: var(--muted); display: flex; justify-content: space-between; align-items: center; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--muted); transition: color 0.2s; font-size: 0.78rem; }
+    .footer-links a:hover { color: var(--lime); }
+
+    @media (max-width: 768px) {
+      .page-grid { grid-template-columns: 1fr; gap: 40px; }
+      .field-row { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .footer-bottom { flex-direction: column; gap: 12px; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Trades<span>Snap</span>.us</a>
+    <div class="nav-links">
+      <a href="how-it-works.html">How It Works</a>
+      <a href="index.html#features">Features <span class="chevron">▼</span></a>
+      <a href="index.html#who-its-for">Solutions For <span class="chevron">▼</span></a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav-right">
+      <a href="login.html" class="nav-login">LOGIN</a>
+      <div class="nav-divider"></div>
+      <a href="get-started.html" class="btn-lime">Get Started Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index.html">Home</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Company</span>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Contact</span>
+  </div>
+</div>
+
+<section class="page">
+  <div class="container">
+    <div class="page-grid">
+
+      <!-- LEFT: INFO -->
+      <div class="page-info">
+        <div class="section-label">Get in Touch</div>
+        <h1>We'd love<br>to hear from you.</h1>
+        <p>Whether you have a question about TradesSnap, need help with your account, or want to share feedback — we read and respond to every message.</p>
+
+        <div class="contact-method">
+          <div class="method-icon">✉️</div>
+          <div>
+            <div class="method-label">Email</div>
+            <div class="method-value"><a href="mailto:hello@tradessnap.us">hello@tradessnap.us</a>
+        <a href="tel:6145943904">(614) 594-3904</a></div>
+            <div class="method-note">We respond within 1 business day.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: FORM -->
+      <div class="form-card">
+        <div id="formView">
+          <h2>Send us a message</h2>
+
+          <div class="error-msg" id="errorMsg"></div>
+
+          <form id="contactForm" onsubmit="submitContact(event)" data-netlify="true" name="contact">
+            <input type="hidden" name="form-name" value="contact" />
+            <div class="field-row">
+              <div class="field">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" placeholder="Mike" required />
+              </div>
+              <div class="field">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" placeholder="Johnson" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" placeholder="mike@johnsonplumbing.com" required />
+            </div>
+
+            <div class="field">
+              <label for="subject">What's this about?</label>
+              <select id="subject" required>
+                <option value="" disabled selected>Select a topic…</option>
+                <option value="general">General question</option>
+                <option value="support">Account or billing support</option>
+                <option value="trial">Question about the free trial</option>
+                <option value="feedback">Product feedback</option>
+                <option value="partnership">Partnership or reseller inquiry</option>
+                <option value="press">Press or media</option>
+                <option value="other">Something else</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" placeholder="Tell us what you're thinking…" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit" id="submitBtn">Send Message →</button>
+          </form>
+        </div>
+
+        <div class="success-msg" id="successView">
+          <div class="checkmark">✅</div>
+          <h3>Message received!</h3>
+          <p>Thanks for reaching out. We'll get back to you at <strong id="confirmedEmail"></strong> within one business day.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 TradesSnap.us · A <a href="https://TradesXL.US" target="_blank" rel="noopener noreferrer" style="color:inherit;">TradesXL.US</a> Company · Built for the blue-collar professional.</span>
+      <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="blog.html">Blog</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  async function submitContact(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const errEl = document.getElementById('errorMsg');
+
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName  = document.getElementById('lastName').value.trim();
+    const email     = document.getElementById('email').value.trim();
+    const subject   = document.getElementById('subject').value;
+    const message   = document.getElementById('message').value.trim();
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    errEl.classList.remove('show');
+
+    try {
+      // POST to Netlify Forms
+      const formData = new FormData();
+      formData.append('form-name', 'contact');
+      formData.append('firstName', firstName);
+      formData.append('lastName', lastName);
+      formData.append('email', email);
+      formData.append('subject', subject);
+      formData.append('message', message);
+
+      const res = await fetch('/', { method: 'POST', body: formData });
+      if (!res.ok) throw new Error('Network error');
+
+      document.getElementById('confirmedEmail').textContent = email;
+      document.getElementById('formView').style.display = 'none';
+      document.getElementById('successView').classList.add('show');
+    } catch (err) {
+      errEl.textContent = 'Something went wrong. Please email us directly at hello@tradessnap.us';
+      errEl.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = 'Send Message →';
+    }
+  }
+</script>
+</body>
+</html>

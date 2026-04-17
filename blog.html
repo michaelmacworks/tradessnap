@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — TradesSnap.us</title>
+  <meta name="description" content="Tips, guides, and insights for home service contractors on marketing, SEO, and growing your business online.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0D0F0C; color: #fff; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    :root {
+      --black: #0D0F0C; --dark: #111410; --card: #181C15;
+      --border: #252A20; --lime: #FFD700; --muted: #b8c4ba;
+    }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── NAV (matches index.html exactly) ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,15,12,0.96);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px; max-width: 1160px; margin: 0 auto; padding: 0 28px;
+    }
+    .nav-logo { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.04em; }
+    .nav-logo span { color: var(--lime); }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-links a {
+      color: var(--muted); font-size: 0.85rem; font-weight: 600;
+      padding: 7px 14px; border-radius: 7px;
+      transition: color 0.2s, background 0.2s;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .nav-links a:hover { color: white; background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: white; }
+    .nav-links a .chevron { font-size: 0.6rem; opacity: 0.5; }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .nav-login { color: var(--muted); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-login:hover { color: white; }
+    .nav-divider { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+    .btn-lime {
+      background: var(--lime); color: #0D0F0C;
+      padding: 10px 20px; border-radius: 8px;
+      font-size: 0.85rem; font-weight: 800; transition: background 0.2s;
+    }
+    .btn-lime:hover { background: #ffe033; }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb { border-bottom: 1px solid var(--border); background: rgba(13,15,12,0.5); }
+    .breadcrumb-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 28px;
+      height: 36px; display: flex; align-items: center;
+    }
+    .breadcrumb-inner a { font-size: 0.75rem; color: #5a6050; transition: color 0.2s; }
+    .breadcrumb-inner a:hover { color: var(--muted); }
+    .breadcrumb-sep { font-size: 0.75rem; color: #3a4035; margin: 0 7px; }
+    .breadcrumb-current { font-size: 0.75rem; color: var(--muted); }
+
+    /* HERO */
+    .hero { padding: 72px 0 52px; border-bottom: 1px solid var(--border); }
+    .section-label {
+      display: inline-block; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--lime); margin-bottom: 14px;
+    }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 900; letter-spacing: -0.04em; margin-bottom: 14px; }
+    .hero p { font-size: 1rem; color: var(--muted); max-width: 560px; }
+
+    /* FEATURED POST */
+    .featured { padding: 56px 0; border-bottom: 1px solid var(--border); }
+    .featured-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+      overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; min-height: 340px;
+      transition: border-color 0.2s;
+    }
+    .featured-card:hover { border-color: #4a5040; }
+    .featured-img {
+      background: linear-gradient(135deg, #1a2010 0%, #2a3520 50%, #1a2810 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; position: relative; overflow: hidden;
+    }
+    .featured-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,215,0,0.05) 0%, transparent 60%);
+    }
+    .featured-body { padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+    .post-tag {
+      display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--lime); margin-bottom: 12px;
+    }
+    .featured-body h2 {
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 900; letter-spacing: -0.03em;
+      margin-bottom: 12px; line-height: 1.2;
+    }
+    .featured-body p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+    .post-meta { display: flex; align-items: center; gap: 16px; font-size: 0.78rem; color: #5a6050; }
+    .read-more {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--lime); font-size: 0.85rem; font-weight: 700;
+      margin-top: 20px; transition: gap 0.2s;
+    }
+    .read-more:hover { gap: 10px; }
+
+    /* POST GRID */
+    .posts-section { padding: 56px 0; }
+    .posts-header { margin-bottom: 36px; }
+    .posts-header h2 { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.03em; }
+    .posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .post-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      overflow: hidden; transition: border-color 0.2s; display: flex; flex-direction: column;
+    }
+    .post-card:hover { border-color: #4a5040; }
+    .post-thumb {
+      height: 140px; display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+    }
+    .post-thumb-1 { background: linear-gradient(135deg, #1a2010, #2d3d20); }
+    .post-thumb-2 { background: linear-gradient(135deg, #1a1020, #2d2040); }
+    .post-thumb-3 { background: linear-gradient(135deg, #1a1510, #2d2520); }
+    .post-thumb-4 { background: linear-gradient(135deg, #101a1a, #202d2d); }
+    .post-thumb-5 { background: linear-gradient(135deg, #1a1010, #2d2020); }
+    .post-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+    .post-body .post-tag { margin-bottom: 8px; }
+    .post-body h3 { font-size: 0.95rem; font-weight: 800; line-height: 1.35; margin-bottom: 8px; }
+    .post-body p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; flex: 1; }
+    .post-footer { margin-top: 14px; font-size: 0.75rem; color: #5a6050; }
+
+    /* NEWSLETTER */
+    .newsletter {
+      padding: 64px 0; border-top: 1px solid var(--border);
+    }
+    .newsletter-inner {
+      background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+      padding: 48px; display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    }
+    .newsletter-text h2 { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 6px; }
+    .newsletter-text p { font-size: 0.88rem; color: var(--muted); }
+    .newsletter-form { display: flex; gap: 10px; flex-shrink: 0; }
+    .newsletter-form input {
+      background: #0D0F0C; border: 1px solid var(--border); border-radius: 8px;
+      color: #fff; padding: 11px 16px; font-size: 0.88rem; width: 240px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .newsletter-form input:focus { border-color: var(--lime); }
+    .newsletter-form input::placeholder { color: #444; }
+    .newsletter-form button {
+      background: var(--lime); color: #0D0F0C; border: none; border-radius: 8px;
+      padding: 11px 20px; font-size: 0.88rem; font-weight: 800; cursor: pointer;
+      white-space: nowrap; transition: background 0.2s;
+    }
+    .newsletter-form button:hover { background: #ffe033; }
+
+    /* FOOTER */
+    footer { background: var(--dark); border-top: 1px solid var(--border); padding: 32px 0; }
+    .footer-bottom {
+      font-size: 0.78rem; color: var(--muted);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--muted); transition: color 0.2s; font-size: 0.78rem; }
+    .footer-links a:hover { color: var(--lime); }
+
+    @media (max-width: 900px) {
+      .posts-grid { grid-template-columns: repeat(2, 1fr); }
+      .featured-card { grid-template-columns: 1fr; }
+      .featured-img { height: 180px; }
+      .newsletter-inner { flex-direction: column; }
+      .newsletter-form { width: 100%; }
+      .newsletter-form input { flex: 1; width: auto; }
+    }
+    @media (max-width: 600px) {
+      .posts-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .footer-bottom { flex-direction: column; gap: 12px; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Trades<span>Snap</span>.us</a>
+    <div class="nav-links">
+      <a href="how-it-works.html">How It Works</a>
+      <a href="index.html#features">Features <span class="chevron">▼</span></a>
+      <a href="index.html#who-its-for">Solutions For <span class="chevron">▼</span></a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav-right">
+      <a href="login.html" class="nav-login">LOGIN</a>
+      <div class="nav-divider"></div>
+      <a href="get-started.html" class="btn-lime">Get Started Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="index.html">Home</a>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Company</span>
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current">Blog</span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="container">
+    <div class="section-label">The TradesSnap Blog</div>
+    <h1>Grow your contracting business<br>with less effort.</h1>
+    <p>Practical tips on marketing, SEO, Google Business, and social media — written for contractors, not marketers.</p>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section class="featured">
+  <div class="container">
+    <div class="section-label" style="margin-bottom:20px;">Featured</div>
+    <a href="#" class="featured-card" style="display:grid;">
+      <div class="featured-img">🏠</div>
+      <div class="featured-body">
+        <div class="post-tag">SEO &amp; Online Visibility</div>
+        <h2>Why Your Google Business Profile Is the Best Free Marketing Tool You're Not Using</h2>
+        <p>Most contractors have a Google Business Profile. Almost none are posting to it consistently. Here's what a simple weekly post does to your call volume — and how TradesSnap makes it take 60 seconds.</p>
+        <div class="post-meta">
+          <span>March 8, 2026</span>
+          <span>·</span>
+          <span>6 min read</span>
+        </div>
+        <div class="read-more">Read article →</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- POSTS -->
+<section class="posts-section">
+  <div class="container">
+    <div class="posts-header">
+      <h2>Latest Articles</h2>
+    </div>
+    <div class="posts-grid">
+
+      <a href="#" class="post-card">
+        <div class="post-thumb post-thumb-1">📸</div>
+        <div class="post-body">
+          <div class="post-tag">Social Media</div>
+          <h3>Before &amp; After Photos: The Simplest Way to Go Viral in the Trades</h3>
+          <p>Before/after content gets 3x the engagement of any other type of trade post. Here's exactly how to shoot and caption them.</p>
+          <div class="post-footer">Feb 24, 2026 · 4 min read</div>
+        </div>
+      </a>
+
+      <a href="#" class="post-card">
+        <div class="post-thumb post-thumb-2">⭐</div>
+        <div class="post-body">
+          <div class="post-tag">Reputation</div>
+          <h3>How to Ask for Google Reviews Without Feeling Awkward About It</h3>
+          <p>Most contractors hate asking for reviews. This script makes it feel natural — and gets a "yes" more than 80% of the time.</p>
+          <div class="post-footer">Feb 14, 2026 · 5 min read</div>
+        </div>
+      </a>
+
+      <a href="#" class="post-card">
+        <div class="post-thumb post-thumb-3">🔍</div>
+        <div class="post-body">
+          <div class="post-tag">SEO</div>
+          <h3>What "Near Me" Search Actually Means for Local Contractors in 2026</h3>
+          <p>Google's local algorithm changed again. Here's what it means for your rankings and the one thing that matters most right now.</p>
+          <div class="post-footer">Feb 3, 2026 · 7 min read</div>
+        </div>
+      </a>
+
+      <a href="#" class="post-card">
+        <div class="post-thumb post-thumb-4">💬</div>
+        <div class="post-body">
+          <div class="post-tag">Content Strategy</div>
+          <h3>What Should a Contractor Post on Instagram? (With Real Examples)</h3>
+          <p>You don't need a professional photographer or a marketing degree. You need to know what works — and this guide shows you.</p>
+          <div class="post-footer">Jan 27, 2026 · 5 min read</div>
+        </div>
+      </a>
+
+      <a href="#" class="post-card">
+        <div class="post-thumb post-thumb-5">📊</div>
+        <div class="post-body">
+          <div class="post-tag">Business Growth</div>
+          <h3>The $97 Experiment: Can AI Content Actually Bring In New Customers?</h3>
+          <p>We tracked 12 contractors over 90 days who used TradesSnap consistently. Here's what their call volume looked like.</p>
+          <div class="post-footer">Jan 18, 2026 · 8 min read</div>
+        </div>
+      </a>
+
+      <a href="#" class="post-card">
+        <div class="post-thumb post-thumb-1">🗺️</div>
+        <div class="post-body">
+          <div class="post-tag">Local SEO</div>
+          <h3>City + Service Keywords: How Contractors Can Rank Without a Blog Writer</h3>
+          <p>One SEO blog post per job. That's all it takes to start showing up for "plumber in [your city]" searches. Here's why it works.</p>
+          <div class="post-footer">Jan 9, 2026 · 6 min read</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="container">
+    <div class="newsletter-inner">
+      <div class="newsletter-text">
+        <h2>Get tips in your inbox</h2>
+        <p>One email every two weeks. No fluff — just what works for contractors marketing online.</p>
+      </div>
+      <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+        <input type="email" id="nlEmail" placeholder="you@yourbusiness.com" required />
+        <button type="submit">Subscribe →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <span>© 2026 TradesSnap.us · A <a href="https://TradesXL.US" target="_blank" rel="noopener noreferrer" style="color:inherit;">TradesXL.US</a> Company · Built for the blue-collar professional.</span>
+      <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="blog.html">Blog</a>
+        <a href="case-studies.html">Case Studies</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function subscribeNewsletter(e) {
+    e.preventDefault();
+    const email = document.getElementById('nlEmail').value;
+    // TODO: wire to your email service (Mailchimp, ConvertKit, etc.)
+    alert('Thanks! We\'ll be in touch at ' + email);
+  }
+</script>
+</body>
+</html>

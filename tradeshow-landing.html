@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TradesSnap.us — Turn Every Job Into Your Best Marketing</title>
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0D0F0C;
+      color: #fff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ─── TOKENS ─── */
+    :root {
+      --black:    #0D0F0C;
+      --dark:     #111410;
+      --card:     #181C15;
+      --border:   #252A20;
+      --lime:     #FFD700;
+      --lime-dim: #C9A800;
+      --white:    #FFFFFF;
+      --off:      #edece4;
+      --muted:    #b8c4ba;
+      --radius:   10px;
+    }
+
+    /* ─── TYPE ─── */
+    h1 { font-size: clamp(2.6rem, 6vw, 4.8rem); font-weight: 900; line-height: 1.0; letter-spacing: -0.04em; }
+    h2 { font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.03em; }
+    h3 { font-size: 1.15rem; font-weight: 700; }
+    p  { color: #f0efe9; }
+    .lime { color: var(--lime); }
+    .muted { color: var(--muted); }
+
+    /* ─── LAYOUT ─── */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--lime); border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 100px; padding: 4px 14px; margin-bottom: 16px;
+    }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-header p { color: var(--muted); font-size: 1.05rem; max-width: 580px; margin: 12px auto 0; }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 15px 28px; border-radius: var(--radius);
+      font-weight: 800; font-size: 0.95rem; cursor: pointer;
+      transition: all 0.2s ease; border: none; letter-spacing: -0.01em;
+    }
+    .btn-lime  { background: var(--lime); color: #0D0F0C; }
+    .btn-lime:hover { background: #ccff2a; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; color: white;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    .btn-outline:hover { border-color: var(--lime); color: var(--lime); }
+    .btn-lg { padding: 18px 36px; font-size: 1rem; border-radius: 12px; }
+
+    /* ─── ANNOUNCEMENT BAR ─── */
+    .announce-bar {
+      background: var(--lime); padding: 11px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.82rem; font-weight: 700; color: #0D0F0C;
+      position: relative; z-index: 200;
+    }
+    .announce-bar .tag {
+      background: #0D0F0C; color: var(--lime);
+      font-size: 0.65rem; font-weight: 900; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 3px 10px; border-radius: 4px;
+    }
+    .announce-bar .inner { display: flex; align-items: center; gap: 12px; }
+    .announce-cta { display: flex; align-items: center; gap: 8px; font-weight: 900; }
+    .announce-close { background: none; border: none; cursor: pointer; font-size: 1.1rem; color: #0D0F0C; opacity: 0.6; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,15,12,0.96);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px; max-width: 1160px; margin: 0 auto; padding: 0 28px;
+    }
+    .nav-logo { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.04em; }
+    .nav-logo span { color: var(--lime); }
+    .nav-links { display: flex; gap: 8px; }
+    .nav-links a {
+      color: var(--muted); font-size: 0.85rem; font-weight: 600;
+      padding: 7px 14px; border-radius: 7px;
+      transition: color 0.2s, background 0.2s;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .nav-links a:hover { color: white; background: rgba(255,255,255,0.06); }
+    .nav-links a .chevron { font-size: 0.6rem; opacity: 0.5; }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .nav-login { color: var(--muted); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-login:hover { color: white; }
+    .nav-divider { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 92vh;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      background: var(--black);
+    }
+    /* dramatic dark texture */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 90% 70% at 65% 50%, rgba(255,215,0,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 80% at 10% 100%, rgba(255,215,0,0.04) 0%, transparent 50%);
+    }
+    /* grid texture */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,215,0,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,215,0,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center; padding: 100px 0 80px;
+      max-width: 1160px; margin: 0 auto; width: 100%; padding-left: 28px; padding-right: 28px;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 28px;
+    }
+    .hero-eyebrow-dot {
+      width: 8px; height: 8px; background: var(--lime); border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+    .hero-eyebrow span { font-size: 0.78rem; font-weight: 700; color: var(--lime); letter-spacing: 0.08em; text-transform: uppercase; }
+    .hero h1 .line2 { color: var(--lime); display: block; }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--muted); max-width: 460px;
+      margin: 22px 0 36px; line-height: 1.65;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    .hero-proof {
+      margin-top: 48px; padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex; gap: 40px;
+    }
+    .proof-item {}
+    .proof-num { font-size: 2rem; font-weight: 900; color: var(--lime); line-height: 1; }
+    .proof-label { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+
+    /* Hero Right — Dashboard Mock */
+    .hero-visual { position: relative; }
+    .hero-dash {
+      background: #131510; border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,215,0,0.08);
+    }
+    .dash-topbar {
+      background: #0D0F0C; padding: 12px 18px;
+      display: flex; align-items: center; gap: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dash-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dash-title { font-size: 0.75rem; font-weight: 700; color: var(--muted); margin-left: 6px; }
+    .dash-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+
+    /* Input section */
+    .dash-section-label { font-size: 0.65rem; font-weight: 800; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+    .dash-input-row { display: flex; gap: 10px; }
+    .dash-input-box {
+      flex: 1; background: #0D0F0C; border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 14px;
+      font-size: 0.75rem; color: var(--off);
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .dash-input-box .label { font-size: 0.62rem; color: var(--muted); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .dash-voice-box {
+      background: #0D0F0C; border: 1px solid rgba(255,215,0,0.2);
+      border-radius: 8px; padding: 12px 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .dash-mic { width: 32px; height: 32px; background: var(--lime); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+    .dash-waveform { flex: 1; display: flex; gap: 2px; align-items: center; height: 24px; }
+    .wave-bar {
+      flex: 1; background: rgba(255,215,0,0.35); border-radius: 2px;
+      animation: wave 1.2s ease-in-out infinite;
+    }
+    .wave-bar:nth-child(1){height:40%; animation-delay:0s;}
+    .wave-bar:nth-child(2){height:70%; animation-delay:0.1s;}
+    .wave-bar:nth-child(3){height:90%; animation-delay:0.2s;}
+    .wave-bar:nth-child(4){height:60%; animation-delay:0.3s;}
+    .wave-bar:nth-child(5){height:100%;animation-delay:0.4s;}
+    .wave-bar:nth-child(6){height:75%; animation-delay:0.5s;}
+    .wave-bar:nth-child(7){height:45%; animation-delay:0.6s;}
+    .wave-bar:nth-child(8){height:80%; animation-delay:0.7s;}
+    .wave-bar:nth-child(9){height:55%; animation-delay:0.8s;}
+    .wave-bar:nth-child(10){height:35%;animation-delay:0.9s;}
+    @keyframes wave { 0%,100%{opacity:0.3;transform:scaleY(0.7)} 50%{opacity:1;transform:scaleY(1)} }
+    .dash-voice-text { font-size: 0.7rem; color: var(--muted); }
+    .dash-voice-time { font-size: 0.62rem; color: var(--lime); font-weight: 700; }
+
+    /* Output cards */
+    .dash-output-grid { display: flex; flex-direction: column; gap: 8px; }
+    .dash-output-item {
+      background: #0D0F0C; border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 14px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .dash-output-item.ready { border-color: rgba(255,215,0,0.25); }
+    .dash-out-icon {
+      width: 32px; height: 32px; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; flex-shrink: 0;
+    }
+    .dash-out-info { flex: 1; }
+    .dash-out-name { font-size: 0.75rem; font-weight: 700; color: var(--off); }
+    .dash-out-sub  { font-size: 0.65rem; color: var(--muted); margin-top: 1px; }
+    .dash-out-badge {
+      font-size: 0.62rem; font-weight: 800; padding: 3px 8px;
+      border-radius: 100px; letter-spacing: 0.04em;
+    }
+    .badge-ready  { background: rgba(255,215,0,0.15); color: var(--lime); }
+    .badge-posting{ background: rgba(59,130,246,0.15); color: #93c5fd; }
+    .dash-divider { height: 1px; background: var(--border); margin: 2px 0; }
+
+    /* ─── LOGOS / TRADES ─── */
+    .logos-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 0; background: var(--dark);
+    }
+    .logos-inner { display: flex; align-items: center; gap: 0; }
+    .logos-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); white-space: nowrap; padding-right: 40px; border-right: 1px solid var(--border); margin-right: 40px; }
+    .logos-list { display: flex; gap: 8px; flex-wrap: wrap; }
+    .trade-pill {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 18px; border-radius: 100px;
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      color: var(--muted); font-weight: 700; font-size: 0.82rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .trade-pill:hover { border-color: var(--lime); color: var(--off); }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 100px 0; }
+    .alt-bg { background: var(--dark); }
+
+    /* ─── PROBLEM ─── */
+    .problem-split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .pain-cards { display: flex; flex-direction: column; gap: 12px; }
+    .pain-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 22px;
+      display: flex; gap: 14px; align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+    .pain-card:hover { border-color: rgba(255,215,0,0.3); }
+    .pain-icon {
+      width: 40px; height: 40px; border-radius: 9px;
+      background: rgba(255,215,0,0.08); border: 1px solid rgba(255,215,0,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .pain-card h4 { font-size: 0.95rem; margin-bottom: 4px; }
+    .pain-card p  { font-size: 0.84rem; color: var(--muted); line-height: 1.5; }
+    .stats-stack { display: flex; flex-direction: column; gap: 16px; }
+    .stat-block {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px 26px;
+      position: relative; overflow: hidden;
+    }
+    .stat-block::after {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px; background: var(--lime);
+    }
+    .stat-big { font-size: 3.2rem; font-weight: 900; color: var(--lime); line-height: 1; }
+    .stat-copy { font-size: 0.88rem; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+
+    /* ─── HOW IT WORKS ─── */
+    .steps-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+    .step-block {
+      background: var(--card); padding: 40px 32px;
+      position: relative; transition: background 0.2s;
+    }
+    .step-block:hover { background: #1c211a; }
+    .step-num-row { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .step-circle {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 2px solid var(--lime); color: var(--lime);
+      font-weight: 900; font-size: 1.2rem;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .step-arrow { font-size: 1.2rem; color: rgba(255,215,0,0.3); margin-left: auto; }
+    .step-emoji { font-size: 2rem; margin-bottom: 12px; }
+    .step-block h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; }
+    .step-block p  { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+    /* ─── FEATURE SHOWCASE (Buildots-style split) ─── */
+    .showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .showcase.reverse { direction: rtl; }
+    .showcase.reverse > * { direction: ltr; }
+    .showcase-copy h2 { margin-bottom: 16px; }
+    .showcase-copy p  { color: var(--muted); font-size: 1rem; line-height: 1.7; margin-bottom: 24px; }
+    .showcase-points { display: flex; flex-direction: column; gap: 12px; }
+    .showcase-point {
+      display: flex; gap: 12px; align-items: flex-start;
+      font-size: 0.9rem;
+    }
+    .showcase-point .tick {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.3);
+      color: var(--lime); font-size: 0.7rem; font-weight: 900;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+    }
+    .showcase-point span { color: var(--off); line-height: 1.5; }
+
+    /* Output cards mockup */
+    .output-mock {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 32px 64px rgba(0,0,0,0.5);
+    }
+    .output-mock-header {
+      background: #0D0F0C; padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .mock-dot { width: 9px; height: 9px; border-radius: 50%; }
+    .mock-tab {
+      margin-left: 12px; font-size: 0.72rem; font-weight: 700; color: var(--muted);
+      padding: 4px 12px; border-radius: 6px;
+    }
+    .mock-tab.active { background: rgba(255,215,0,0.12); color: var(--lime); }
+    .output-mock-body { padding: 20px; }
+    .output-post {
+      background: #0D0F0C; border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px; margin-bottom: 12px;
+    }
+    .output-post:last-child { margin-bottom: 0; }
+    .post-platform { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .platform-icon { font-size: 1rem; }
+    .platform-name { font-size: 0.7rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .platform-status { margin-left: auto; }
+    .post-title { font-size: 0.82rem; font-weight: 700; color: var(--off); margin-bottom: 6px; line-height: 1.3; }
+    .post-snippet { font-size: 0.75rem; color: var(--muted); line-height: 1.5; }
+    .post-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+    .post-tag { font-size: 0.62rem; padding: 2px 8px; border-radius: 4px; font-weight: 700; }
+    .tag-seo    { background: rgba(88,130,255,0.15); color: #93a8ff; }
+    .tag-local  { background: rgba(255,215,0,0.12); color: var(--lime); }
+    .tag-schema { background: rgba(251,146,60,0.12); color: #fdba74; }
+
+    /* SEO mock */
+    .seo-mock {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 32px 64px rgba(0,0,0,0.5);
+    }
+    .seo-mock-header {
+      background: #0D0F0C; padding: 12px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .seo-search-bar {
+      background: #1a1e17; border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 14px;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; color: var(--muted);
+    }
+    .seo-search-bar .url { color: var(--off); }
+    .seo-body { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+    .seo-result {
+      padding: 14px 16px; border-radius: 10px; border: 1px solid var(--border);
+      background: #0D0F0C;
+    }
+    .seo-result.top { border-color: rgba(255,215,0,0.3); background: rgba(255,215,0,0.04); }
+    .seo-result-label { font-size: 0.6rem; font-weight: 800; color: var(--lime); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+    .seo-result-title { font-size: 0.82rem; font-weight: 700; color: var(--off); margin-bottom: 3px; }
+    .seo-result-url { font-size: 0.68rem; color: var(--lime); opacity: 0.7; margin-bottom: 5px; }
+    .seo-result-desc { font-size: 0.72rem; color: var(--muted); line-height: 1.4; }
+    .rank-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(255,215,0,0.12); color: var(--lime);
+      font-size: 0.62rem; font-weight: 800; padding: 2px 8px; border-radius: 100px;
+      margin-top: 6px;
+    }
+
+    /* ─── FEATURES GRID ─── */
+    .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+    .feat-block {
+      background: var(--card); padding: 32px 28px;
+      transition: background 0.2s;
+    }
+    .feat-block:hover { background: #1c211a; }
+    .feat-icon {
+      width: 48px; height: 48px; border-radius: 10px;
+      background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.2);
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+      margin-bottom: 18px;
+    }
+    .feat-block h3 { font-size: 1rem; margin-bottom: 8px; }
+    .feat-block p  { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    /* ─── WHO IT'S FOR ─── */
+    .for-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+    .for-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px 22px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .for-card:hover { border-color: var(--lime); transform: translateY(-4px); }
+    .for-emoji { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+    .for-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+    .for-card p  { font-size: 0.84rem; color: var(--muted); line-height: 1.55; }
+
+    /* ─── TESTIMONIALS ─── */
+    .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .testi-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px 24px;
+      transition: border-color 0.2s;
+    }
+    .testi-card:hover { border-color: rgba(255,215,0,0.3); }
+    .stars { color: var(--lime); letter-spacing: 3px; font-size: 0.85rem; margin-bottom: 16px; }
+    .testi-card blockquote { font-size: 0.9rem; color: var(--off); line-height: 1.65; font-style: italic; margin-bottom: 22px; }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--lime), #B8960C);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 0.85rem; color: #0D0F0C;
+    }
+    .testi-name { font-weight: 800; font-size: 0.88rem; }
+    .testi-role { font-size: 0.75rem; color: var(--muted); }
+
+    /* ─── PRICING ─── */
+    .pricing-wrapper {
+      max-width: 540px; margin: 0 auto;
+      background: var(--card); border: 1px solid rgba(255,215,0,0.3);
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 0 80px rgba(255,215,0,0.08);
+    }
+    .pricing-top {
+      background: var(--lime); padding: 36px 40px;
+    }
+    .pricing-top .plan-name { font-size: 0.75rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(0,0,0,0.5); margin-bottom: 10px; }
+    .pricing-top h2 { font-size: 1.8rem; color: #0D0F0C; margin-bottom: 8px; letter-spacing: -0.03em; }
+    .pricing-amount { display: flex; align-items: baseline; gap: 4px; }
+    .p-dollar { font-size: 1.4rem; font-weight: 700; color: rgba(0,0,0,0.5); }
+    .p-num { font-size: 5rem; font-weight: 900; color: #0D0F0C; line-height: 1; }
+    .p-mo { font-size: 1rem; color: rgba(0,0,0,0.5); font-weight: 700; }
+    .pricing-top-desc { font-size: 0.9rem; color: rgba(0,0,0,0.6); margin-top: 8px; }
+    .pricing-body { padding: 36px 40px; }
+    .pricing-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+    .pricing-item { display: flex; align-items: flex-start; gap: 12px; font-size: 0.92rem; }
+    .p-check { color: var(--lime); font-size: 0.95rem; flex-shrink: 0; margin-top: 1px; }
+    .pricing-footer { text-align: center; font-size: 0.8rem; color: var(--muted); margin-top: 14px; }
+
+    /* ─── FAQ ─── */
+    .faq-list { max-width: 740px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+    .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .faq-q {
+      padding: 20px 24px; font-weight: 700; font-size: 0.95rem;
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      transition: color 0.2s;
+    }
+    .faq-q:hover { color: var(--lime); }
+    .faq-plus { color: var(--lime); font-size: 1.3rem; flex-shrink: 0; transition: transform 0.3s; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .faq-a p { padding: 0 24px 20px; font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+    .faq-item.open .faq-a { max-height: 250px; }
+    .faq-item.open .faq-plus { transform: rotate(45deg); }
+
+    /* ─── FINAL CTA ─── */
+    .cta-section {
+      padding: 120px 0; text-align: center;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255,215,0,0.07) 0%, transparent 65%),
+        var(--black);
+    }
+    .cta-section h2 { max-width: 700px; margin: 0 auto 16px; }
+    .cta-section h2 .line { display: block; }
+    .cta-section p  { color: var(--muted); max-width: 500px; margin: 0 auto 40px; font-size: 1.05rem; }
+    .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .cta-fine { font-size: 0.8rem; color: var(--muted); margin-top: 20px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--dark); border-top: 1px solid var(--border);
+      padding: 64px 0 36px;
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand .logo { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.04em; margin-bottom: 12px; display: block; }
+    .footer-brand .logo span { color: var(--lime); }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); max-width: 260px; line-height: 1.65; }
+    .footer-col h4 { font-size: 0.7rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
+    .footer-col a { display: block; color: var(--muted); font-size: 0.85rem; margin-bottom: 10px; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--lime); }
+    .footer-bottom {
+      border-top: 1px solid var(--border); padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.78rem; color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { color: var(--muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--lime); }
+    .social-icons { display: flex; gap: 10px; }
+    .social-icon {
+      width: 34px; height: 34px; border-radius: 7px;
+      background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; color: var(--muted); transition: border-color 0.2s, color 0.2s;
+    }
+    .social-icon:hover { border-color: var(--lime); color: var(--lime); }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 940px) {
+      .hero-inner      { grid-template-columns: 1fr; }
+      .hero-visual     { display: none; }
+      .hero-proof      { flex-wrap: wrap; gap: 24px; }
+      .problem-split   { grid-template-columns: 1fr; }
+      .steps-row       { grid-template-columns: 1fr; }
+      .showcase        { grid-template-columns: 1fr; }
+      .showcase.reverse{ direction: ltr; }
+      .features-grid   { grid-template-columns: 1fr 1fr; }
+      .for-grid        { grid-template-columns: repeat(2,1fr); }
+      .testi-grid      { grid-template-columns: 1fr; }
+      .footer-grid     { grid-template-columns: 1fr 1fr; gap: 32px; }
+      nav .nav-links   { display: none; }
+      .logos-inner     { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .logos-label     { border-right: none; }
+    }
+    @media (max-width: 560px) {
+      .for-grid        { grid-template-columns: 1fr; }
+      .features-grid   { grid-template-columns: 1fr; }
+      .footer-grid     { grid-template-columns: 1fr; }
+      .footer-bottom   { flex-direction: column; gap: 16px; }
+      .pricing-top, .pricing-body { padding-left: 24px; padding-right: 24px; }
+      .announce-bar    { flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3HN7W8MJMQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3HN7W8MJMQ');
+  </script>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     ANNOUNCEMENT BAR
+═══════════════════════════════════════════ -->
+<div class="announce-bar" id="announceBar">
+  <div class="inner">
+    <span class="tag">NEW</span>
+    <span>Turn every finished job into a Google-ready post — in under 90 seconds.</span>
+  </div>
+  <div class="announce-cta">
+    Get Started Now →
+    <button class="announce-close" onclick="document.getElementById('announceBar').style.display='none'">✕</button>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     NAV
+═══════════════════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Trades<span>Snap</span>.us</a>
+    <div class="nav-links">
+      <a href="how-it-works.html">How It Works</a>
+      <a href="#features">Features <span class="chevron">▼</span></a>
+      <a href="#who-its-for">Solutions For <span class="chevron">▼</span></a>
+      <a href="pricing.html">Pricing</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="nav-right">
+      <a href="login.html" class="nav-login">LOGIN</a>
+      <div class="nav-divider"></div>
+      <a href="get-started.html" class="btn btn-lime" style="padding:10px 20px;font-size:0.85rem;border-radius:8px;">Get Started Now</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span>AI-Powered for Home Service Contractors</span>
+      </div>
+      <h1>
+        Record. Post.<br>
+        <span class="line2">Get Found.</span>
+      </h1>
+      <p class="hero-sub">
+        TradesSnap.us turns a 60-second voice memo and two job site photos
+        into an SEO blog post, a Google Business update, and a social media caption —
+        before you finish loading the truck.
+      </p>
+      <div class="hero-actions">
+        <a href="get-started.html" class="btn btn-lime btn-lg">Get Started Now</a>
+        <a href="how-it-works.html" class="btn btn-outline btn-lg">▶&nbsp; See How It Works</a>
+      </div>
+      <div class="hero-proof">
+        <div class="proof-item">
+          <div class="proof-num">500+</div>
+          <div class="proof-label">Active Contractors</div>
+        </div>
+        <div class="proof-item">
+          <div class="proof-num">5 hrs</div>
+          <div class="proof-label">Saved Per Week</div>
+        </div>
+        <div class="proof-item">
+          <div class="proof-num">3×</div>
+          <div class="proof-label">More Google Visibility</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Mockup -->
+    <div class="hero-visual">
+      <div class="hero-dash">
+        <div class="dash-topbar">
+          <div class="dash-dot" style="background:#ff5f57"></div>
+          <div class="dash-dot" style="background:#febc2e"></div>
+          <div class="dash-dot" style="background:#28c840"></div>
+          <div class="dash-title">TradesSnap.us — New Project</div>
+        </div>
+        <div class="dash-body">
+          <div>
+            <div class="dash-section-label">Voice Memo</div>
+            <div class="dash-voice-box">
+              <div class="dash-mic">🎙️</div>
+              <div class="dash-waveform">
+                <div class="wave-bar"></div><div class="wave-bar"></div>
+                <div class="wave-bar"></div><div class="wave-bar"></div>
+                <div class="wave-bar"></div><div class="wave-bar"></div>
+                <div class="wave-bar"></div><div class="wave-bar"></div>
+                <div class="wave-bar"></div><div class="wave-bar"></div>
+              </div>
+              <div>
+                <div class="dash-voice-text">"Replaced water heater, Dublin OH..."</div>
+                <div class="dash-voice-time">0:47 ●</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="dash-section-label">Before &amp; After Photos</div>
+            <div class="dash-input-row">
+              <div class="dash-input-box">
+                <span class="label">Before</span>
+                <span style="font-size:1.5rem;text-align:center;margin:4px 0;">📷</span>
+                <span style="font-size:0.65rem;color:var(--muted);text-align:center;">old_tank.jpg</span>
+              </div>
+              <div class="dash-input-box" style="border-color:rgba(255,215,0,0.25);">
+                <span class="label">After</span>
+                <span style="font-size:1.5rem;text-align:center;margin:4px 0;">✅</span>
+                <span style="font-size:0.65rem;color:var(--lime);text-align:center;">new_install.jpg</span>
+              </div>
+            </div>
+          </div>
+          <div class="dash-divider"></div>
+          <div>
+            <div class="dash-section-label">Generated Assets</div>
+            <div class="dash-output-grid">
+              <div class="dash-output-item ready">
+                <div class="dash-out-icon" style="background:rgba(88,130,255,0.12)">📝</div>
+                <div class="dash-out-info">
+                  <div class="dash-out-name">SEO Blog Post</div>
+                  <div class="dash-out-sub">Emergency Water Heater Swap · Dublin, OH</div>
+                </div>
+                <span class="dash-out-badge badge-ready">READY</span>
+              </div>
+              <div class="dash-output-item ready">
+                <div class="dash-out-icon" style="background:rgba(255,215,0,0.1)">📍</div>
+                <div class="dash-out-info">
+                  <div class="dash-out-name">Google Business Post</div>
+                  <div class="dash-out-sub">Posted · 4 local hashtags included</div>
+                </div>
+                <span class="dash-out-badge badge-posting">LIVE</span>
+              </div>
+              <div class="dash-output-item ready">
+                <div class="dash-out-icon" style="background:rgba(251,146,60,0.1)">📱</div>
+                <div class="dash-out-info">
+                  <div class="dash-out-name">Social Caption</div>
+                  <div class="dash-out-sub">Facebook · Instagram · Nextdoor</div>
+                </div>
+                <span class="dash-out-badge badge-ready">READY</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     TRADES CAROUSEL
+═══════════════════════════════════════════ -->
+<section class="trades-section">
+  <div class="container">
+    <div class="trades-header">
+      <div class="section-label">Every Trade. One Platform.</div>
+      <h2>
+        Built for the<br>
+        <span class="lime">trades that built America.</span>
+      </h2>
+    </div>
+  </div>
+
+  <!-- Full-bleed carousel -->
+  <div class="carousel-track-wrap">
+    <div class="carousel-track" id="carouselTrack">
+
+      <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=800&fit=crop&crop=center'); background-size:cover; background-position:center;">
+        <div class="slide-content">
+          <div class="slide-trade-name">Plumbing</div>
+          <div class="slide-trade-example">"Burst pipe repair in North Linden" → Posted in 90 sec</div>
+        </div>
+      </div>
+
+      <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&fit=crop&crop=center'); background-size:cover; background-position:center;">
+        <div class="slide-content">
+          <div class="slide-trade-name">Electrical</div>
+          <div class="slide-trade-example">"Panel upgrade in Westerville" → SEO post ready</div>
+        </div>
+      </div>
+
+      <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=800&fit=crop&crop=center'); background-size:cover; background-position:center;">
+        <div class="slide-content">
+          <div class="slide-trade-name">HVAC</div>
+          <div class="slide-trade-example">"AC install in Dublin" → Google Business live</div>
+        </div>
+      </div>
+
+      <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&fit=crop&crop=center'); background-size:cover; background-position:top;">
+        <div class="slide-content">
+          <div class="slide-trade-name">Roofing</div>
+          <div class="slide-trade-example">"Storm repair in Shady Knolls" → Social post done</div>
+        </div>
+      </div>
+
+      <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&fit=crop&crop=center'); background-size:cover; background-position:center;">
+        <div class="slide-content">
+          <div class="slide-trade-name">General Contracting</div>
+          <div class="slide-trade-example">"Basement finish in Blue Ash" → 3 assets published</div>
+        </div>
+      </div>
+
+      <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=800&fit=crop&crop=center'); background-size:cover; background-position:center;">
+        <div class="slide-content">
+          <div class="slide-trade-name">Remodeling</div>
+          <div class="slide-trade-example">"Kitchen gut-job in Clintonville" → Ranked page 1</div>
+        </div>
+      </div>
+
+      <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1601760562234-9814eea6db2a?w=800&fit=crop&crop=center'); background-size:cover; background-position:center;">
+        <div class="slide-content">
+          <div class="slide-trade-name">Windows &amp; Doors</div>
+          <div class="slide-trade-example">"Full window replacement in Powell" → Posted instantly</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Nav arrows -->
+    <button class="carousel-btn carousel-prev" onclick="carouselMove(-1)">&#8592;</button>
+    <button class="carousel-btn carousel-next" onclick="carouselMove(1)">&#8594;</button>
+  </div>
+
+  <!-- Dots -->
+  <div class="carousel-dots" id="carouselDots"></div>
+</section>
+
+<style>
+  /* ─── TRADES SECTION ─── */
+  .trades-section { padding: 100px 0 80px; background: var(--dark); }
+  .trades-header { text-align: center; margin-bottom: 56px; }
+  .trades-header h2 { margin-top: 12px; line-height: 1.1; }
+
+  /* ─── CAROUSEL ─── */
+  .carousel-track-wrap {
+    position: relative;
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+  }
+  .carousel-track-wrap:active { cursor: grabbing; }
+  .carousel-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .carousel-slide {
+    min-width: calc(33.333% - 16px);
+    margin: 0 8px;
+    border-radius: 20px;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .carousel-slide:hover { transform: translateY(-6px); border-color: rgba(255,215,0,0.4); }
+
+  /* dark gradient over photo for legibility */
+  .carousel-slide::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.88) 35%, rgba(0,0,0,0.35) 65%, rgba(0,0,0,0.1) 100%);
+  }
+  .slide-content {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 28px 28px 24px;
+    z-index: 2;
+  }
+  .slide-trade-name {
+    font-size: 1.6rem; font-weight: 900; letter-spacing: -0.03em;
+    color: #fff; line-height: 1; margin-bottom: 8px;
+  }
+  .slide-trade-example {
+    font-size: 0.78rem; color: var(--lime);
+    font-weight: 600; opacity: 0.9;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,215,0,0.2);
+    border-radius: 6px; padding: 4px 10px;
+    display: inline-block;
+  }
+
+  /* arrows */
+  .carousel-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(13,15,12,0.85); border: 1px solid var(--border);
+    color: white; font-size: 1.1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, border-color 0.2s;
+    z-index: 10; backdrop-filter: blur(8px);
+  }
+  .carousel-btn:hover { background: var(--lime); color: #0D0F0C; border-color: var(--lime); }
+  .carousel-prev { left: 20px; }
+  .carousel-next { right: 20px; }
+
+  /* dots */
+  .carousel-dots {
+    display: flex; justify-content: center; gap: 8px;
+    margin-top: 28px;
+  }
+  .carousel-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--border); cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .carousel-dot.active { background: var(--lime); transform: scale(1.3); }
+
+  @media (max-width: 940px) {
+    .carousel-slide { min-width: calc(50% - 16px); }
+  }
+  @media (max-width: 560px) {
+    .carousel-slide { min-width: calc(85% - 16px); height: 260px; }
+    .carousel-btn { display: none; }
+  }
+</style>
+
+<script>
+(function() {
+  const slides = document.querySelectorAll('.carousel-slide');
+  const track  = document.getElementById('carouselTrack');
+  const dotsEl = document.getElementById('carouselDots');
+  let current  = 0;
+  let autoTimer;
+
+  const visibleCount = () => window.innerWidth <= 560 ? 1 : window.innerWidth <= 940 ? 2 : 3;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(idx) {
+    const vc = visibleCount();
+    const max = slides.length - vc;
+    current = Math.max(0, Math.min(idx, max));
+    const slideW = slides[0].offsetWidth + 16; // width + margin*2
+    track.style.transform = `translateX(-${current * slideW}px)`;
+    document.querySelectorAll('.carousel-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  window.carouselMove = function(dir) {
+    resetAuto();
+    goTo(current + dir);
+  };
+
+  function resetAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => {
+      const vc = visibleCount();
+      goTo(current + 1 > slides.length - vc ? 0 : current + 1);
+    }, 3500);
+  }
+
+  // Drag / swipe support
+  let startX = 0, isDragging = false;
+  track.addEventListener('mousedown',  e => { isDragging = true; startX = e.clientX; });
+  track.addEventListener('mousemove',  e => { if (!isDragging) return; });
+  track.addEventListener('mouseup',    e => { if (!isDragging) return; isDragging = false; const dx = e.clientX - startX; if (Math.abs(dx) > 40) { resetAuto(); carouselMove(dx < 0 ? 1 : -1); } });
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend',   e => { const dx = e.changedTouches[0].clientX - startX; if (Math.abs(dx) > 40) { resetAuto(); carouselMove(dx < 0 ? 1 : -1); } });
+  window.addEventListener('resize',    () => goTo(current));
+
+  resetAuto();
+})();
+</script>
+
+
+<!-- ═══════════════════════════════════════════
+     THE PROBLEM
+═══════════════════════════════════════════ -->
+<section class="alt-bg">
+  <div class="container">
+    <div class="problem-split">
+      <div>
+        <div class="section-label">The Problem</div>
+        <h2>Great work nobody <span class="lime">sees</span> doesn't win jobs.</h2>
+        <p style="color:var(--muted);font-size:1rem;margin:16px 0 32px;line-height:1.7;">You're spending 50 hours a week doing brilliant work — but only homeowners who already found you know it. Your competitors with average skills and a full Google Business profile are eating your lunch.</p>
+        <div class="pain-cards">
+          <div class="pain-card">
+            <div class="pain-icon">⏰</div>
+            <div>
+              <h4>No time to market yourself</h4>
+              <p>You finish a job at 6pm and the last thing you want to do is write a case study. We removed that task from your plate entirely.</p>
+            </div>
+          </div>
+          <div class="pain-card">
+            <div class="pain-icon">📉</div>
+            <div>
+              <h4>Google can't rank what isn't there</h4>
+              <p>A static website with no fresh content is invisible to local search. Google rewards businesses that post consistently — TradesSnap.us automates that signal.</p>
+            </div>
+          </div>
+          <div class="pain-card">
+            <div class="pain-icon">🤷</div>
+            <div>
+              <h4>You don't know what to say</h4>
+              <p>"We're #1 for roofing!" builds zero trust. Homeowners want to see real jobs in their real neighborhood — with real before and after photos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stats-stack">
+        <div class="stat-block">
+          <div class="stat-big">5+ hrs</div>
+          <div class="stat-copy">saved per week on marketing admin when contractors use TradesSnap.us instead of writing posts manually.</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-big">3×</div>
+          <div class="stat-copy">more Google Business profile views when posts are published weekly vs. monthly. Consistency wins maps.</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-big">82%</div>
+          <div class="stat-copy">of homeowners say seeing a real local job photo builds immediate trust in a contractor they haven't heard of before.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     HOW IT WORKS
+═══════════════════════════════════════════ -->
+<section id="how-it-works">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">How It Works</div>
+      <h2>Three steps. <span class="lime">Two minutes.</span></h2>
+      <p>Done before you pack up the truck. No typing. No thinking. No marketing degree required.</p>
+    </div>
+    <div class="steps-row">
+      <div class="step-block">
+        <div class="step-num-row">
+          <div class="step-circle">1</div>
+          <span class="step-arrow">→</span>
+        </div>
+        <h3>Record a Voice Memo</h3>
+        <p>Hit record on your phone and talk like you're texting a buddy. Tell us what job you did, where it was, and why the customer needed you. Rough audio, muffled job site noise, trade jargon — we understand all of it.</p>
+      </div>
+      <div class="step-block">
+        <div class="step-num-row">
+          <div class="step-circle">2</div>
+          <span class="step-arrow">→</span>
+        </div>
+        <h3>Upload Before &amp; After Photos</h3>
+        <p>Two photos from your camera roll. The messy "before" and the clean "after." That visual contrast stops the scroll, builds immediate trust, and tells Google your business is active and real.</p>
+      </div>
+      <div class="step-block">
+        <div class="step-num-row">
+          <div class="step-circle">3</div>
+        </div>
+        <h3>Get 3 Ready-to-Publish Assets</h3>
+        <p>In under 90 seconds, TradesSnap.us delivers a full SEO case study, a Google Business post, and a social caption — all hyper-local, on-brand, and ready to copy and post in seconds.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     SHOWCASE 1 — Three Outputs
+═══════════════════════════════════════════ -->
+<section class="alt-bg">
+  <div class="container">
+    <div class="showcase">
+      <div class="output-mock">
+        <div class="output-mock-header">
+          <div class="mock-dot" style="background:#ff5f57"></div>
+          <div class="mock-dot" style="background:#febc2e"></div>
+          <div class="mock-dot" style="background:#28c840"></div>
+          <div class="mock-tab active">Generated Output</div>
+          <div class="mock-tab">Preview</div>
+        </div>
+        <div class="output-mock-body">
+          <div class="output-post">
+            <div class="post-platform">
+              <span class="platform-icon">📝</span>
+              <span class="platform-name">SEO Blog Post</span>
+              <span class="platform-status"><span class="dash-out-badge badge-ready">READY</span></span>
+            </div>
+            <div class="post-title">Emergency Water Heater Replacement in Dublin, OH — Hot Water Restored in 3 Hours</div>
+            <div class="post-snippet">Homeowner woke up to cold water and standing water near a failing 12-year-old tank. We installed a high-efficiency 50-gal Rheem, rerouted PEX supply lines...</div>
+            <div class="post-tags">
+              <span class="post-tag tag-seo">H1 Optimized</span>
+              <span class="post-tag tag-local">Dublin, OH</span>
+              <span class="post-tag tag-schema">JSON-LD Schema</span>
+            </div>
+          </div>
+          <div class="output-post">
+            <div class="post-platform">
+              <span class="platform-icon">📍</span>
+              <span class="platform-name">Google Business Profile</span>
+              <span class="platform-status"><span class="dash-out-badge badge-posting">LIVE</span></span>
+            </div>
+            <div class="post-title">Just wrapped a water heater swap in Dublin! 🔧</div>
+            <div class="post-snippet">Homeowner was two days without hot water. New high-efficiency Rheem installed in under 3 hours. Don't wait for the flood — #DublinPlumber #WaterHeater</div>
+          </div>
+          <div class="output-post">
+            <div class="post-platform">
+              <span class="platform-icon">📱</span>
+              <span class="platform-name">Social Caption</span>
+              <span class="platform-status"><span class="dash-out-badge badge-ready">READY</span></span>
+            </div>
+            <div class="post-title">From cold showers to hot water in 3 hours flat. 🚿</div>
+            <div class="post-snippet">This Dublin family called us in full panic mode. By lunchtime? Brand new unit, pipes tight, hot water flowing. When was the last time you checked your water heater? 👇</div>
+          </div>
+        </div>
+      </div>
+      <div class="showcase-copy">
+        <div class="section-label">The Output</div>
+        <h2>Three assets.<br><span class="lime">One voice note.</span></h2>
+        <p>From a single rough recording and one or two job-site photos, TradesSnap.us generates a complete local SEO strategy. Every output is hyper-local, on-brand, and formatted exactly how Google and homeowners expect to see it.</p>
+        <div class="showcase-points">
+          <div class="showcase-point">
+            <span class="tick">✓</span>
+            <span>SEO Blog Post with H1, meta description, and schema markup — formatted and ready to publish.</span>
+          </div>
+          <div class="showcase-point">
+            <span class="tick">✓</span>
+            <span>Google Business Profile post with local hashtags, under 100 words, with a direct CTA.</span>
+          </div>
+          <div class="showcase-point">
+            <span class="tick">✓</span>
+            <span>Social media caption written in the "Blue-Collar Authority" voice — no corporate fluff, ever.</span>
+          </div>
+          <div class="showcase-point">
+            <span class="tick">✓</span>
+            <span>Before &amp; after photos displayed with a drag-to-reveal slider on your project page.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- ═══════════════════════════════════════════
+     FEATURES GRID
+═══════════════════════════════════════════ -->
+<section class="alt-bg" id="features">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Platform Features</div>
+      <h2>Built for the job site. <span class="lime">Not the office.</span></h2>
+      <p>Every feature was designed around contractors who are on their feet, on their phone, and short on time.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-block">
+        <div class="feat-icon">🎙️</div>
+        <h3>Noise-Tolerant Voice AI</h3>
+        <p>Powered by industry-leading transcription that understands muffled job site audio, trade jargon, and regional accents — even with a generator running in the background.</p>
+      </div>
+      <div class="feat-block">
+        <div class="feat-icon">📍</div>
+        <h3>Hyper-Local SEO</h3>
+        <p>Every post automatically weaves your city, neighborhood, and service into the headline and body — exactly what Google needs to rank you above the competition in local search.</p>
+      </div>
+      <div class="feat-block">
+        <div class="feat-icon">🔄</div>
+        <h3>Before &amp; After Slider</h3>
+        <p>Your project photos display with a drag-to-reveal slider on your website — the single most powerful trust signal for homeowners comparing contractors.</p>
+      </div>
+      <div class="feat-block">
+        <div class="feat-icon">⚡</div>
+        <h3>Jargon Translation</h3>
+        <p>You say "16 SEER2 heat pump." We publish "lower monthly bills and a quieter system." Every spec automatically becomes a homeowner selling point.</p>
+      </div>
+      <div class="feat-block">
+        <div class="feat-icon">🔗</div>
+        <h3>One-Tap Copy</h3>
+        <p>Every output lands in your dashboard, formatted and ready. Copy your blog post, paste it to your website. Copy your GBP post, paste it to Google. Done in under two minutes.</p>
+      </div>
+      <div class="feat-block">
+        <div class="feat-icon">📊</div>
+        <h3>JSON-LD Schema</h3>
+        <p>Behind every post, invisible code tells Google: "This is a real local job at real coordinates." That signal compounds over time to push you up the map pack rankings.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     WHO IT'S FOR
+═══════════════════════════════════════════ -->
+<section id="who-its-for">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Solutions For</div>
+      <h2>If you work with your hands, <span class="lime">this is for you.</span></h2>
+      <p>TradesSnap.us speaks the language of every home service trade — from the crawl space to the rooftop.</p>
+    </div>
+    <div class="for-grid">
+      <a href="for-plumbers.html" class="for-card" style="display:block;text-decoration:none;color:inherit;">
+        <span class="for-emoji">🔧</span>
+        <h3>Plumbers</h3>
+        <p>Turn every water heater swap, drain clean, and remodel into local authority. Document the flood emergency that turned into a loyal customer for life.</p>
+        <div style="margin-top:12px;font-size:0.78rem;font-weight:700;color:var(--lime);">See how it works for plumbers →</div>
+      </a>
+      <a href="for-electrical.html" class="for-card" style="display:block;text-decoration:none;color:inherit;">
+        <span class="for-emoji">⚡</span>
+        <h3>Electricians</h3>
+        <p>Panel upgrades, EV charger installs, and code work — translated into homeowner language that builds trust before they ever call.</p>
+        <div style="margin-top:12px;font-size:0.78rem;font-weight:700;color:var(--lime);">See how it works for electricians →</div>
+      </a>
+      <a href="for-hvac.html" class="for-card" style="display:block;text-decoration:none;color:inherit;">
+        <span class="for-emoji">❄️</span>
+        <h3>HVAC Techs</h3>
+        <p>Every seasonal tune-up, install, and emergency call is a content opportunity. Be the HVAC company already showing up when the next heat wave hits.</p>
+        <div style="margin-top:12px;font-size:0.78rem;font-weight:700;color:var(--lime);">See how it works for HVAC →</div>
+      </a>
+      <a href="for-roofing.html" class="for-card" style="display:block;text-decoration:none;color:inherit;">
+        <span class="for-emoji">🏠</span>
+        <h3>Roofers</h3>
+        <p>Storm season creates a flood of calls. Be the roofer already dominating Google when the weather turns. Before/after sliders hit different on roofing work.</p>
+        <div style="margin-top:12px;font-size:0.78rem;font-weight:700;color:var(--lime);">See how it works for roofers →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     INSTAGRAM MOCKUPS
+═══════════════════════════════════════════ -->
+<section class="alt-bg insta-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">The Finished Product</div>
+      <h2>From voice note to <span class="lime">Instagram-ready</span><br>in 90 seconds.</h2>
+      <p>This is exactly what TradesSnap.us posts on your behalf — real captions, real local SEO, real engagement.</p>
+    </div>
+    <div class="insta-grid">
+
+      <!-- POST 1 — Plumbing / Reel -->
+      <div class="insta-card">
+        <div class="insta-top">
+          <div class="insta-avatar" style="background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);">
+            <span>MP</span>
+          </div>
+          <div class="insta-user">
+            <div class="insta-username">your_plumbing_co</div>
+            <div class="insta-location">Dublin, Ohio</div>
+          </div>
+          <div class="insta-more">•••</div>
+        </div>
+        <div class="insta-media">
+          <img src="https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=600&fit=crop&crop=center" alt="Plumber installing water heater" loading="lazy" />
+          <div class="insta-reel-badge">▶ REEL</div>
+          <div class="insta-play-btn">▶</div>
+        </div>
+        <div class="insta-actions">
+          <div class="insta-left-actions">
+            <button class="insta-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </button>
+            <button class="insta-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            </button>
+            <button class="insta-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+          </div>
+          <button class="insta-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+          </button>
+        </div>
+        <div class="insta-body">
+          <div class="insta-likes">&#10084; <strong>312 likes</strong></div>
+          <div class="insta-caption">
+            <span class="insta-handle">your_plumbing_co</span>
+            From cold showers to hot water in 3 hours flat. 🚿 This Dublin family called us in full panic mode — old water heater finally gave out overnight. By lunchtime? Brand new high-efficiency unit installed and hot water flowing. 💪 No-nonsense plumbing, right here in your neighborhood.<br><br>
+            When was the last time you had your water heater checked? 👇
+          </div>
+          <div class="insta-hashtags">#DublinOH #DublinPlumber #WaterHeater #BlueCollarProud #HomeRepair 🏠</div>
+          <div class="insta-comments-link">View all 27 comments</div>
+          <div class="insta-timestamp">2 HOURS AGO</div>
+        </div>
+      </div>
+
+      <!-- POST 2 — Roofing / Photo -->
+      <div class="insta-card">
+        <div class="insta-top">
+          <div class="insta-avatar" style="background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);">
+            <span>SR</span>
+          </div>
+          <div class="insta-user">
+            <div class="insta-username">your_roofing_co</div>
+            <div class="insta-location">Scottsdale, Arizona</div>
+          </div>
+          <div class="insta-more">•••</div>
+        </div>
+        <div class="insta-media">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&fit=crop&crop=top" alt="Roofer working on roof" loading="lazy" />
+          <div class="insta-before-after">
+            <span class="ba-tag">AFTER ✓</span>
+          </div>
+        </div>
+        <div class="insta-actions">
+          <div class="insta-left-actions">
+            <button class="insta-btn liked">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </button>
+            <button class="insta-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            </button>
+            <button class="insta-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+          </div>
+          <button class="insta-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+          </button>
+        </div>
+        <div class="insta-body">
+          <div class="insta-likes">&#10084; <strong>541 likes</strong></div>
+          <div class="insta-caption">
+            <span class="insta-handle">your_roofing_co</span>
+            Storm came through Shady Knolls last Tuesday and left this homeowner with a serious problem. We were on-site within 4 hours with emergency tarping, then back Wednesday for the full repair. 🛠️ GAF Timberline shingles rated for 130 mph winds — solid as a rock.<br><br>
+            Your roof shouldn't be a gamble after every storm. Is yours due for an inspection? ⬇️
+          </div>
+          <div class="insta-hashtags">#ScottsdaleAZ #RoofingScottsdale #StormDamage #GAFRoofing #BlueCollarProud 🏠</div>
+          <div class="insta-comments-link">View all 43 comments</div>
+          <div class="insta-timestamp">1 DAY AGO</div>
+        </div>
+      </div>
+
+      <!-- POST 3 — HVAC / Reel -->
+      <div class="insta-card">
+        <div class="insta-top">
+          <div class="insta-avatar" style="background:linear-gradient(135deg,#0052d4,#4364f7,#6fb1fc);">
+            <span>CC</span>
+          </div>
+          <div class="insta-user">
+            <div class="insta-username">your_hvac_co</div>
+            <div class="insta-location">Phoenix, Arizona</div>
+          </div>
+          <div class="insta-more">•••</div>
+        </div>
+        <div class="insta-media">
+          <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=600&fit=crop&crop=center" alt="HVAC technician working" loading="lazy" />
+          <div class="insta-reel-badge">▶ REEL</div>
+          <div class="insta-play-btn">▶</div>
+        </div>
+        <div class="insta-actions">
+          <div class="insta-left-actions">
+            <button class="insta-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </button>
+            <button class="insta-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            </button>
+            <button class="insta-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+          </div>
+          <button class="insta-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+          </button>
+        </div>
+        <div class="insta-body">
+          <div class="insta-likes">&#10084; <strong>228 likes</strong></div>
+          <div class="insta-caption">
+            <span class="insta-handle">your_hvac_co</span>
+            Phoenix in July with no AC? That's an emergency. ❄️ Got a call at 7am — family of five, unit had been struggling all week and finally quit. New 16 SEER2 system installed and running cold by 1pm. Lower energy bills, quieter operation, and peace of mind heading into the hottest stretch of summer.<br><br>
+            Back in business. 🙌 What's your AC situation looking like this summer?
+          </div>
+          <div class="insta-hashtags">#PhoenixAZ #PhoenixHVAC #ACInstall #CoolComfort #HomeComfort ❄️</div>
+          <div class="insta-comments-link">View all 19 comments</div>
+          <div class="insta-timestamp">3 DAYS AGO</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- AI badge below -->
+    <div class="insta-ai-note">
+      <span class="insta-ai-icon">⚡</span>
+      Every caption, hashtag, and call-to-action above was generated by TradesSnap.us from a 60-second voice note — zero editing required.
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ─── INSTAGRAM SECTION ─── */
+  .insta-section { }
+  .insta-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; align-items: start;
+  }
+  .insta-card {
+    background: #ffffff;
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    color: #1a1a1a;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  /* header */
+  .insta-top {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+  }
+  .insta-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: 900; color: white;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px #e1306c;
+  }
+  .insta-user { flex: 1; }
+  .insta-username { font-size: 0.78rem; font-weight: 700; color: #1a1a1a; line-height: 1.2; }
+  .insta-location { font-size: 0.65rem; color: #737373; }
+  .insta-more { font-size: 1rem; color: #737373; font-weight: 700; cursor: pointer; letter-spacing: 1px; }
+
+  /* photo */
+  .insta-media {
+    width: 100%; aspect-ratio: 1/1;
+    position: relative; overflow: hidden; background: #f0f0f0;
+  }
+  .insta-media img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .insta-reel-badge {
+    position: absolute; top: 10px; right: 10px;
+    background: rgba(0,0,0,0.6); color: white;
+    font-size: 0.6rem; font-weight: 800; letter-spacing: 0.06em;
+    padding: 4px 8px; border-radius: 5px;
+    backdrop-filter: blur(4px);
+  }
+  .insta-play-btn {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 52px; height: 52px; border-radius: 50%;
+    background: rgba(255,255,255,0.25); backdrop-filter: blur(8px);
+    color: white; font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    padding-left: 4px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  .insta-before-after {
+    position: absolute; bottom: 10px; left: 10px;
+  }
+  .ba-tag {
+    background: #16A34A; color: #fff;
+    font-size: 0.62rem; font-weight: 900; padding: 4px 10px;
+    border-radius: 5px; letter-spacing: 0.04em;
+  }
+
+  /* actions */
+  .insta-actions {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 14px 4px;
+  }
+  .insta-left-actions { display: flex; gap: 14px; }
+  .insta-btn {
+    background: none; border: none; cursor: pointer;
+    color: #1a1a1a; padding: 4px;
+    display: flex; align-items: center;
+    transition: transform 0.15s;
+  }
+  .insta-btn:hover { transform: scale(1.15); }
+  .insta-btn.liked { color: #ed4956; }
+  .insta-btn svg { width: 22px; height: 22px; }
+
+  /* body */
+  .insta-body { padding: 4px 14px 14px; }
+  .insta-likes { font-size: 0.8rem; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+  .insta-caption {
+    font-size: 0.78rem; line-height: 1.55; color: #1a1a1a; margin-bottom: 6px;
+  }
+  .insta-handle { font-weight: 800; margin-right: 6px; }
+  .insta-hashtags { font-size: 0.73rem; color: #385185; line-height: 1.5; margin-bottom: 6px; }
+  .insta-comments-link { font-size: 0.75rem; color: #737373; margin-bottom: 4px; cursor: pointer; }
+  .insta-timestamp { font-size: 0.62rem; color: #aeaeae; letter-spacing: 0.04em; text-transform: uppercase; }
+
+  /* AI note */
+  .insta-ai-note {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    margin-top: 44px; padding: 16px 28px;
+    background: rgba(255,215,0,0.06); border: 1px solid rgba(255,215,0,0.2);
+    border-radius: 100px; font-size: 0.88rem; color: var(--muted);
+    max-width: 680px; margin-left: auto; margin-right: auto;
+    text-align: center; line-height: 1.5;
+  }
+  .insta-ai-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+  @media (max-width: 940px) {
+    .insta-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  }
+</style>
+
+
+<!-- ═══════════════════════════════════════════
+     PRICING
+═══════════════════════════════════════════ -->
+<style>
+  .pricing-solo {
+    max-width: 540px;
+    margin: 48px auto 0;
+    background: var(--card);
+    border: 1px solid var(--lime);
+    box-shadow: 0 0 0 1px var(--lime);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .pricing-solo-top {
+    padding: 40px 44px 32px;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+  .ps-plan {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lime);
+    margin-bottom: 16px;
+  }
+  .ps-price {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 2px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .ps-dollar { font-size: 1.6rem; font-weight: 700; color: var(--off); margin-top: 8px; }
+  .ps-num { font-size: 4rem; font-weight: 900; color: #ffffff; line-height: 1; }
+  .ps-mo { font-size: 1rem; color: var(--muted); align-self: flex-end; margin-bottom: 8px; }
+  .ps-desc { font-size: 0.9rem; color: var(--muted); margin-top: 4px; }
+  .pricing-solo-body { padding: 32px 44px 36px; }
+  .ps-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    list-style: none;
+    margin-bottom: 28px;
+  }
+  .ps-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 0.88rem;
+    color: #f0efe9;
+    padding: 9px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    line-height: 1.4;
+  }
+  .ps-check { color: var(--lime); font-weight: 700; flex-shrink: 0; }
+  .ps-cta {
+    display: block;
+    text-align: center;
+    background: var(--lime);
+    color: var(--black);
+    font-weight: 800;
+    font-size: 1rem;
+    padding: 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .ps-cta:hover { opacity: 0.88; }
+  .ps-fine {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 12px;
+  }
+  @media (max-width: 560px) {
+    .pricing-solo-top, .pricing-solo-body { padding-left: 24px; padding-right: 24px; }
+    .ps-list { grid-template-columns: 1fr; }
+  }
+</style>
+
+<section id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Simple Pricing</div>
+      <h2>One price. <span class="lime">Everything included.</span></h2>
+      <p>No tiers. No "contact us for enterprise." If you do home service work, this is your plan.</p>
+    </div>
+
+    <div class="pricing-solo">
+      <div class="pricing-solo-top">
+        <div class="ps-plan">TradesSnap Pro</div>
+        <div class="ps-price">
+          <span class="ps-dollar">$</span>
+          <span class="ps-num">97</span>
+          <span class="ps-mo">/ month</span>
+        </div>
+        <div class="ps-desc">Flat monthly fee. No contracts. Cancel anytime.</div>
+      </div>
+      <div class="pricing-solo-body">
+        <ul class="ps-list">
+          <li><span class="ps-check">✓</span> Up to 30 job posts / month</li>
+          <li><span class="ps-check">✓</span> AI voice transcription</li>
+          <li><span class="ps-check">✓</span> SEO blog post per job</li>
+          <li><span class="ps-check">✓</span> Google Business post per job</li>
+          <li><span class="ps-check">✓</span> Social caption per job</li>
+          <li><span class="ps-check">✓</span> 1–2 photos, auto Before/After labels</li>
+          <li><span class="ps-check">✓</span> Hyper-local SEO tagging</li>
+          <li><span class="ps-check">✓</span> Mobile dashboard</li>
+        </ul>
+        <a href="get-started.html" class="ps-cta">Get Started Now →</a>
+        <div class="ps-fine">Setup in &lt;10 min &nbsp;·&nbsp; Cancel anytime</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     FAQ
+═══════════════════════════════════════════ -->
+<section class="alt-bg">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">FAQ</div>
+      <h2>Questions from <span class="lime">real contractors.</span></h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Do I need to be tech-savvy to use this?
+          <span class="faq-plus">+</span>
+        </div>
+        <div class="faq-a"><p>Not even a little. If you can record a voice memo on your phone and take a photo, you can use TradesSnap.us. The whole system was designed around contractors who are on the go, not at a desk. Setup takes under 10 minutes and we walk you through every step.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Will the AI make stuff up about my jobs?
+          <span class="faq-plus">+</span>
+        </div>
+        <div class="faq-a"><p>No — this is core to how we built the system. TradesSnap.us is instructed to never invent pricing, brand names, or customer details. If a detail isn't in your voice note, the AI uses accurate industry-standard language instead. Your reputation stays intact.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What if I don't have a website yet?
+          <span class="faq-plus">+</span>
+        </div>
+        <div class="faq-a"><p>You can still use the Google Business Profile and Social Media outputs right away — those don't require a website. When you're ready to add a site, we support WordPress and Webflow with one-click setup. We can point you toward simple, affordable options if you need them.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          How long does content generation take?
+          <span class="faq-plus">+</span>
+        </div>
+        <div class="faq-a"><p>Usually under 90 seconds from the time you submit your voice memo and photos. You'll get a push notification when everything is ready. Most contractors have all three outputs reviewed and posted before they've finished loading the tools back in the truck.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Will it actually sound like me, not a robot?
+          <span class="faq-plus">+</span>
+        </div>
+        <div class="faq-a"><p>That's the whole point. TradesSnap.us is built around the "Blue-Collar Authority" voice — direct, local, proud of the craft, and zero corporate buzzwords. Every output sounds the way a trusted local pro actually talks. You review and tweak anything before it publishes.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          How soon will I see Google results?
+          <span class="faq-plus">+</span>
+        </div>
+        <div class="faq-a"><p>Most contractors start seeing Google Business Profile view increases within the first 2–4 weeks of consistent posting. Organic website ranking improvements typically follow over 60–90 days. The more jobs you document, the faster Google recognizes you as an active, authoritative local business.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     FINAL CTA — "Stay Connected" style
+═══════════════════════════════════════════ -->
+<section class="cta-section">
+  <div class="container">
+    <div class="section-label">Ready to Be Found?</div>
+    <h2>
+      <span class="line">Stop doing great work</span>
+      <span class="line lime">in digital silence.</span>
+    </h2>
+    <p>Join 500+ contractors building their local reputation one job at a time — without a marketing agency, without social media skills, and without an extra hour in the day.</p>
+    <div class="cta-row">
+      <a href="get-started.html" class="btn btn-lime btn-lg">Get Started Now →</a>
+      <a href="mailto:hello@tradessnap.us" class="btn btn-outline btn-lg">Talk to a Human First</a>
+    </div>
+    <div class="cta-fine">Setup in &lt;10 min &nbsp;·&nbsp; Cancel anytime</div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">Trades<span>Snap</span>.us</span>
+        <p>AI-powered marketing automation built for home service contractors. Turn your best work into your best marketing — in under 2 minutes per job.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="#features">Features</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="tips.html">Tips &amp; Best Practices</a>
+        <a href="sample-output.html">See a Sample Output</a>
+        <a href="#">Changelog</a>
+      </div>
+      <div class="footer-col">
+        <h4>Solutions For</h4>
+        <a href="for-plumbers.html">Plumbers</a>
+        <a href="for-electrical.html">Electricians</a>
+        <a href="for-hvac.html">HVAC</a>
+        <a href="for-roofing.html">Roofers</a>
+        <a href="for-contractor.html">General Contractors</a>
+        <a href="for-remodeling.html">Remodelers</a>
+        <a href="for-windows.html">Windows &amp; Doors</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Case Studies</a>
+        <a href="mailto:hello@tradessnap.us">Contact</a>
+        <a href="#">Careers</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 TradesSnap.us · A <a href="https://TradesXL.US" target="_blank" rel="noopener noreferrer" style="color:inherit;">TradesXL.US</a> Company · Built for the blue-collar professional.</span>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="mailto:hello@tradessnap.us">hello@tradessnap.us</a>
+        <a href="tel:6145943904">(614) 594-3904</a>
+      </div>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/tradesxl" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.boxShadow =
+      window.scrollY > 10 ? '0 4px 32px rgba(0,0,0,0.6)' : 'none';
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>
