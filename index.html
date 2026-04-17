@@ -995,6 +995,34 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-3HN7W8MJMQ');
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+      document.querySelectorAll('a[href="get-started.html"]').forEach(el => {
+        el.addEventListener('click', () => gtag('event', 'cta_click', {event_category: 'conversion', event_label: el.closest('section')?.id || 'hero'}));
+      });
+
+      document.querySelectorAll('.ps-cta').forEach(el => {
+        el.addEventListener('click', () => gtag('event', 'cta_click_pricing', {event_category: 'conversion'}));
+      });
+
+      window.addEventListener('message', e => {
+        if (e.data?.event === 'onStateChange' && e.data?.info === 1)
+          gtag('event', 'video_play_founder', {event_category: 'engagement'});
+      });
+
+      let s50 = false, s90 = false;
+      window.addEventListener('scroll', () => {
+        const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        if (!s50 && pct >= 50) { s50 = true; gtag('event', 'scroll_50', {event_category: 'engagement'}); }
+        if (!s90 && pct >= 90) { s90 = true; gtag('event', 'scroll_90', {event_category: 'engagement'}); }
+      });
+
+      document.querySelectorAll('.faq-q').forEach(el => {
+        el.addEventListener('click', () => gtag('event', 'faq_open', {event_category: 'engagement', event_label: el.textContent.trim().slice(0, 40)}));
+      });
+
+    });
   </script>
 </head>
 <body>
